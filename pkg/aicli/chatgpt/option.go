@@ -18,57 +18,35 @@ const (
 // ClientOption is a function that sets a Client option.
 type ClientOption func(*Client)
 
-func defaultClientOptions() *Client {
-	return &Client{
-		enableContext: false, // default is false
-		maxTokens:     defaultMaxTokens,
-		temperature:   0.0,
-	}
-}
+func defaultClientOptions() *Client { _ = "STUB: not implemented"; return nil }
 
-func (c *Client) apply(opts ...ClientOption) {
-	for _, opt := range opts {
-		opt(c)
-	}
-}
+// default is false
+
+func (c *Client) apply(opts ...ClientOption) { _ = "STUB: not implemented"; return }
 
 // WithMaxTokens sets the maximum number of tokens
 func WithMaxTokens(maxTokens int) ClientOption {
-	return func(c *Client) {
-		if maxTokens < 1000 {
-			c.maxTokens = defaultMaxTokens
-		}
-		c.maxTokens = maxTokens
-	}
+	_ = "STUB: not implemented"
+	return *new(ClientOption)
 }
 
 // WithModel sets the model name
-func WithModel(name string) ClientOption {
-	return func(c *Client) {
-		c.ModelName = name
-	}
-}
+func WithModel(name string) ClientOption { _ = "STUB: not implemented"; return *new(ClientOption) }
 
 // WithTemperature sets the temperature
 func WithTemperature(temperature float32) ClientOption {
-	return func(c *Client) {
-		c.temperature = temperature
-	}
+	_ = "STUB: not implemented"
+	return *new(ClientOption)
 }
 
 // WithInitialRole sets the initial role type
 func WithInitialRole(roleDesc string) ClientOption {
-	return func(c *Client) {
-		c.roleDesc = roleDesc
-	}
+	_ = "STUB: not implemented"
+	return *new(ClientOption)
 }
 
 // WithEnableContext sets assistant context
-func WithEnableContext() ClientOption {
-	return func(c *Client) {
-		c.enableContext = true
-	}
-}
+func WithEnableContext() ClientOption { _ = "STUB: not implemented"; return *new(ClientOption) }
 
 // ContextMessage chat history message
 type ContextMessage struct {
@@ -78,15 +56,6 @@ type ContextMessage struct {
 
 // WithInitialContextMessages sets initial context messages, automatically set enableContext to true
 func WithInitialContextMessages(messages ...*ContextMessage) ClientOption {
-	return func(c *Client) {
-		if len(messages) > 0 {
-			c.enableContext = true
-			for _, message := range messages {
-				c.contextMessages = append(c.contextMessages, openai.ChatCompletionMessage{
-					Role:    message.Role,
-					Content: message.Content,
-				})
-			}
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(ClientOption)
 }

@@ -19,50 +19,21 @@ type options struct {
 	config *api.Config
 }
 
-func defaultOptions() *options {
-	return &options{
-		scheme:   "http",
-		waitTime: time.Second * 5,
-	}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithWaitTime set wait time
-func WithWaitTime(waitTime time.Duration) Option {
-	return func(o *options) {
-		o.waitTime = waitTime
-	}
-}
+func WithWaitTime(waitTime time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithScheme set scheme
-func WithScheme(scheme string) Option {
-	return func(o *options) {
-		o.scheme = scheme
-	}
-}
+func WithScheme(scheme string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithDatacenter set datacenter
-func WithDatacenter(datacenter string) Option {
-	return func(o *options) {
-		o.datacenter = datacenter
-	}
-}
+func WithDatacenter(datacenter string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithToken set token
-func WithToken(token string) Option {
-	return func(o *options) {
-		o.token = token
-	}
-}
+func WithToken(token string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithConfig set consul config
-func WithConfig(c *api.Config) Option {
-	return func(o *options) {
-		o.config = c
-	}
-}
+func WithConfig(c *api.Config) Option { _ = "STUB: not implemented"; return *new(Option) }

@@ -12,23 +12,12 @@ type grpcOptions struct {
 	iRegistry registry.Registry
 }
 
-func defaultGrpcOptions() *grpcOptions {
-	return &grpcOptions{
-		instance:  nil,
-		iRegistry: nil,
-	}
-}
+func defaultGrpcOptions() *grpcOptions { _ = "STUB: not implemented"; return nil }
 
-func (o *grpcOptions) apply(opts ...GrpcOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *grpcOptions) apply(opts ...GrpcOption) { _ = "STUB: not implemented"; return }
 
 // WithGrpcRegistry registration services
 func WithGrpcRegistry(iRegistry registry.Registry, instance *registry.ServiceInstance) GrpcOption {
-	return func(o *grpcOptions) {
-		o.iRegistry = iRegistry
-		o.instance = instance
-	}
+	_ = "STUB: not implemented"
+	return *new(GrpcOption)
 }

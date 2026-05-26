@@ -6,7 +6,6 @@ import (
 
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 )
 
@@ -24,52 +23,37 @@ var (
 )
 
 func cliRegisterMetrics() {
-	cliOnce.Do(func() {
-		// register metrics, including custom metrics
-		cliReg.MustRegister(grpcClientMetrics)
-	})
+	_ = "STUB: not implemented"
+
+	// register metrics, including custom metrics
+	return
 }
 
 // SetClientPattern set the client pattern
-func SetClientPattern(pattern string) {
-	if pattern != "" {
-		clientPattern = pattern
-	}
-}
+func SetClientPattern(pattern string) { _ = "STUB: not implemented"; return }
 
 // ClientRegister for http routing and grpc methods
 func ClientRegister(mux *http.ServeMux) {
+	_ = "STUB: not implemented"
 	// register for http routing
-	mux.Handle(clientPattern, promhttp.HandlerFor(cliReg, promhttp.HandlerOpts{}))
+	return
 }
 
 // ClientHTTPService initialize the client's prometheus exporter service and use http://ip:port/metrics to fetch data
-func ClientHTTPService(addr string) *http.Server {
-	httpServer := &http.Server{
-		Addr:    addr,
-		Handler: promhttp.HandlerFor(cliReg, promhttp.HandlerOpts{}),
-	}
+func ClientHTTPService(addr string) *http.Server { _ = "STUB: not implemented"; return nil }
 
-	// run http server
-	go func() {
-		if err := httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			panic("listen and serve error: " + err.Error())
-		}
-	}()
-
-	return httpServer
-}
+// run http server
 
 // ---------------------------------- client interceptor ----------------------------------
 
 // UnaryClientMetrics metrics unary interceptor
 func UnaryClientMetrics() grpc.UnaryClientInterceptor {
-	cliRegisterMetrics()
-	return grpcClientMetrics.UnaryClientInterceptor()
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryClientInterceptor)
 }
 
 // StreamClientMetrics metrics stream interceptor
 func StreamClientMetrics() grpc.StreamClientInterceptor {
-	cliRegisterMetrics()
-	return grpcClientMetrics.StreamClientInterceptor()
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamClientInterceptor)
 }

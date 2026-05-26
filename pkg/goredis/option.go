@@ -31,79 +31,43 @@ type options struct {
 	tracerProvider *trace.TracerProvider
 }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // default settings
-func defaultOptions() *options {
-	return &options{
-		enableTrace: false, // whether to enable trace, default off
-	}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
+
+// whether to enable trace, default off
 
 // WithEnableTrace use trace, redis v8
 // Deprecated: use WithEnableTracer instead
-func WithEnableTrace() Option {
-	return func(o *options) {
-		o.enableTrace = true
-	}
-}
+func WithEnableTrace() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithTracing set redis tracer provider, redis v9
-func WithTracing(tp *trace.TracerProvider) Option {
-	return func(o *options) {
-		o.tracerProvider = tp
-	}
-}
+func WithTracing(tp *trace.TracerProvider) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithDialTimeout set dail timeout
-func WithDialTimeout(t time.Duration) Option {
-	return func(o *options) {
-		o.dialTimeout = t
-	}
-}
+func WithDialTimeout(t time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithReadTimeout set read timeout
-func WithReadTimeout(t time.Duration) Option {
-	return func(o *options) {
-		o.readTimeout = t
-	}
-}
+func WithReadTimeout(t time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithWriteTimeout set write timeout
-func WithWriteTimeout(t time.Duration) Option {
-	return func(o *options) {
-		o.writeTimeout = t
-	}
-}
+func WithWriteTimeout(t time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithTLSConfig set TLS config
-func WithTLSConfig(c *tls.Config) Option {
-	return func(o *options) {
-		o.tlsConfig = c
-	}
-}
+func WithTLSConfig(c *tls.Config) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithSingleOptions set single redis options
-func WithSingleOptions(opt *redis.Options) Option {
-	return func(o *options) {
-		o.singleOptions = opt
-	}
-}
+func WithSingleOptions(opt *redis.Options) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithSentinelOptions set redis sentinel options
 func WithSentinelOptions(opt *redis.FailoverOptions) Option {
-	return func(o *options) {
-		o.sentinelOptions = opt
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithClusterOptions set redis cluster options
 func WithClusterOptions(opt *redis.ClusterOptions) Option {
-	return func(o *options) {
-		o.clusterOptions = opt
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }

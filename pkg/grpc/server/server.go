@@ -2,9 +2,6 @@
 package server
 
 import (
-	"fmt"
-	"net"
-
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
@@ -30,106 +27,57 @@ type options struct {
 	connectionOptions []metrics.ConnectionOption
 }
 
-func defaultServerOptions() *options {
-	return &options{}
-}
+func defaultServerOptions() *options { _ = "STUB: not implemented"; return nil }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithSecure set secure
 func WithSecure(credential credentials.TransportCredentials) Option {
-	return func(o *options) {
-		o.credentials = credential
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithUnaryInterceptor set unary interceptor
 func WithUnaryInterceptor(interceptors ...grpc.UnaryServerInterceptor) Option {
-	return func(o *options) {
-		o.unaryInterceptors = interceptors
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithStreamInterceptor set stream interceptor
 func WithStreamInterceptor(interceptors ...grpc.StreamServerInterceptor) Option {
-	return func(o *options) {
-		o.streamInterceptors = interceptors
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithServiceRegister set service register
 func WithServiceRegister(fn ServiceRegisterFn) Option {
-	return func(o *options) {
-		o.serviceRegisterFn = fn
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithStatConnections enable stat connections
 func WithStatConnections(opts ...metrics.ConnectionOption) Option {
-	return func(o *options) {
-		o.isShowConnections = true
-		o.connectionOptions = opts
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 func customInterceptorOptions(o *options) []grpc.ServerOption {
-	var opts []grpc.ServerOption
-
-	if o.credentials != nil {
-		opts = append(opts, grpc.Creds(o.credentials))
-	}
-
-	if len(o.unaryInterceptors) > 0 {
-		option := grpc.ChainUnaryInterceptor(o.unaryInterceptors...)
-		opts = append(opts, option)
-	}
-	if len(o.streamInterceptors) > 0 {
-		option := grpc.ChainStreamInterceptor(o.streamInterceptors...)
-		opts = append(opts, option)
-	}
-
-	return opts
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Run grpc server with options, registerFn is the function to register object to the server
 func Run(port int, registerFn RegisterFn, options ...Option) (*grpc.Server, error) {
-	o := defaultServerOptions()
-	o.apply(options...)
-
-	// listening on TCP port
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
-	if err != nil {
-		return nil, err
-	}
-
-	if o.isShowConnections {
-		listener = metrics.NewCustomListener(listener, o.connectionOptions...)
-	}
-
-	// create a grpc server where interceptors can be injected
-	srv := grpc.NewServer(customInterceptorOptions(o)...)
-
-	// register object to the server
-	registerFn(srv)
-
-	// register service address to Consul/ETCD/Nacos/Zookeeper...
-	if o.serviceRegisterFn != nil {
-		if err = o.serviceRegisterFn(); err != nil {
-			return nil, err
-		}
-	}
-
-	go func() {
-		// run the server
-		err = srv.Serve(listener)
-		if err != nil {
-			panic(err)
-		}
-	}()
-
-	return srv, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// listening on TCP port
+
+// create a grpc server where interceptors can be injected
+
+// register object to the server
+
+// register service address to Consul/ETCD/Nacos/Zookeeper...
+
+// run the server

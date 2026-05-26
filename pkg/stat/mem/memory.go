@@ -1,13 +1,6 @@
 // Package mem is a library that counts system and process memory usage.
 package mem
 
-import (
-	"fmt"
-	"runtime"
-
-	"github.com/shirou/gopsutil/v4/mem"
-)
-
 // System memory information
 type System struct {
 	Total        uint64  `json:"total"`         // total physical memory capacity, unit(M)
@@ -24,29 +17,7 @@ type Process struct {
 }
 
 // GetSystemMemory get system memory
-func GetSystemMemory() *System {
-	info, err := mem.VirtualMemory()
-	if err != nil {
-		fmt.Printf("mem.VirtualMemory error: %v\n", err)
-		return &System{}
-	}
-
-	return &System{
-		Total:        info.Total >> 20,
-		Free:         info.Free >> 20,
-		UsagePercent: info.UsedPercent,
-	}
-}
+func GetSystemMemory() *System { _ = "STUB: not implemented"; return nil }
 
 // GetProcessMemory get process memory
-func GetProcessMemory() *Process {
-	info := &runtime.MemStats{}
-	runtime.ReadMemStats(info)
-
-	return &Process{
-		Alloc:      info.Alloc >> 20,
-		TotalAlloc: info.TotalAlloc >> 20,
-		Sys:        info.Sys >> 20,
-		NumGc:      info.NumGC,
-	}
-}
+func GetProcessMemory() *Process { _ = "STUB: not implemented"; return nil }

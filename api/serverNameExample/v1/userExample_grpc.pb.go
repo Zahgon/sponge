@@ -11,9 +11,8 @@ package v1
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -50,52 +49,33 @@ type userExampleClient struct {
 }
 
 func NewUserExampleClient(cc grpc.ClientConnInterface) UserExampleClient {
-	return &userExampleClient{cc}
+	_ = "STUB: not implemented"
+	return *new(UserExampleClient)
 }
 
 func (c *userExampleClient) Create(ctx context.Context, in *CreateUserExampleRequest, opts ...grpc.CallOption) (*CreateUserExampleReply, error) {
-	out := new(CreateUserExampleReply)
-	err := c.cc.Invoke(ctx, UserExample_Create_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *userExampleClient) DeleteByID(ctx context.Context, in *DeleteUserExampleByIDRequest, opts ...grpc.CallOption) (*DeleteUserExampleByIDReply, error) {
-	out := new(DeleteUserExampleByIDReply)
-	err := c.cc.Invoke(ctx, UserExample_DeleteByID_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *userExampleClient) UpdateByID(ctx context.Context, in *UpdateUserExampleByIDRequest, opts ...grpc.CallOption) (*UpdateUserExampleByIDReply, error) {
-	out := new(UpdateUserExampleByIDReply)
-	err := c.cc.Invoke(ctx, UserExample_UpdateByID_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *userExampleClient) GetByID(ctx context.Context, in *GetUserExampleByIDRequest, opts ...grpc.CallOption) (*GetUserExampleByIDReply, error) {
-	out := new(GetUserExampleByIDReply)
-	err := c.cc.Invoke(ctx, UserExample_GetByID_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *userExampleClient) List(ctx context.Context, in *ListUserExampleRequest, opts ...grpc.CallOption) (*ListUserExampleReply, error) {
-	out := new(ListUserExampleReply)
-	err := c.cc.Invoke(ctx, UserExample_List_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // UserExampleServer is the server API for UserExample service.
@@ -120,121 +100,71 @@ type UnimplementedUserExampleServer struct {
 }
 
 func (UnimplementedUserExampleServer) Create(context.Context, *CreateUserExampleRequest) (*CreateUserExampleReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
-func (UnimplementedUserExampleServer) DeleteByID(context.Context, *DeleteUserExampleByIDRequest) (*DeleteUserExampleByIDReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteByID not implemented")
-}
-func (UnimplementedUserExampleServer) UpdateByID(context.Context, *UpdateUserExampleByIDRequest) (*UpdateUserExampleByIDReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateByID not implemented")
-}
-func (UnimplementedUserExampleServer) GetByID(context.Context, *GetUserExampleByIDRequest) (*GetUserExampleByIDReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetByID not implemented")
-}
-func (UnimplementedUserExampleServer) List(context.Context, *ListUserExampleRequest) (*ListUserExampleReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
-}
-func (UnimplementedUserExampleServer) mustEmbedUnimplementedUserExampleServer() {}
 
-// UnsafeUserExampleServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserExampleServer will
-// result in compilation errors.
+func (UnimplementedUserExampleServer) DeleteByID(context.Context, *DeleteUserExampleByIDRequest) (*DeleteUserExampleByIDReply, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedUserExampleServer) UpdateByID(context.Context, *UpdateUserExampleByIDRequest) (*UpdateUserExampleByIDReply, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedUserExampleServer) GetByID(context.Context, *GetUserExampleByIDRequest) (*GetUserExampleByIDReply, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedUserExampleServer) List(context.Context, *ListUserExampleRequest) (*ListUserExampleReply, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedUserExampleServer) mustEmbedUnimplementedUserExampleServer() {
+	_ = "STUB: not implemented"
+
+	// UnsafeUserExampleServer may be embedded to opt out of forward compatibility for this service.
+	// Use of this interface is not recommended, as added methods to UserExampleServer will
+	// result in compilation errors.
+	return
+}
+
 type UnsafeUserExampleServer interface {
 	mustEmbedUnimplementedUserExampleServer()
 }
 
 func RegisterUserExampleServer(s grpc.ServiceRegistrar, srv UserExampleServer) {
-	s.RegisterService(&UserExample_ServiceDesc, srv)
+	_ = "STUB: not implemented"
+	return
 }
 
 func _UserExample_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateUserExampleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserExampleServer).Create(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserExample_Create_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserExampleServer).Create(ctx, req.(*CreateUserExampleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _UserExample_DeleteByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteUserExampleByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserExampleServer).DeleteByID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserExample_DeleteByID_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserExampleServer).DeleteByID(ctx, req.(*DeleteUserExampleByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _UserExample_UpdateByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateUserExampleByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserExampleServer).UpdateByID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserExample_UpdateByID_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserExampleServer).UpdateByID(ctx, req.(*UpdateUserExampleByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _UserExample_GetByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserExampleByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserExampleServer).GetByID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserExample_GetByID_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserExampleServer).GetByID(ctx, req.(*GetUserExampleByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _UserExample_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListUserExampleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserExampleServer).List(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserExample_List_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserExampleServer).List(ctx, req.(*ListUserExampleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // UserExample_ServiceDesc is the grpc.ServiceDesc for UserExample service.

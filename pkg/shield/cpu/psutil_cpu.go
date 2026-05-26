@@ -3,8 +3,6 @@ package cpu
 
 import (
 	"time"
-
-	"github.com/shirou/gopsutil/v4/cpu"
 )
 
 type psutilCPU struct {
@@ -12,37 +10,12 @@ type psutilCPU struct {
 }
 
 func newPsutilCPU(interval time.Duration) (*psutilCPU, error) {
-	psCPU := &psutilCPU{interval: interval}
-	_, err := psCPU.Usage()
-	if err != nil {
-		return nil, err
-	}
-	return psCPU, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (ps *psutilCPU) Usage() (uint64, error) {
-	var u uint64
-	percents, err := cpu.Percent(ps.interval, false)
-	if err == nil {
-		if len(percents) > 0 {
-			u = uint64(percents[0] * 10) // convert to 10/1000 of a percent
-		}
-	}
-	return u, err
-}
+func (ps *psutilCPU) Usage() (uint64, error) { _ = "STUB: not implemented"; return 0, nil }
 
-func (ps *psutilCPU) Info() Info {
-	stats, err := cpu.Info()
-	if err != nil {
-		return Info{}
-	}
-	cores, err := cpu.Counts(true)
-	if err != nil {
-		return Info{}
-	}
+// convert to 10/1000 of a percent
 
-	return Info{
-		Frequency: uint64(stats[0].Mhz),
-		Quota:     float64(cores),
-	}
-}
+func (ps *psutilCPU) Info() Info { _ = "STUB: not implemented"; return *new(Info) }

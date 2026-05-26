@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
@@ -11,30 +10,8 @@ const (
 )
 
 // InitCommand initial sponge
-func InitCommand() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "init",
-		Short: "Initialize sponge",
-		Long:  "Initialize sponge.",
-		Example: color.HiBlackString(`  # Run init, download code and install plugins.
-  sponge init`),
-		SilenceErrors: true,
-		SilenceUsage:  true,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			targetVersion := latestVersion
-			// download sponge template code
-			_, err := runUpgrade(targetVersion)
-			if err != nil {
-				return err
-			}
+func InitCommand() *cobra.Command { _ = "STUB: not implemented"; return nil }
 
-			// installing dependency plugins
-			_, lackNames := checkInstallPlugins()
-			installPlugins(lackNames)
+// download sponge template code
 
-			return nil
-		},
-	}
-
-	return cmd
-}
+// installing dependency plugins

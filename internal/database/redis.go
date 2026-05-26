@@ -2,12 +2,8 @@ package database
 
 import (
 	"sync"
-	"time"
 
 	"github.com/go-dev-frame/sponge/pkg/goredis"
-	"github.com/go-dev-frame/sponge/pkg/tracer"
-
-	"github.com/go-dev-frame/sponge/internal/config"
 )
 
 var (
@@ -30,58 +26,16 @@ type CacheType struct {
 }
 
 // InitCache initial cache
-func InitCache(cType string) {
-	cacheType = &CacheType{
-		CType: cType,
-	}
-
-	if cType == "redis" {
-		cacheType.Rdb = GetRedisCli()
-	}
-}
+func InitCache(cType string) { _ = "STUB: not implemented"; return }
 
 // GetCacheType get cacheType
-func GetCacheType() *CacheType {
-	if cacheType == nil {
-		cacheTypeOnce.Do(func() {
-			InitCache(config.Get().App.CacheType)
-		})
-	}
-
-	return cacheType
-}
+func GetCacheType() *CacheType { _ = "STUB: not implemented"; return nil }
 
 // InitRedis connect redis
-func InitRedis() {
-	redisCfg := config.Get().Redis
-	opts := []goredis.Option{
-		goredis.WithDialTimeout(time.Duration(redisCfg.DialTimeout) * time.Second),
-		goredis.WithReadTimeout(time.Duration(redisCfg.ReadTimeout) * time.Second),
-		goredis.WithWriteTimeout(time.Duration(redisCfg.WriteTimeout) * time.Second),
-	}
-	if config.Get().App.EnableTrace {
-		opts = append(opts, goredis.WithTracing(tracer.GetProvider()))
-	}
-
-	var err error
-	redisCli, err = goredis.Init(redisCfg.Dsn, opts...)
-	if err != nil {
-		panic("goredis.Init error: " + err.Error())
-	}
-}
+func InitRedis() { _ = "STUB: not implemented"; return }
 
 // GetRedisCli get redis client
-func GetRedisCli() *goredis.Client {
-	if redisCli == nil {
-		redisCliOnce.Do(func() {
-			InitRedis()
-		})
-	}
-
-	return redisCli
-}
+func GetRedisCli() *goredis.Client { _ = "STUB: not implemented"; return nil }
 
 // CloseRedis close redis
-func CloseRedis() error {
-	return goredis.Close(redisCli)
-}
+func CloseRedis() error { _ = "STUB: not implemented"; return nil }

@@ -1,7 +1,6 @@
 package interceptor
 
 import (
-	"context"
 	"time"
 
 	"google.golang.org/grpc"
@@ -13,24 +12,16 @@ var timeoutVal = time.Second * 10
 
 // UnaryClientTimeout client-side timeout unary interceptor
 func UnaryClientTimeout(d time.Duration) grpc.UnaryClientInterceptor {
-	if d < time.Millisecond {
-		d = timeoutVal
-	}
-
-	return func(ctx context.Context, method string, req, resp interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
-		ctx, _ = context.WithTimeout(ctx, d) //nolint
-		return invoker(ctx, method, req, resp, cc, opts...)
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryClientInterceptor)
 }
+
+//nolint
 
 // StreamClientTimeout server-side timeout  interceptor
 func StreamClientTimeout(d time.Duration) grpc.StreamClientInterceptor {
-	if d < time.Millisecond {
-		d = timeoutVal
-	}
-
-	return func(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
-		ctx, _ = context.WithTimeout(ctx, d) //nolint
-		return streamer(ctx, desc, cc, method, opts...)
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamClientInterceptor)
 }
+
+//nolint

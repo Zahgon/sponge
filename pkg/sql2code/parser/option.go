@@ -42,129 +42,54 @@ var defaultOptions = options{
 }
 
 // WithDBDriver set db driver
-func WithDBDriver(driver string) Option {
-	return func(o *options) {
-		if driver != "" {
-			o.DBDriver = driver
-		}
-	}
-}
+func WithDBDriver(driver string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithFieldTypes set field types
 func WithFieldTypes(fieldTypes map[string]string) Option {
-	return func(o *options) {
-		if fieldTypes != nil {
-			o.FieldTypes = fieldTypes
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithCharset set charset
-func WithCharset(charset string) Option {
-	return func(o *options) {
-		o.Charset = charset
-	}
-}
+func WithCharset(charset string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithCollation set collation
-func WithCollation(collation string) Option {
-	return func(o *options) {
-		o.Collation = collation
-	}
-}
+func WithCollation(collation string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithTablePrefix set table prefix
-func WithTablePrefix(p string) Option {
-	return func(o *options) {
-		o.TablePrefix = p
-	}
-}
+func WithTablePrefix(p string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithColumnPrefix set column prefix
-func WithColumnPrefix(p string) Option {
-	return func(o *options) {
-		o.ColumnPrefix = p
-	}
-}
+func WithColumnPrefix(p string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithJSONTag set json tag, 0 for underscore, other values for hump
-func WithJSONTag(namedType int) Option {
-	return func(o *options) {
-		o.JSONTag = true
-		o.JSONNamedType = namedType
-	}
-}
+func WithJSONTag(namedType int) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithNoNullType set NoNullType
-func WithNoNullType() Option {
-	return func(o *options) {
-		o.NoNullType = true
-	}
-}
+func WithNoNullType() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithNullStyle set NullType
-func WithNullStyle(s NullStyle) Option {
-	return func(o *options) {
-		o.NullStyle = s
-	}
-}
+func WithNullStyle(s NullStyle) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithPackage set package name
-func WithPackage(pkg string) Option {
-	return func(o *options) {
-		o.Package = pkg
-	}
-}
+func WithPackage(pkg string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithGormType will write type in gorm tag
-func WithGormType() Option {
-	return func(o *options) {
-		o.GormType = true
-	}
-}
+func WithGormType() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithForceTableName set forceFloats
-func WithForceTableName() Option {
-	return func(o *options) {
-		o.ForceTableName = true
-	}
-}
+func WithForceTableName() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEmbed is embed gorm.Model
-func WithEmbed() Option {
-	return func(o *options) {
-		o.IsEmbed = true
-	}
-}
+func WithEmbed() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithWebProto set proto file type
-func WithWebProto() Option {
-	return func(o *options) {
-		o.IsWebProto = true
-	}
-}
+func WithWebProto() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithExtendedAPI set extended api
-func WithExtendedAPI() Option {
-	return func(o *options) {
-		o.IsExtendedAPI = true
-	}
-}
+func WithExtendedAPI() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithCustomTemplate set custom template
-func WithCustomTemplate() Option {
-	return func(o *options) {
-		o.IsCustomTemplate = true
-	}
-}
+func WithCustomTemplate() Option { _ = "STUB: not implemented"; return *new(Option) }
 
-func parseOption(options []Option) options {
-	o := defaultOptions
-	for _, f := range options {
-		f(&o)
-	}
-	if o.NoNullType {
-		o.NullStyle = NullDisable
-	}
-	return o
-}
+func parseOption(options []Option) options { _ = "STUB: not implemented"; return *new(options) }

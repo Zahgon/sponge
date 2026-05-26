@@ -2,13 +2,9 @@
 package sgorm
 
 import (
-	"reflect"
 	"time"
 
-	"github.com/huandu/xstrings"
 	"gorm.io/gorm"
-
-	"github.com/go-dev-frame/sponge/pkg/sgorm/dbclose"
 )
 
 type DB = gorm.DB
@@ -46,23 +42,7 @@ type Model2 struct {
 type KV = map[string]interface{}
 
 // GetTableName get table name
-func GetTableName(object interface{}) string {
-	tableName := ""
-
-	typeof := reflect.TypeOf(object)
-	switch typeof.Kind() {
-	case reflect.Ptr:
-		tableName = typeof.Elem().Name()
-	case reflect.Struct:
-		tableName = typeof.Name()
-	default:
-		return tableName
-	}
-
-	return xstrings.ToSnakeCase(tableName)
-}
+func GetTableName(object interface{}) string { _ = "STUB: not implemented"; return "" }
 
 // CloseDB close db
-func CloseDB(db *gorm.DB) error {
-	return dbclose.Close(db)
-}
+func CloseDB(db *gorm.DB) error { _ = "STUB: not implemented"; return nil }

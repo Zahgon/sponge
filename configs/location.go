@@ -14,14 +14,6 @@ func init() {
 }
 
 // Location return absolute path of the configs yml file
-func Location(rel string) string {
-	if filepath.IsAbs(rel) {
-		return rel
-	}
+func Location(rel string) string { _ = "STUB: not implemented"; return "" }
 
-	return filepath.Join(basePath, rel)
-}
-
-func Path(rel string) string {
-	return Location(rel)
-}
+func Path(rel string) string { _ = "STUB: not implemented"; return "" }

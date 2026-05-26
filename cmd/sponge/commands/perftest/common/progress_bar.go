@@ -1,13 +1,9 @@
 package common
 
 import (
-	"fmt"
-	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
-
-	"github.com/fatih/color"
 )
 
 // Bar represents a thread-safe progress bar.
@@ -25,96 +21,42 @@ type Bar struct {
 }
 
 // NewBar returns a new progress bar with the given total count.
-func NewBar(total int64, t time.Time) *Bar {
-	b := &Bar{
-		total:          total,
-		startTime:      t,
-		barWidth:       50,
-		graph:          "=",
-		arrow:          ">",
-		space:          " ",
-		updateInterval: 500 * time.Millisecond,
-	}
-
-	b.lastDrawNano.Store(0)
-	return b
-}
+func NewBar(total int64, t time.Time) *Bar { _ = "STUB: not implemented"; return nil }
 
 // Increment advances the progress by 1 and redraws the bar if needed.
-func (b *Bar) Increment() {
-	atomic.AddInt64(&b.current, 1)
-	b.draw(false) // Regular draw, respects interval
-}
+func (b *Bar) Increment() { _ = "STUB: not implemented"; return }
+
+// Regular draw, respects interval
 
 // Finish marks the bar as complete and prints the final state.
-func (b *Bar) Finish() {
-	atomic.StoreInt64(&b.current, b.total)
-	b.draw(true) // Force final draw
-	fmt.Println()
-}
+func (b *Bar) Finish() { _ = "STUB: not implemented"; return }
+
+// Force final draw
 
 // Stop halts the bar at its current progress and prints the final state.
 func (b *Bar) Stop() {
-	b.draw(true) // Force a final draw at the current state
-	fmt.Println()
+	_ = "STUB: not implemented"
+	// Force a final draw at the current state
+	return
 }
 
 // shouldDraw reports whether a redraw should occur using a CAS timestamp.
 // Ensures only one goroutine wins the right to draw within the interval.
-func (b *Bar) shouldDraw() bool {
-	now := time.Now().UnixNano()
-	intervalNano := b.updateInterval.Nanoseconds()
+func (b *Bar) shouldDraw() bool { _ = "STUB: not implemented"; return false }
 
-	lastNano := b.lastDrawNano.Load()
-	if now-lastNano < intervalNano {
-		// Too close to the last draw, skip
-		return false
-	}
+// Too close to the last draw, skip
 
-	// Attempt to update the timestamp
-	return b.lastDrawNano.CompareAndSwap(lastNano, now)
-}
+// Attempt to update the timestamp
 
 // draw renders the bar in the terminal.
 // The 'force' parameter bypasses the update interval check.
-func (b *Bar) draw(force bool) {
-	current := atomic.LoadInt64(&b.current)
+func (b *Bar) draw(force bool) { _ = "STUB: not implemented"; return }
 
-	// Redraw only when forced, reaching refresh interval, or on completion.
-	if !force && current < b.total && !b.shouldDraw() {
-		return
-	}
+// Redraw only when forced, reaching refresh interval, or on completion.
 
-	percent := float64(current) / float64(b.total)
-	if percent > 1.0 {
-		percent = 1.0
-	}
-	filledLength := int(float64(b.barWidth) * percent)
+// Build the visual bar
 
-	// Build the visual bar
-	var barBuilder strings.Builder
-	barBuilder.Grow(b.barWidth + 2)
-	barBuilder.WriteString("[")
-	barBuilder.WriteString(strings.Repeat(b.graph, filledLength))
-
-	// Show arrow only when not finished
-	if current < b.total {
-		if filledLength < b.barWidth {
-			barBuilder.WriteString(b.arrow)
-			barBuilder.WriteString(strings.Repeat(b.space, b.barWidth-filledLength-1))
-		} else {
-			barBuilder.WriteString(strings.Repeat(b.space, b.barWidth-filledLength))
-		}
-	} else {
-		barBuilder.WriteString(strings.Repeat(b.space, b.barWidth-filledLength))
-	}
-	barBuilder.WriteString("]")
-
-	elapsed := time.Since(b.startTime).Seconds()
-
-	str := fmt.Sprintf("%8d / %-8d %s %6.2f%% %.2fs", current, b.total, barBuilder.String(), percent*100, elapsed)
-	fmt.Printf("\r%s", color.HiBlackString(str))
-}
+// Show arrow only when not finished
 
 // -----------------------------------------------------------------
 
@@ -133,120 +75,57 @@ type TimeBar struct {
 }
 
 // NewTimeBar returns a new time-based progress bar with the given duration.
-func NewTimeBar(totalDuration time.Duration) *TimeBar {
-	return &TimeBar{
-		totalDuration: totalDuration,
-		barWidth:      50,
-		graph:         "=",
-		arrow:         ">",
-		space:         " ",
-		done:          make(chan struct{}),
-	}
-}
+func NewTimeBar(totalDuration time.Duration) *TimeBar { _ = "STUB: not implemented"; return nil }
 
 // Start begins automatic updates in a background goroutine.
-func (b *TimeBar) Start() {
-	b.startTime = time.Now()
-	b.wg.Add(1)
-	go b.run()
-}
+func (b *TimeBar) Start() { _ = "STUB: not implemented"; return }
 
 // stopped is an internal helper to handle shutting down the progress bar.
-func (b *TimeBar) stopped(isFinal bool) {
-	select {
-	case <-b.done:
-		// Already stopped, do nothing.
-		return
-	default:
-		// Signal the run goroutine to stop.
-		close(b.done)
-	}
-	b.wg.Wait()     // Wait for the goroutine to exit.
-	b.draw(isFinal) // Perform one final draw.
-	fmt.Println()   // Move to the next line.
-}
+func (b *TimeBar) stopped(isFinal bool) { _ = "STUB: not implemented"; return }
+
+// Already stopped, do nothing.
+
+// Signal the run goroutine to stop.
+
+// Wait for the goroutine to exit.
+// Perform one final draw.
+// Move to the next line.
 
 // Finish stops the progress bar at 100%.
 func (b *TimeBar) Finish() {
-	b.stopped(true)
+	_ = "STUB: not implemented"
+
+	// Stop halts the progress bar at its current progress.
+	return
 }
 
-// Stop halts the progress bar at its current progress.
 func (b *TimeBar) Stop() {
-	b.stopped(false)
+	_ = "STUB: not implemented"
+
+	// run periodically refreshes the bar in the background.
+	return
 }
 
-// run periodically refreshes the bar in the background.
-func (b *TimeBar) run() {
-	defer b.wg.Done()
+func (b *TimeBar) run() { _ = "STUB: not implemented"; return }
 
-	ticker := time.NewTicker(500 * time.Millisecond)
-	defer ticker.Stop()
+// Stop signal received, exit the loop.
+// The final draw is handled by the calling function (Finish/Stop).
 
-	for {
-		select {
-		case <-b.done:
-			// Stop signal received, exit the loop.
-			// The final draw is handled by the calling function (Finish/Stop).
-			return
-		case <-ticker.C:
-			if time.Since(b.startTime) >= b.totalDuration {
-				// Time has elapsed, exit.
-				// The final draw will be handled by Finish().
-				return
-			}
-			b.draw(false)
-		}
-	}
-}
+// Time has elapsed, exit.
+// The final draw will be handled by Finish().
 
 // draw renders the bar in the terminal.
 // isFinal indicates whether this is the last draw (i.e., should show 100%).
-func (b *TimeBar) draw(isFinal bool) {
-	elapsed := time.Since(b.startTime)
-	percent := elapsed.Seconds() / b.totalDuration.Seconds()
+func (b *TimeBar) draw(isFinal bool) { _ = "STUB: not implemented"; return }
 
-	// Handle final state and overflow
-	if isFinal || percent >= 1.0 {
-		percent = 1.0
-		elapsed = b.totalDuration
-	}
+// Handle final state and overflow
 
-	filledLength := int(float64(b.barWidth) * percent)
+// Build the visual bar
 
-	// Build the visual bar
-	var barBuilder strings.Builder
-	barBuilder.Grow(b.barWidth + 2)
-	barBuilder.WriteString("[")
-	barBuilder.WriteString(strings.Repeat(b.graph, filledLength))
+// Show arrow if not complete
 
-	// Show arrow if not complete
-	if percent < 1.0 {
-		if filledLength < b.barWidth {
-			barBuilder.WriteString(b.arrow)
-		}
-	}
+// Ensure the bar's total visible length is consistent.
+// Calculate remaining space inside the brackets `[]`.
 
-	// Ensure the bar's total visible length is consistent.
-	// Calculate remaining space inside the brackets `[]`.
-	currentLen := len(strings.Repeat(b.graph, filledLength))
-	if percent < 1.0 && filledLength < b.barWidth {
-		currentLen += len(b.arrow)
-	}
-	remainingSpace := b.barWidth - currentLen
-	if remainingSpace > 0 {
-		barBuilder.WriteString(strings.Repeat(b.space, remainingSpace))
-	}
-
-	barBuilder.WriteString("]")
-
-	// Print with carriage return for alignment.
-	// Format times with one decimal place for consistency.
-	str := fmt.Sprintf("%.1fs / %.1fs %s %.2f%%",
-		elapsed.Seconds(),
-		b.totalDuration.Seconds(),
-		barBuilder.String(),
-		percent*100,
-	)
-	fmt.Printf("\r%s", color.HiBlackString(str))
-}
+// Print with carriage return for alignment.
+// Format times with one decimal place for consistency.

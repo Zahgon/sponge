@@ -1,38 +1,21 @@
 package initial
 
 import (
-	"strconv"
-
 	"github.com/go-dev-frame/sponge/pkg/app"
-
-	"github.com/go-dev-frame/sponge/internal/config"
-	"github.com/go-dev-frame/sponge/internal/server"
 )
 
 // CreateServices create http service
-func CreateServices() []app.IServer {
-	var cfg = config.Get()
-	var servers []app.IServer
-	var httpAddr = ":" + strconv.Itoa(cfg.HTTP.Port)
+func CreateServices() []app.IServer { _ = "STUB: not implemented"; return nil }
 
-	// case 1, create a http service without registry
-	httpServer := server.NewHTTPServer_pbExample(httpAddr,
-		server.WithHTTPIsProd(cfg.App.Env == "prod"),
-		server.WithHTTPTLS(cfg.HTTP.TLS),
-	)
+// case 1, create a http service without registry
 
-	// case 2, Create a http service and register it with consul or etcd or nacos
-	//httpRegistry, httpInstance := registerService("http", cfg.App.Host, cfg.HTTP.Port)
-	//httpServer := server.NewHTTPServer_pbExample(httpAddr,
-	//	server.WithHTTPRegistry(httpRegistry, httpInstance),
-	//	server.WithHTTPIsProd(cfg.App.Env == "prod"),
-	//	server.WithHTTPTLS(cfg.HTTP.TLS),
-	//)
-
-	servers = append(servers, httpServer)
-
-	return servers
-}
+// case 2, Create a http service and register it with consul or etcd or nacos
+//httpRegistry, httpInstance := registerService("http", cfg.App.Host, cfg.HTTP.Port)
+//httpServer := server.NewHTTPServer_pbExample(httpAddr,
+//	server.WithHTTPRegistry(httpRegistry, httpInstance),
+//	server.WithHTTPIsProd(cfg.App.Env == "prod"),
+//	server.WithHTTPTLS(cfg.HTTP.TLS),
+//)
 
 // register service with consul or etcd or nacos, select one of them to use
 //func registerService(scheme string, host string, port int) (registry.Registry, *registry.ServiceInstance) {

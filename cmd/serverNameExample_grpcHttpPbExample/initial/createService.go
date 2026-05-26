@@ -1,44 +1,25 @@
 package initial
 
 import (
-	"strconv"
-
 	"github.com/go-dev-frame/sponge/pkg/app"
-
-	"github.com/go-dev-frame/sponge/internal/config"
-	"github.com/go-dev-frame/sponge/internal/server"
 )
 
 // CreateServices create services
-func CreateServices() []app.IServer {
-	var cfg = config.Get()
-	var servers []app.IServer
-	var httpAddr = ":" + strconv.Itoa(cfg.HTTP.Port)
-	var grpcAddr = ":" + strconv.Itoa(cfg.Grpc.Port)
+func CreateServices() []app.IServer { _ = "STUB: not implemented"; return nil }
 
-	// case 1, create http and grpc services without registry
-	httpServer := server.NewHTTPServer(httpAddr,
-		server.WithHTTPIsProd(cfg.App.Env == "prod"),
-		server.WithHTTPTLS(cfg.HTTP.TLS),
-	)
-	grpcServer := server.NewGRPCServer(grpcAddr)
+// case 1, create http and grpc services without registry
 
-	// case 2, create http and grpc services and register them with consul or etcd or nacos
-	//httpRegistry, httpInstance := registerService("http", cfg.App.Host, cfg.HTTP.Port)
-	//httpServer := server.NewHTTPServer(httpAddr,
-	//	server.WithHTTPRegistry(httpRegistry, httpInstance),
-	//	server.WithHTTPIsProd(cfg.App.Env == "prod"),
-	//	server.WithHTTPTLS(cfg.HTTP.TLS),
-	//)
-	//grpcRegistry, grpcInstance := registerService("grpc", cfg.App.Host, cfg.Grpc.Port)
-	//grpcServer := server.NewGRPCServer(grpcAddr,
-	//	server.WithGrpcRegistry(grpcRegistry, grpcInstance),
-	//)
-
-	servers = append(servers, httpServer, grpcServer)
-
-	return servers
-}
+// case 2, create http and grpc services and register them with consul or etcd or nacos
+//httpRegistry, httpInstance := registerService("http", cfg.App.Host, cfg.HTTP.Port)
+//httpServer := server.NewHTTPServer(httpAddr,
+//	server.WithHTTPRegistry(httpRegistry, httpInstance),
+//	server.WithHTTPIsProd(cfg.App.Env == "prod"),
+//	server.WithHTTPTLS(cfg.HTTP.TLS),
+//)
+//grpcRegistry, grpcInstance := registerService("grpc", cfg.App.Host, cfg.Grpc.Port)
+//grpcServer := server.NewGRPCServer(grpcAddr,
+//	server.WithGrpcRegistry(grpcRegistry, grpcInstance),
+//)
 
 // register service with consul or etcd or nacos, select one of them to use
 //func registerService(scheme string, host string, port int) (registry.Registry, *registry.ServiceInstance) {

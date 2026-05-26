@@ -2,7 +2,6 @@
 package dbclose
 
 import (
-	"context"
 	"database/sql"
 	"time"
 
@@ -10,31 +9,8 @@ import (
 )
 
 // Close close gorm db
-func Close(db *gorm.DB) error {
-	if db == nil {
-		return nil
-	}
+func Close(db *gorm.DB) error { _ = "STUB: not implemented"; return nil }
 
-	sqlDB, err := db.DB()
-	if err != nil {
-		return err
-	}
+func checkInUse(sqlDB *sql.DB, duration time.Duration) { _ = "STUB: not implemented"; return }
 
-	checkInUse(sqlDB, time.Second*5)
-
-	return sqlDB.Close()
-}
-
-func checkInUse(sqlDB *sql.DB, duration time.Duration) {
-	ctx, _ := context.WithTimeout(context.Background(), duration) //nolint
-	for {
-		select {
-		case <-time.After(time.Millisecond * 250):
-			if v := sqlDB.Stats().InUse; v == 0 {
-				return
-			}
-		case <-ctx.Done():
-			return
-		}
-	}
-}
+//nolint

@@ -8,7 +8,6 @@ import (
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 )
 
@@ -47,122 +46,79 @@ type Option func(*options)
 
 type options struct{}
 
-func defaultMetricsOptions() *options {
-	return &options{}
-}
+func defaultMetricsOptions() *options { _ = "STUB: not implemented"; return nil }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithCounterMetrics add Counter type indicator
 func WithCounterMetrics(metrics ...*prometheus.CounterVec) Option {
-	return func(o *options) {
-		customizedCounterMetrics = append(customizedCounterMetrics, metrics...)
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithSummaryMetrics add Summary type indicator
 func WithSummaryMetrics(metrics ...*prometheus.SummaryVec) Option {
-	return func(o *options) {
-		customizedSummaryMetrics = append(customizedSummaryMetrics, metrics...)
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithGaugeMetrics add Gauge type indicator
 func WithGaugeMetrics(metrics ...*prometheus.GaugeVec) Option {
-	return func(o *options) {
-		customizedGaugeMetrics = append(customizedGaugeMetrics, metrics...)
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithHistogramMetrics adding Histogram type indicators
 func WithHistogramMetrics(metrics ...*prometheus.HistogramVec) Option {
-	return func(o *options) {
-		customizedHistogramMetrics = append(customizedHistogramMetrics, metrics...)
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 func srvRegisterMetrics() {
-	srvOnce.Do(func() {
-		// enable time record
-		grpcServerMetrics.EnableHandlingTimeHistogram()
+	_ = "STUB: not implemented"
 
-		// register go metrics
-		srvReg.MustRegister(goMetrics)
-
-		// register metrics to capture, custom metrics also need to be registered
-		srvReg.MustRegister(grpcServerMetrics)
-
-		// register custom Counter metrics
-		for _, metric := range customizedCounterMetrics {
-			srvReg.MustRegister(metric)
-		}
-		for _, metric := range customizedSummaryMetrics {
-			srvReg.MustRegister(metric)
-		}
-		for _, metric := range customizedGaugeMetrics {
-			srvReg.MustRegister(metric)
-		}
-		for _, metric := range customizedHistogramMetrics {
-			srvReg.MustRegister(metric)
-		}
-		srvReg.MustRegister(grpcConnectionGauge)
-	})
+	// enable time record
+	return
 }
+
+// register go metrics
+
+// register metrics to capture, custom metrics also need to be registered
+
+// register custom Counter metrics
 
 // SetServerPattern set the server pattern
-func SetServerPattern(pattern string) {
-	if pattern != "" {
-		serverPattern = pattern
-	}
-}
+func SetServerPattern(pattern string) { _ = "STUB: not implemented"; return }
 
 // Register for http routing and grpc methods
 func Register(mux *http.ServeMux, grpcServer *grpc.Server) {
+	_ = "STUB: not implemented"
 	// register for http routing
-	mux.Handle(serverPattern, promhttp.HandlerFor(srvReg, promhttp.HandlerOpts{}))
-
-	// register all gRPC methods to metrics
-	grpcServerMetrics.InitializeMetrics(grpcServer)
+	return
 }
+
+// register all gRPC methods to metrics
 
 // ServerHTTPService initialize the prometheus exporter service on the server side and fetch data using http://ip:port/metrics
 func ServerHTTPService(addr string, grpcServer *grpc.Server) *http.Server {
-	httpServer := &http.Server{
-		Addr:    addr,
-		Handler: promhttp.HandlerFor(srvReg, promhttp.HandlerOpts{}),
-	}
-
-	// run http server
-	go func() {
-		if err := httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			panic("listen and serve error: " + err.Error())
-		}
-	}()
-
-	// initialize gRPC methods Metrics
-	grpcServerMetrics.InitializeMetrics(grpcServer)
-
-	return httpServer
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// run http server
+
+// initialize gRPC methods Metrics
 
 // ---------------------------------- server interceptor ----------------------------------
 
 // UnaryServerMetrics metrics unary interceptor
 func UnaryServerMetrics(opts ...Option) grpc.UnaryServerInterceptor {
-	o := defaultMetricsOptions()
-	o.apply(opts...)
-	srvRegisterMetrics()
-	return grpcServerMetrics.UnaryServerInterceptor()
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryServerInterceptor)
 }
 
 // StreamServerMetrics metrics stream interceptor
 func StreamServerMetrics(opts ...Option) grpc.StreamServerInterceptor {
-	o := defaultMetricsOptions()
-	o.apply(opts...)
-	srvRegisterMetrics()
-	return grpcServerMetrics.StreamServerInterceptor()
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamServerInterceptor)
 }

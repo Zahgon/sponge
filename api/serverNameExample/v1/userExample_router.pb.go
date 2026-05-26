@@ -4,12 +4,11 @@ package v1
 
 import (
 	context "context"
-	errors "errors"
+
 	gin "github.com/gin-gonic/gin"
 	errcode "github.com/go-dev-frame/sponge/pkg/errcode"
 	middleware "github.com/go-dev-frame/sponge/pkg/gin/middleware"
 	zap "go.uber.org/zap"
-	strings "strings"
 )
 
 // import packages: strings. context. errcode. middleware. zap. gin.
@@ -33,52 +32,41 @@ type userExampleOptions struct {
 	wrapCtxFn  func(c *gin.Context) context.Context
 }
 
-func (o *userExampleOptions) apply(opts ...UserExampleOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *userExampleOptions) apply(opts ...UserExampleOption) { _ = "STUB: not implemented"; return }
 
 func WithUserExampleHTTPResponse() UserExampleOption {
-	return func(o *userExampleOptions) {
-		o.isFromRPC = false
-	}
+	_ = "STUB: not implemented"
+	return *new(UserExampleOption)
 }
 
 func WithUserExampleRPCResponse() UserExampleOption {
-	return func(o *userExampleOptions) {
-		o.isFromRPC = true
-	}
+	_ = "STUB: not implemented"
+	return *new(UserExampleOption)
 }
 
 func WithUserExampleResponser(responser errcode.Responser) UserExampleOption {
-	return func(o *userExampleOptions) {
-		o.responser = responser
-	}
+	_ = "STUB: not implemented"
+	return *new(UserExampleOption)
 }
 
 func WithUserExampleLogger(zapLog *zap.Logger) UserExampleOption {
-	return func(o *userExampleOptions) {
-		o.zapLog = zapLog
-	}
+	_ = "STUB: not implemented"
+	return *new(UserExampleOption)
 }
 
 func WithUserExampleErrorToHTTPCode(e ...*errcode.Error) UserExampleOption {
-	return func(o *userExampleOptions) {
-		o.httpErrors = e
-	}
+	_ = "STUB: not implemented"
+	return *new(UserExampleOption)
 }
 
 func WithUserExampleRPCStatusToHTTPCode(s ...*errcode.RPCStatus) UserExampleOption {
-	return func(o *userExampleOptions) {
-		o.rpcStatus = s
-	}
+	_ = "STUB: not implemented"
+	return *new(UserExampleOption)
 }
 
 func WithUserExampleWrapCtx(wrapCtxFn func(c *gin.Context) context.Context) UserExampleOption {
-	return func(o *userExampleOptions) {
-		o.wrapCtxFn = wrapCtxFn
-	}
+	_ = "STUB: not implemented"
+	return *new(UserExampleOption)
 }
 
 func RegisterUserExampleRouter(
@@ -87,27 +75,8 @@ func RegisterUserExampleRouter(
 	singlePathMiddlewares map[string][]gin.HandlerFunc,
 	iLogic UserExampleLogicer,
 	opts ...UserExampleOption) {
-
-	o := &userExampleOptions{}
-	o.apply(opts...)
-
-	if o.responser == nil {
-		o.responser = errcode.NewResponser(o.isFromRPC, o.httpErrors, o.rpcStatus)
-	}
-	if o.zapLog == nil {
-		o.zapLog, _ = zap.NewProduction()
-	}
-
-	r := &userExampleRouter{
-		iRouter:               iRouter,
-		groupPathMiddlewares:  groupPathMiddlewares,
-		singlePathMiddlewares: singlePathMiddlewares,
-		iLogic:                iLogic,
-		iResponse:             o.responser,
-		zapLog:                o.zapLog,
-		wrapCtxFn:             o.wrapCtxFn,
-	}
-	r.register()
+	_ = "STUB: not implemented"
+	return
 }
 
 type userExampleRouter struct {
@@ -120,203 +89,25 @@ type userExampleRouter struct {
 	wrapCtxFn             func(c *gin.Context) context.Context
 }
 
-func (r *userExampleRouter) register() {
-	r.iRouter.Handle("POST", "/api/v1/userExample", r.withMiddleware("POST", "/api/v1/userExample", r.Create_0)...)
-	r.iRouter.Handle("DELETE", "/api/v1/userExample/:id", r.withMiddleware("DELETE", "/api/v1/userExample/:id", r.DeleteByID_0)...)
-	r.iRouter.Handle("PUT", "/api/v1/userExample/:id", r.withMiddleware("PUT", "/api/v1/userExample/:id", r.UpdateByID_0)...)
-	r.iRouter.Handle("GET", "/api/v1/userExample/:id", r.withMiddleware("GET", "/api/v1/userExample/:id", r.GetByID_0)...)
-	r.iRouter.Handle("POST", "/api/v1/userExample/list", r.withMiddleware("POST", "/api/v1/userExample/list", r.List_0)...)
-
-}
+func (r *userExampleRouter) register() { _ = "STUB: not implemented"; return }
 
 func (r *userExampleRouter) withMiddleware(method string, path string, fn gin.HandlerFunc) []gin.HandlerFunc {
-	handlerFns := []gin.HandlerFunc{}
-
-	// determine if a route group is hit or miss, left prefix rule
-	for groupPath, fns := range r.groupPathMiddlewares {
-		if groupPath == "" || groupPath == "/" {
-			handlerFns = append(handlerFns, fns...)
-			continue
-		}
-		size := len(groupPath)
-		if len(path) < size {
-			continue
-		}
-		if groupPath == path[:size] {
-			handlerFns = append(handlerFns, fns...)
-		}
-	}
-
-	// determine if a single route has been hit
-	key := strings.ToUpper(method) + "->" + path
-	if fns, ok := r.singlePathMiddlewares[key]; ok {
-		handlerFns = append(handlerFns, fns...)
-	}
-
-	return append(handlerFns, fn)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// determine if a route group is hit or miss, left prefix rule
+
+// determine if a single route has been hit
 
 var _ middleware.CtxKeyString
 
-func (r *userExampleRouter) Create_0(c *gin.Context) {
-	req := &CreateUserExampleRequest{}
-	var err error
+func (r *userExampleRouter) Create_0(c *gin.Context) { _ = "STUB: not implemented"; return }
 
-	if err = c.ShouldBindJSON(req); err != nil {
-		r.zapLog.Warn("ShouldBindJSON error", zap.Error(err), middleware.GCtxRequestIDField(c))
-		r.iResponse.ParamError(c, err)
-		return
-	}
+func (r *userExampleRouter) DeleteByID_0(c *gin.Context) { _ = "STUB: not implemented"; return }
 
-	var ctx context.Context
-	if r.wrapCtxFn != nil {
-		ctx = r.wrapCtxFn(c)
-	} else {
-		ctx = middleware.WrapCtx(c)
-	}
+func (r *userExampleRouter) UpdateByID_0(c *gin.Context) { _ = "STUB: not implemented"; return }
 
-	out, err := r.iLogic.Create(ctx, req)
-	if err != nil {
-		if errors.Is(err, errcode.SkipResponse) {
-			return
-		}
-		r.iResponse.Error(c, err)
-		return
-	}
+func (r *userExampleRouter) GetByID_0(c *gin.Context) { _ = "STUB: not implemented"; return }
 
-	r.iResponse.Success(c, out)
-}
-
-func (r *userExampleRouter) DeleteByID_0(c *gin.Context) {
-	req := &DeleteUserExampleByIDRequest{}
-	var err error
-
-	if err = c.ShouldBindUri(req); err != nil {
-		r.zapLog.Warn("ShouldBindUri error", zap.Error(err), middleware.GCtxRequestIDField(c))
-		r.iResponse.ParamError(c, err)
-		return
-	}
-
-	if err = c.ShouldBindQuery(req); err != nil {
-		r.zapLog.Warn("ShouldBindQuery error", zap.Error(err), middleware.GCtxRequestIDField(c))
-		r.iResponse.ParamError(c, err)
-		return
-	}
-
-	var ctx context.Context
-	if r.wrapCtxFn != nil {
-		ctx = r.wrapCtxFn(c)
-	} else {
-		ctx = middleware.WrapCtx(c)
-	}
-
-	out, err := r.iLogic.DeleteByID(ctx, req)
-	if err != nil {
-		if errors.Is(err, errcode.SkipResponse) {
-			return
-		}
-		r.iResponse.Error(c, err)
-		return
-	}
-
-	r.iResponse.Success(c, out)
-}
-
-func (r *userExampleRouter) UpdateByID_0(c *gin.Context) {
-	req := &UpdateUserExampleByIDRequest{}
-	var err error
-
-	if err = c.ShouldBindUri(req); err != nil {
-		r.zapLog.Warn("ShouldBindUri error", zap.Error(err), middleware.GCtxRequestIDField(c))
-		r.iResponse.ParamError(c, err)
-		return
-	}
-
-	if err = c.ShouldBindJSON(req); err != nil {
-		r.zapLog.Warn("ShouldBindJSON error", zap.Error(err), middleware.GCtxRequestIDField(c))
-		r.iResponse.ParamError(c, err)
-		return
-	}
-
-	var ctx context.Context
-	if r.wrapCtxFn != nil {
-		ctx = r.wrapCtxFn(c)
-	} else {
-		ctx = middleware.WrapCtx(c)
-	}
-
-	out, err := r.iLogic.UpdateByID(ctx, req)
-	if err != nil {
-		if errors.Is(err, errcode.SkipResponse) {
-			return
-		}
-		r.iResponse.Error(c, err)
-		return
-	}
-
-	r.iResponse.Success(c, out)
-}
-
-func (r *userExampleRouter) GetByID_0(c *gin.Context) {
-	req := &GetUserExampleByIDRequest{}
-	var err error
-
-	if err = c.ShouldBindUri(req); err != nil {
-		r.zapLog.Warn("ShouldBindUri error", zap.Error(err), middleware.GCtxRequestIDField(c))
-		r.iResponse.ParamError(c, err)
-		return
-	}
-
-	if err = c.ShouldBindQuery(req); err != nil {
-		r.zapLog.Warn("ShouldBindQuery error", zap.Error(err), middleware.GCtxRequestIDField(c))
-		r.iResponse.ParamError(c, err)
-		return
-	}
-
-	var ctx context.Context
-	if r.wrapCtxFn != nil {
-		ctx = r.wrapCtxFn(c)
-	} else {
-		ctx = middleware.WrapCtx(c)
-	}
-
-	out, err := r.iLogic.GetByID(ctx, req)
-	if err != nil {
-		if errors.Is(err, errcode.SkipResponse) {
-			return
-		}
-		r.iResponse.Error(c, err)
-		return
-	}
-
-	r.iResponse.Success(c, out)
-}
-
-func (r *userExampleRouter) List_0(c *gin.Context) {
-	req := &ListUserExampleRequest{}
-	var err error
-
-	if err = c.ShouldBindJSON(req); err != nil {
-		r.zapLog.Warn("ShouldBindJSON error", zap.Error(err), middleware.GCtxRequestIDField(c))
-		r.iResponse.ParamError(c, err)
-		return
-	}
-
-	var ctx context.Context
-	if r.wrapCtxFn != nil {
-		ctx = r.wrapCtxFn(c)
-	} else {
-		ctx = middleware.WrapCtx(c)
-	}
-
-	out, err := r.iLogic.List(ctx, req)
-	if err != nil {
-		if errors.Is(err, errcode.SkipResponse) {
-			return
-		}
-		r.iResponse.Error(c, err)
-		return
-	}
-
-	r.iResponse.Success(c, out)
-}
+func (r *userExampleRouter) List_0(c *gin.Context) { _ = "STUB: not implemented"; return }

@@ -2,13 +2,9 @@ package cache
 
 import (
 	"context"
-	"errors"
-	"strings"
 	"time"
 
 	"github.com/go-dev-frame/sponge/pkg/cache"
-	"github.com/go-dev-frame/sponge/pkg/encoding"
-	"github.com/go-dev-frame/sponge/pkg/utils"
 
 	"github.com/go-dev-frame/sponge/internal/database"
 	"github.com/go-dev-frame/sponge/internal/model"
@@ -41,113 +37,56 @@ type userExampleCache struct {
 
 // NewUserExampleCache new a cache
 func NewUserExampleCache(cacheType *database.CacheType) UserExampleCache {
-	jsonEncoding := encoding.JSONEncoding{}
-	cachePrefix := ""
-
-	cType := strings.ToLower(cacheType.CType)
-	switch cType {
-	case "redis":
-		c := cache.NewRedisCache(cacheType.Rdb, cachePrefix, jsonEncoding, func() interface{} {
-			return &model.UserExample{}
-		})
-		return &userExampleCache{cache: c}
-	case "memory":
-		c := cache.NewMemoryCache(cachePrefix, jsonEncoding, func() interface{} {
-			return &model.UserExample{}
-		})
-		return &userExampleCache{cache: c}
-	}
-
-	return nil // no cache
+	_ = "STUB: not implemented"
+	return *new(UserExampleCache)
 }
+
+// no cache
 
 // GetUserExampleCacheKey cache key
 func (c *userExampleCache) GetUserExampleCacheKey(id uint64) string {
-	return userExampleCachePrefixKey + utils.Uint64ToStr(id)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Set write to cache
 func (c *userExampleCache) Set(ctx context.Context, id uint64, data *model.UserExample, duration time.Duration) error {
-	if data == nil || id == 0 {
-		return nil
-	}
-	cacheKey := c.GetUserExampleCacheKey(id)
-	err := c.cache.Set(ctx, cacheKey, data, duration)
-	if err != nil {
-		return err
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Get cache value
 func (c *userExampleCache) Get(ctx context.Context, id uint64) (*model.UserExample, error) {
-	var data *model.UserExample
-	cacheKey := c.GetUserExampleCacheKey(id)
-	err := c.cache.Get(ctx, cacheKey, &data)
-	if err != nil {
-		return nil, err
-	}
-	return data, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // MultiSet multiple set cache
 func (c *userExampleCache) MultiSet(ctx context.Context, data []*model.UserExample, duration time.Duration) error {
-	valMap := make(map[string]interface{})
-	for _, v := range data {
-		cacheKey := c.GetUserExampleCacheKey(v.ID)
-		valMap[cacheKey] = v
-	}
-
-	err := c.cache.MultiSet(ctx, valMap, duration)
-	if err != nil {
-		return err
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // MultiGet multiple get cache, return key in map is id value
 func (c *userExampleCache) MultiGet(ctx context.Context, ids []uint64) (map[uint64]*model.UserExample, error) {
-	var keys []string
-	for _, v := range ids {
-		cacheKey := c.GetUserExampleCacheKey(v)
-		keys = append(keys, cacheKey)
-	}
-
-	itemMap := make(map[string]*model.UserExample)
-	err := c.cache.MultiGet(ctx, keys, itemMap)
-	if err != nil {
-		return nil, err
-	}
-
-	retMap := make(map[uint64]*model.UserExample)
-	for _, id := range ids {
-		val, ok := itemMap[c.GetUserExampleCacheKey(id)]
-		if ok {
-			retMap[id] = val
-		}
-	}
-
-	return retMap, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Del delete cache
 func (c *userExampleCache) Del(ctx context.Context, id uint64) error {
-	cacheKey := c.GetUserExampleCacheKey(id)
-	err := c.cache.Del(ctx, cacheKey)
-	if err != nil {
-		return err
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // SetPlaceholder set placeholder value to cache
 func (c *userExampleCache) SetPlaceholder(ctx context.Context, id uint64) error {
-	cacheKey := c.GetUserExampleCacheKey(id)
-	return c.cache.SetCacheWithNotFound(ctx, cacheKey)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsPlaceholderErr check if cache is placeholder error
 func (c *userExampleCache) IsPlaceholderErr(err error) bool {
-	return errors.Is(err, cache.ErrPlaceholder)
+	_ = "STUB: not implemented"
+	return false
 }

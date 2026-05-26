@@ -3,7 +3,6 @@ package interceptor
 import (
 	"context"
 
-	grpc_metadata "github.com/grpc-ecosystem/go-grpc-middleware/v2/metadata"
 	"google.golang.org/grpc"
 )
 
@@ -16,21 +15,22 @@ type authToken struct {
 }
 
 // GetRequestMetadata get metadata
-func (t *authToken) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) { //nolint
-	return map[string]string{
-		"app_id":  t.AppID,
-		"app_key": t.AppKey,
-	}, nil
+func (t *authToken) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
+	_ = "STUB: not implemented" //nolint
+	return nil, nil
 }
 
 // RequireTransportSecurity is require transport secure
 func (t *authToken) RequireTransportSecurity() bool {
-	return t.IsSecure
+	_ = "STUB: not implemented"
+
+	// ClientTokenOption client token
+	return false
 }
 
-// ClientTokenOption client token
 func ClientTokenOption(appID string, appKey string, isSecure bool) grpc.DialOption {
-	return grpc.WithPerRPCCredentials(&authToken{appID, appKey, isSecure})
+	_ = "STUB: not implemented"
+	return *new(grpc.DialOption)
 }
 
 // ---------------------------------- server interceptor ----------------------------------
@@ -48,29 +48,12 @@ type CheckToken func(appID string, appKey string) error
 
 // UnaryServerToken recovery unary token
 func UnaryServerToken(f CheckToken) grpc.UnaryServerInterceptor {
-	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-		appID := grpc_metadata.ExtractIncoming(ctx).Get("app_id")
-		appKey := grpc_metadata.ExtractIncoming(ctx).Get("app_key")
-		err := f(appID, appKey)
-		if err != nil {
-			return nil, err
-		}
-
-		return handler(ctx, req)
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryServerInterceptor)
 }
 
 // StreamServerToken recovery stream token
 func StreamServerToken(f CheckToken) grpc.StreamServerInterceptor {
-	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		ctx := stream.Context()
-		appID := grpc_metadata.ExtractIncoming(ctx).Get("app_id")
-		appKey := grpc_metadata.ExtractIncoming(ctx).Get("app_key")
-		err := f(appID, appKey)
-		if err != nil {
-			return err
-		}
-
-		return handler(srv, stream)
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamServerInterceptor)
 }

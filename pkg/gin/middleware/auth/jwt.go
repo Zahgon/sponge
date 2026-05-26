@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/go-dev-frame/sponge/pkg/errcode"
-	"github.com/go-dev-frame/sponge/pkg/gin/response"
 	"github.com/go-dev-frame/sponge/pkg/jwt"
 )
 
@@ -35,44 +34,29 @@ type initAuthOptions struct {
 	signingMethod *SigningMethodHMAC
 }
 
-func defaultInitAuthOptions() *initAuthOptions {
-	return &initAuthOptions{
-		signingMethod: HS256,
-	}
-}
+func defaultInitAuthOptions() *initAuthOptions { _ = "STUB: not implemented"; return nil }
 
 // InitAuthOption set the jwt initAuthOptions.
 type InitAuthOption func(*initAuthOptions)
 
-func (o *initAuthOptions) apply(opts ...InitAuthOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *initAuthOptions) apply(opts ...InitAuthOption) { _ = "STUB: not implemented"; return }
 
 // WithInitAuthSigningMethod set signing method value
 func WithInitAuthSigningMethod(sm *jwt.SigningMethodHMAC) InitAuthOption {
-	return func(o *initAuthOptions) {
-		o.signingMethod = sm
-	}
+	_ = "STUB: not implemented"
+	return *new(InitAuthOption)
 }
 
 // WithInitAuthIssuer set issuer value
 func WithInitAuthIssuer(issuer string) InitAuthOption {
-	return func(o *initAuthOptions) {
-		o.issuer = issuer
-	}
+	_ = "STUB: not implemented"
+	return *new(InitAuthOption)
 }
 
 // InitAuth initializes jwt options.
 func InitAuth(signingKey []byte, expire time.Duration, opts ...InitAuthOption) {
-	o := defaultInitAuthOptions()
-	o.apply(opts...)
-
-	customSigningKey = signingKey
-	customExpire = expire
-	customSigningMethod = o.signingMethod
-	customIssuer = o.issuer
+	_ = "STUB: not implemented"
+	return
 }
 
 // GenerateTokenOption set the jwt options.
@@ -83,59 +67,27 @@ type generateTokenOptions struct {
 }
 
 func (o *generateTokenOptions) apply(opts ...GenerateTokenOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // WithGenerateTokenFields set custom fields value
 func WithGenerateTokenFields(fields map[string]interface{}) GenerateTokenOption {
-	return func(o *generateTokenOptions) {
-		o.fields = fields
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTokenOption)
 }
 
 // GenerateToken generates a jwt token with the given uid and options.
 func GenerateToken(uid string, opts ...GenerateTokenOption) (string, error) {
-	if customSigningMethod == nil || len(customSigningKey) == 0 {
-		panic(errOption)
-	}
-
-	genOpts := []jwt.GenerateTokenOption{
-		jwt.WithGenerateTokenSignKey(customSigningKey),
-		jwt.WithGenerateTokenSignMethod(customSigningMethod),
-	}
-	o := &generateTokenOptions{}
-	o.apply(opts...)
-	if len(o.fields) > 0 {
-		genOpts = append(genOpts, jwt.WithGenerateTokenFields(o.fields))
-	}
-
-	claimsOpts := []jwt.RegisteredClaimsOption{
-		jwt.WithExpires(customExpire),
-	}
-	if customIssuer != "" {
-		claimsOpts = append(claimsOpts, jwt.WithIssuer(customIssuer))
-	}
-	genOpts = append(genOpts, jwt.WithGenerateTokenClaims(claimsOpts...))
-
-	_, token, err := jwt.GenerateToken(uid, genOpts...)
-	return token, err
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // ParseToken parses the given token and returns the claims.
-func ParseToken(token string) (*jwt.Claims, error) {
-	if customSigningMethod == nil {
-		panic(errOption)
-	}
-
-	return jwt.ValidateToken(token, jwt.WithValidateTokenSignKey(customSigningKey))
-}
+func ParseToken(token string) (*jwt.Claims, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // RefreshToken create a new token with the given claims.
-func RefreshToken(claims *jwt.Claims) (string, error) {
-	return claims.NewToken(customExpire, customSigningMethod, customSigningKey)
-}
+func RefreshToken(claims *jwt.Claims) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // -------------------------------------------------------------------------------------------
 
@@ -153,77 +105,35 @@ type authOptions struct {
 	extraVerifyFn     ExtraVerifyFn
 }
 
-func defaultAuthOptions() *authOptions {
-	return &authOptions{}
-}
+func defaultAuthOptions() *authOptions { _ = "STUB: not implemented"; return nil }
 
-func (o *authOptions) apply(opts ...AuthOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *authOptions) apply(opts ...AuthOption) { _ = "STUB: not implemented"; return }
 
 // WithReturnErrReason set return error reason
-func WithReturnErrReason() AuthOption {
-	return func(o *authOptions) {
-		o.isReturnErrReason = true
-	}
-}
+func WithReturnErrReason() AuthOption { _ = "STUB: not implemented"; return *new(AuthOption) }
 
 // WithExtraVerify set extra verify function
 func WithExtraVerify(fn ExtraVerifyFn) AuthOption {
-	return func(o *authOptions) {
-		o.extraVerifyFn = fn
-	}
+	_ = "STUB: not implemented"
+	return *new(AuthOption)
 }
 
 func responseUnauthorized(isReturnErrReason bool, errMsg string) *errcode.Error {
-	if isReturnErrReason {
-		return errcode.Unauthorized.RewriteMsg("Unauthorized, " + errMsg)
-	}
-	return errcode.Unauthorized
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Auth authorization middleware, support custom extra verify.
 func Auth(opts ...AuthOption) gin.HandlerFunc {
-	o := defaultAuthOptions()
-	o.apply(opts...)
-
-	return func(c *gin.Context) {
-		authorization := c.GetHeader(HeaderAuthorizationKey)
-		if len(authorization) < 100 {
-			response.Out(c, responseUnauthorized(o.isReturnErrReason, "token is illegal"))
-			c.Abort()
-			return
-		}
-
-		tokenString := authorization[7:] // remove Bearer prefix
-
-		claims, err := ParseToken(tokenString)
-		if err != nil {
-			response.Out(c, responseUnauthorized(o.isReturnErrReason, err.Error()))
-			c.Abort()
-			return
-		}
-		// extra verify function
-		if o.extraVerifyFn != nil {
-			if err = o.extraVerifyFn(claims, c); err != nil {
-				response.Out(c, responseUnauthorized(o.isReturnErrReason, err.Error()))
-				c.Abort()
-				return
-			}
-		}
-		c.Set("claims", claims) // set claims to context
-		c.Next()
-	}
+	_ = "STUB: not implemented"
+	return *new(gin.HandlerFunc)
 }
+
+// remove Bearer prefix
+
+// extra verify function
+
+// set claims to context
 
 // GetClaims get jwt claims from gin context.
-func GetClaims(c *gin.Context) (*jwt.Claims, bool) {
-	claims, exists := c.Get("claims")
-	if !exists {
-		return nil, false
-	}
-	jwtClaims, ok := claims.(*jwt.Claims)
-	return jwtClaims, ok
-}
+func GetClaims(c *gin.Context) (*jwt.Claims, bool) { _ = "STUB: not implemented"; return nil, false }

@@ -13,40 +13,27 @@ type options struct {
 	serverConfigs []constant.ServerConfig
 }
 
-func defaultOptions() *options {
-	return &options{
-		clientConfig:  nil,
-		serverConfigs: nil,
-	}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
 // Option set the nacos client options.
 type Option func(*options)
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithAuth set authentication
 func WithAuth(username string, password string) Option {
-	return func(o *options) {
-		o.username = username
-		o.password = password
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithClientConfig set nacos client config
 func WithClientConfig(clientConfig *constant.ClientConfig) Option {
-	return func(o *options) {
-		o.clientConfig = clientConfig
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithServerConfigs set nacos server config
 func WithServerConfigs(serverConfigs []constant.ServerConfig) Option {
-	return func(o *options) {
-		o.serverConfigs = serverConfigs
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }

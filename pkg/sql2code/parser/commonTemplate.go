@@ -3,8 +3,6 @@ package parser
 import (
 	"sync"
 	"text/template"
-
-	"github.com/pkg/errors"
 )
 
 // nolint
@@ -678,65 +676,4 @@ message List{{.TableName}}Reply {
 	commonTmplParseOnce sync.Once
 )
 
-func initCommonTemplate() {
-	commonTmplParseOnce.Do(func() {
-		var err, errSum error
-
-		handlerCreateStructCommonTmpl, err = template.New("goPostStruct").Parse(handlerCreateStructCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "handlerCreateStructCommonTmplRaw:"+err.Error())
-		}
-		handlerUpdateStructCommonTmpl, err = template.New("goPutStruct").Parse(handlerUpdateStructCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "handlerUpdateStructCommonTmplRaw:"+err.Error())
-		}
-		handlerDetailStructCommonTmpl, err = template.New("goGetStruct").Parse(handlerDetailStructCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "handlerDetailStructCommonTmplRaw:"+err.Error())
-		}
-		protoFileCommonTmpl, err = template.New("protoFile").Parse(protoFileCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "protoFileCommonTmplRaw:"+err.Error())
-		}
-		protoFileSimpleCommonTmpl, err = template.New("protoFileSimple").Parse(protoFileSimpleCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "protoFileSimpleCommonTmplRaw:"+err.Error())
-		}
-		protoFileForWebCommonTmpl, err = template.New("protoFileForWeb").Parse(protoFileForWebCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "protoFileForWebCommonTmplRaw:"+err.Error())
-		}
-		protoFileForSimpleWebCommonTmpl, err = template.New("protoFileForSimpleWeb").Parse(protoFileForSimpleWebCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "protoFileForSimpleWebCommonTmplRaw:"+err.Error())
-		}
-		protoMessageCreateCommonTmpl, err = template.New("protoMessageCreate").Parse(protoMessageCreateCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "protoMessageCreateCommonTmplRaw:"+err.Error())
-		}
-		protoMessageUpdateCommonTmpl, err = template.New("protoMessageUpdate").Parse(protoMessageUpdateCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "protoMessageUpdateCommonTmplRaw:"+err.Error())
-		}
-		protoMessageDetailCommonTmpl, err = template.New("protoMessageDetail").Parse(protoMessageDetailCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "protoMessageDetailCommonTmplRaw:"+err.Error())
-		}
-		serviceCreateStructCommonTmpl, err = template.New("serviceCreateStruct").Parse(serviceCreateStructCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "serviceCreateStructCommonTmplRaw:"+err.Error())
-		}
-		serviceUpdateStructCommonTmpl, err = template.New("serviceUpdateStruct").Parse(serviceUpdateStructCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "serviceUpdateStructCommonTmplRaw:"+err.Error())
-		}
-		serviceStructCommonTmpl, err = template.New("serviceStruct").Parse(serviceStructCommonTmplRaw)
-		if err != nil {
-			errSum = errors.Wrap(errSum, "serviceStructCommonTmplRaw:"+err.Error())
-		}
-
-		if errSum != nil {
-			panic(errSum)
-		}
-	})
-}
+func initCommonTemplate() { _ = "STUB: not implemented"; return }

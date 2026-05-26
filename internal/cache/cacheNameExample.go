@@ -2,12 +2,9 @@ package cache
 
 import (
 	"context"
-	"fmt"
-	"strings"
 	"time"
 
 	"github.com/go-dev-frame/sponge/pkg/cache"
-	"github.com/go-dev-frame/sponge/pkg/encoding"
 
 	"github.com/go-dev-frame/sponge/internal/database"
 )
@@ -40,49 +37,30 @@ type cacheNameExampleCache struct {
 
 // NewCacheNameExampleCache create a new cache
 func NewCacheNameExampleCache(cacheType *database.CacheType) CacheNameExampleCache {
-	newObject := func() interface{} {
-		return ""
-	}
-	cachePrefix := ""
-	jsonEncoding := encoding.JSONEncoding{}
-
-	cType := strings.ToLower(cacheType.CType)
-	switch cType {
-	case "redis":
-		c := cache.NewRedisCache(cacheType.Rdb, cachePrefix, jsonEncoding, newObject)
-		return &cacheNameExampleCache{cache: c}
-	case "memory":
-		c := cache.NewMemoryCache(cachePrefix, jsonEncoding, newObject)
-		return &cacheNameExampleCache{cache: c}
-	}
-
-	panic(fmt.Sprintf("unsupported cache type='%s'", cacheType.CType))
+	_ = "STUB: not implemented"
+	return *new(CacheNameExampleCache)
 }
 
 // cache key
 func (c *cacheNameExampleCache) getCacheKey(keyNameExample keyTypeExample) string {
-	return fmt.Sprintf("%s%v", cacheNameExampleCachePrefixKey, keyNameExample)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Set cache
 func (c *cacheNameExampleCache) Set(ctx context.Context, keyNameExample keyTypeExample, valueNameExample valueTypeExample, duration time.Duration) error {
-	cacheKey := c.getCacheKey(keyNameExample)
-	return c.cache.Set(ctx, cacheKey, &valueNameExample, duration)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Get cache
 func (c *cacheNameExampleCache) Get(ctx context.Context, keyNameExample keyTypeExample) (valueTypeExample, error) {
-	var valueNameExample valueTypeExample
-	cacheKey := c.getCacheKey(keyNameExample)
-	err := c.cache.Get(ctx, cacheKey, &valueNameExample)
-	if err != nil {
-		return valueNameExample, err
-	}
-	return valueNameExample, nil
+	_ = "STUB: not implemented"
+	return *new(valueTypeExample), nil
 }
 
 // Del delete cache
 func (c *cacheNameExampleCache) Del(ctx context.Context, keyNameExample keyTypeExample) error {
-	cacheKey := c.getCacheKey(keyNameExample)
-	return c.cache.Del(ctx, cacheKey)
+	_ = "STUB: not implemented"
+	return nil
 }

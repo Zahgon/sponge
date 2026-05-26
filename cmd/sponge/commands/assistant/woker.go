@@ -45,88 +45,27 @@ type WorkerPool struct {
 
 // NewWorkerPool creates a new worker pool
 func NewWorkerPool(ctx context.Context, workerSize int, jobQueueSize int) (*WorkerPool, error) {
-	if workerSize <= 0 {
-		return nil, fmt.Errorf("workerCount must be greater than 0")
-	}
-
-	ctx, cancel := context.WithCancel(ctx)
-	return &WorkerPool{
-		workerCount: workerSize,
-		jobQueue:    make(chan Job, jobQueueSize),
-		resultChan:  make(chan Result, jobQueueSize),
-		ctx:         ctx,
-		cancel:      cancel,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Start starts the worker pool
-func (wp *WorkerPool) Start() {
-	for i := 0; i < wp.workerCount; i++ {
-		wp.wg.Add(1)
-		go wp.worker()
-	}
-}
+func (wp *WorkerPool) Start() { _ = "STUB: not implemented"; return }
 
 // worker is the goroutine that actually executes tasks
-func (wp *WorkerPool) worker() {
-	defer wp.wg.Done()
-	for {
-		select {
-		case job, ok := <-wp.jobQueue:
-			if !ok {
-				return
-			}
-			var err error
-			var value interface{}
-			startTime := time.Now()
-			if job.Task != nil {
-				value, err = job.Task.Execute(wp.ctx)
-			} else {
-				err = fmt.Errorf("task is nil")
-			}
-			endTime := time.Now()
-			wp.resultChan <- Result{
-				JobID:     job.ID,
-				Value:     value,
-				Err:       err,
-				StartTime: startTime,
-				EndTime:   endTime,
-			}
-		case <-wp.ctx.Done():
-			return
-		}
-	}
-}
+func (wp *WorkerPool) worker() { _ = "STUB: not implemented"; return }
 
 // Submit submits a task to the worker pool
 func (wp *WorkerPool) Submit(job Job, timeout time.Duration) error {
-	if wp.closed {
-		return ErrJobQueueClosed
-	}
-	select {
-	case <-wp.ctx.Done():
-		return ErrJobQueueClosed
-	case wp.jobQueue <- job:
-		return nil
-	case <-time.After(timeout):
-		return ErrJobQueueFull
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Wait waits for all workers to complete and closes the result channel
-func (wp *WorkerPool) Wait() {
-	close(wp.jobQueue)
-	wp.wg.Wait()
-	close(wp.resultChan)
-}
+func (wp *WorkerPool) Wait() { _ = "STUB: not implemented"; return }
 
 // Results returns the result channel
-func (wp *WorkerPool) Results() <-chan Result {
-	return wp.resultChan
-}
+func (wp *WorkerPool) Results() <-chan Result { _ = "STUB: not implemented"; return nil }
 
 // Stop stops the worker pool
-func (wp *WorkerPool) Stop() {
-	wp.closed = true
-	wp.cancel()
-}
+func (wp *WorkerPool) Stop() { _ = "STUB: not implemented"; return }

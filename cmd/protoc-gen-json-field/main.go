@@ -4,12 +4,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/types/pluginpb"
-
-	"github.com/go-dev-frame/sponge/cmd/protoc-gen-json-field/generate"
 )
 
 const helpInfo = `
@@ -50,11 +47,4 @@ func main() {
 	})
 }
 
-func saveJSONFiles(f *protogen.File) error {
-	content, err := generate.GenerateFiles(f)
-	if err != nil {
-		return err
-	}
-	filePath := f.GeneratedFilenamePrefix + ".json"
-	return os.WriteFile(filePath, content, 0666)
-}
+func saveJSONFiles(f *protogen.File) error { _ = "STUB: not implemented"; return nil }

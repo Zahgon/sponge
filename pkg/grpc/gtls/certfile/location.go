@@ -14,10 +14,4 @@ func init() {
 }
 
 // Path return absolute path
-func Path(rel string) string {
-	if filepath.IsAbs(rel) {
-		return rel
-	}
-
-	return filepath.Join(basepath, rel)
-}
+func Path(rel string) string { _ = "STUB: not implemented"; return "" }

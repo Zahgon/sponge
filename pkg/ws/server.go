@@ -3,9 +3,7 @@ package ws
 
 import (
 	"context"
-	"fmt"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -22,58 +20,42 @@ type serverOptions struct {
 	zapLogger           *zap.Logger
 }
 
-func defaultServerOptions() *serverOptions {
-	return &serverOptions{
-		upgrader: &websocket.Upgrader{ // default upgrader
-			CheckOrigin: func(r *http.Request) bool { // allow all origins
-				return true
-			},
-		},
-	}
-}
+func defaultServerOptions() *serverOptions { _ = "STUB: not implemented"; return nil }
 
-func (o *serverOptions) apply(opts ...ServerOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+// default upgrader
+// allow all origins
+
+func (o *serverOptions) apply(opts ...ServerOption) { _ = "STUB: not implemented"; return }
 
 // WithResponseHeader sets the response header for the WebSocket upgrade response.
 func WithResponseHeader(header http.Header) ServerOption {
-	return func(o *serverOptions) {
-		o.responseHeader = header
-	}
+	_ = "STUB: not implemented"
+	return *new(ServerOption)
 }
 
 // WithUpgrader sets the WebSocket upgrader for the server.
 func WithUpgrader(upgrader *websocket.Upgrader) ServerOption {
-	return func(o *serverOptions) {
-		o.upgrader = upgrader
-	}
+	_ = "STUB: not implemented"
+	return *new(ServerOption)
 }
 
 // WithMaxMessageWaitPeriod sets the maximum waiting period for a message before closing the connection.
 // Deprecated: use WithNoClientPingTimeout instead.
 func WithMaxMessageWaitPeriod(period time.Duration) ServerOption {
-	return func(o *serverOptions) {
-		o.noClientPingTimeout = period
-	}
+	_ = "STUB: not implemented"
+	return *new(ServerOption)
 }
 
 // WithNoClientPingTimeout sets the timeout for the client to send a ping message, if timeout, the connection will be closed.
 func WithNoClientPingTimeout(timeout time.Duration) ServerOption {
-	return func(o *serverOptions) {
-		o.noClientPingTimeout = timeout
-	}
+	_ = "STUB: not implemented"
+	return *new(ServerOption)
 }
 
 // WithServerLogger sets the logger for the server.
 func WithServerLogger(l *zap.Logger) ServerOption {
-	return func(o *serverOptions) {
-		if l != nil {
-			o.zapLogger = l
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(ServerOption)
 }
 
 // --------------------------------------------------------------------------------------
@@ -104,56 +86,19 @@ type Server struct {
 
 // NewServer creates a new WebSocket server.
 func NewServer(w http.ResponseWriter, r *http.Request, loopFn LoopFn, opts ...ServerOption) *Server {
-	o := defaultServerOptions()
-	o.apply(opts...)
-	if o.zapLogger == nil {
-		o.zapLogger, _ = zap.NewProduction()
-	}
-
-	return &Server{
-		w:      w,
-		r:      r,
-		loopFn: loopFn,
-
-		upgrader:            o.upgrader,
-		responseHeader:      o.responseHeader,
-		noClientPingTimeout: o.noClientPingTimeout,
-		zapLogger:           o.zapLogger,
-	}
-}
-
-// Run runs the WebSocket server.
-func (s *Server) Run(ctx context.Context) error {
-	conn, err := s.upgrader.Upgrade(s.w, s.r, s.responseHeader)
-	if err != nil {
-		return err
-	}
-	defer conn.Close() //nolint
-
-	fields := []zap.Field{zap.String("client", conn.RemoteAddr().String())}
-	if s.noClientPingTimeout > 0 {
-		// Set initial read deadline
-		if err = conn.SetReadDeadline(time.Now().Add(s.noClientPingTimeout)); err != nil {
-			return err
-		}
-
-		// Set up Ping handling for the connection,
-		// when the client sends a ping message, the server side triggers this callback function
-		conn.SetPingHandler(func(string) error {
-			return conn.SetReadDeadline(time.Now().Add(s.noClientPingTimeout))
-		})
-		fields = append(fields, zap.String("no_ping_timeout", fmt.Sprintf("%vs", s.noClientPingTimeout.Seconds())))
-	}
-
-	s.zapLogger.Info("new websocket connection established", fields...)
-
-	s.loopFn(ctx, conn)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Run runs the WebSocket server.
+func (s *Server) Run(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
+
+//nolint
+
+// Set initial read deadline
+
+// Set up Ping handling for the connection,
+// when the client sends a ping message, the server side triggers this callback function
+
 // IsClientClose returns true if the error is caused by client close.
-func IsClientClose(err error) bool {
-	return strings.Contains(err.Error(), "websocket: close") ||
-		strings.Contains(err.Error(), "closed by the remote host")
-}
+func IsClientClose(err error) bool { _ = "STUB: not implemented"; return false }

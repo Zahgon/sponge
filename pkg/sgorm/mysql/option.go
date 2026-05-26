@@ -32,107 +32,57 @@ type options struct {
 	plugins []gorm.Plugin
 }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // default settings
-func defaultOptions() *options {
-	return &options{
-		isLog:         false,            // whether to output logs, default off
-		slowThreshold: time.Duration(0), // if greater than 0, only print logs that are longer than the threshold, higher priority than isLog
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
-		maxIdleConns:    3,                // set the maximum number of connections in the idle connection pool
-		maxOpenConns:    50,               // set the maximum number of open database connections
-		connMaxLifetime: 30 * time.Minute, // sets the maximum amount of time a connection can be reused
+// whether to output logs, default off
+// if greater than 0, only print logs that are longer than the threshold, higher priority than isLog
 
-		disableForeignKey: true,  // disables the use of foreign keys, true is recommended for production environments, enabled by default
-		enableTrace:       false, // whether to enable link tracing, default is off
+// set the maximum number of connections in the idle connection pool
+// set the maximum number of open database connections
+// sets the maximum amount of time a connection can be reused
 
-		requestIDKey: "",          // request id key
-		gLog:         nil,         // custom logger
-		logLevel:     logger.Info, // default logLevel
-	}
-}
+// disables the use of foreign keys, true is recommended for production environments, enabled by default
+// whether to enable link tracing, default is off
+
+// request id key
+// custom logger
+// default logLevel
 
 // WithLogging set log sql, If l=nil, the gorm log library will be used
 func WithLogging(l *zap.Logger, level ...logger.LogLevel) Option {
-	return func(o *options) {
-		o.isLog = true
-		o.gLog = l
-		if len(level) > 0 {
-			o.logLevel = level[0]
-		} else {
-			o.logLevel = logger.Info
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithSlowThreshold Set sql values greater than the threshold
-func WithSlowThreshold(d time.Duration) Option {
-	return func(o *options) {
-		o.slowThreshold = d
-	}
-}
+func WithSlowThreshold(d time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithMaxIdleConns set max idle conns
-func WithMaxIdleConns(size int) Option {
-	return func(o *options) {
-		o.maxIdleConns = size
-	}
-}
+func WithMaxIdleConns(size int) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithMaxOpenConns set max open conns
-func WithMaxOpenConns(size int) Option {
-	return func(o *options) {
-		o.maxOpenConns = size
-	}
-}
+func WithMaxOpenConns(size int) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithConnMaxLifetime set conn max lifetime
-func WithConnMaxLifetime(t time.Duration) Option {
-	return func(o *options) {
-		o.connMaxLifetime = t
-	}
-}
+func WithConnMaxLifetime(t time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableForeignKey use foreign keys
-func WithEnableForeignKey() Option {
-	return func(o *options) {
-		o.disableForeignKey = false
-	}
-}
+func WithEnableForeignKey() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableTrace use trace
-func WithEnableTrace() Option {
-	return func(o *options) {
-		o.enableTrace = true
-	}
-}
+func WithEnableTrace() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithLogRequestIDKey log request id
-func WithLogRequestIDKey(key string) Option {
-	return func(o *options) {
-		if key == "" {
-			key = "request_id"
-		}
-		o.requestIDKey = key
-	}
-}
+func WithLogRequestIDKey(key string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithRWSeparation setting read-write separation
 func WithRWSeparation(slavesDsn []string, mastersDsn ...string) Option {
-	return func(o *options) {
-		o.slavesDsn = slavesDsn
-		o.mastersDsn = mastersDsn
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithGormPlugin setting gorm plugin
-func WithGormPlugin(plugins ...gorm.Plugin) Option {
-	return func(o *options) {
-		o.plugins = plugins
-	}
-}
+func WithGormPlugin(plugins ...gorm.Plugin) Option { _ = "STUB: not implemented"; return *new(Option) }

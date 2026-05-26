@@ -1,14 +1,6 @@
 package staticfs
 
 import (
-	"fmt"
-	"html/template"
-	"net/http"
-	"os"
-	"path/filepath"
-	"sort"
-	"strconv"
-	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -24,58 +16,41 @@ type listDirOptions struct {
 	middlewares    []gin.HandlerFunc
 }
 
-func (o *listDirOptions) apply(opts ...ListDirOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *listDirOptions) apply(opts ...ListDirOption) { _ = "STUB: not implemented"; return }
 
-func defaultListDirOptions() *listDirOptions {
-	return &listDirOptions{
-		enableFilter: true,
-	}
-}
+func defaultListDirOptions() *listDirOptions { _ = "STUB: not implemented"; return nil }
 
 // WithListDirPrefixPath sets prefix path.
 func WithListDirPrefixPath(prefixPath string) ListDirOption {
-	return func(o *listDirOptions) {
-		o.prefixPath = prefixPath
-	}
+	_ = "STUB: not implemented"
+	return *new(ListDirOption)
 }
 
 // WithListDirDownload enables download feature.
-func WithListDirDownload() ListDirOption {
-	return func(o *listDirOptions) {
-		o.enableDownload = true
-	}
-}
+func WithListDirDownload() ListDirOption { _ = "STUB: not implemented"; return *new(ListDirOption) }
 
 // WithListDirFilter enables file filter feature.
 func WithListDirFilter(enable bool) ListDirOption {
-	return func(o *listDirOptions) {
-		o.enableFilter = enable
-	}
+	_ = "STUB: not implemented"
+	return *new(ListDirOption)
 }
 
 // WithListDirFilesFilter sets file name filter.
 func WithListDirFilesFilter(filters ...string) ListDirOption {
-	return func(o *listDirOptions) {
-		sensitiveFiles = append(sensitiveFiles, filters...)
-	}
+	_ = "STUB: not implemented"
+	return *new(ListDirOption)
 }
 
 // WithListDirDirsFilter sets directory name filter.
 func WithListDirDirsFilter(filters ...string) ListDirOption {
-	return func(o *listDirOptions) {
-		sensitiveDirs = append(sensitiveDirs, filters...)
-	}
+	_ = "STUB: not implemented"
+	return *new(ListDirOption)
 }
 
 // WithListDirMiddlewares sets middlewares.
 func WithListDirMiddlewares(middlewares ...gin.HandlerFunc) ListDirOption {
-	return func(o *listDirOptions) {
-		o.middlewares = append(o.middlewares, middlewares...)
-	}
+	_ = "STUB: not implemented"
+	return *new(ListDirOption)
 }
 
 // -------------------------------------------------------------------------------------------
@@ -93,253 +68,50 @@ type FileInfo struct {
 var sensitiveDirs = []string{"/proc", "/sys", "/dev", "/run", "/boot", "/root", "/etc"}
 var sensitiveFiles = []string{".git", ".env", ".DS_Store"}
 
-func isAllowedPath(p string, enableFilter bool) bool {
-	if !enableFilter {
-		return true
-	}
-	for _, s := range sensitiveDirs {
-		if strings.HasPrefix(p, s) {
-			return false
-		}
-	}
-	for _, f := range sensitiveFiles {
-		if strings.Contains(p, f) {
-			return false
-		}
-	}
-	return true
-}
+func isAllowedPath(p string, enableFilter bool) bool { _ = "STUB: not implemented"; return false }
 
 // nolint
-func formatSize(size int64) string {
-	const (
-		KB = 1024
-		MB = 1024 * KB
-		GB = 1024 * MB
-	)
-	switch {
-	case size >= GB:
-		return fmt.Sprintf("%.2f GB", float64(size)/float64(GB))
-	case size >= MB:
-		return fmt.Sprintf("%.2f MB", float64(size)/float64(MB))
-	case size >= KB:
-		return fmt.Sprintf("%.2f KB", float64(size)/float64(KB))
-	default:
-		return fmt.Sprintf("%d B", size)
-	}
-}
+func formatSize(size int64) string { _ = "STUB: not implemented"; return "" }
 
 func listDirectory(dir string, enableFilter bool) ([]FileInfo, error) {
-	entries, err := os.ReadDir(dir)
-	if err != nil {
-		return nil, err
-	}
-
-	var files []FileInfo
-	for _, entry := range entries {
-		fullPath := filepath.Join(dir, entry.Name())
-		if !isAllowedPath(fullPath, enableFilter) {
-			continue
-		}
-
-		info, _ := entry.Info()
-		files = append(files, FileInfo{
-			Name:    entry.Name(),
-			Path:    fullPath,
-			IsDir:   entry.IsDir(),
-			Size:    info.Size(),
-			ModTime: info.ModTime(),
-		})
-	}
-	return files, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func sortFiles(files []FileInfo, sortBy, order string) {
-	desc := order != "asc" // default: desc
-	switch sortBy {
-	case "time":
-		sort.Slice(files, func(i, j int) bool {
-			if desc {
-				return files[i].ModTime.After(files[j].ModTime)
-			}
-			return files[i].ModTime.Before(files[j].ModTime)
-		})
-	case "size":
-		sort.Slice(files, func(i, j int) bool {
-			if desc {
-				return files[i].Size > files[j].Size
-			}
-			return files[i].Size < files[j].Size
-		})
-	default: // name
-		sort.Slice(files, func(i, j int) bool {
-			if desc {
-				return strings.ToLower(files[i].Name) > strings.ToLower(files[j].Name)
-			}
-			return strings.ToLower(files[i].Name) < strings.ToLower(files[j].Name)
-		})
-	}
-}
+func sortFiles(files []FileInfo, sortBy, order string) { _ = "STUB: not implemented"; return }
 
-func toggleOrder(current string) string {
-	if current == "asc" {
-		return "desc"
-	}
-	return "asc"
-}
+// default: desc
 
-func badRequestData(data any) gin.H {
-	return gin.H{"code": 400, "msg": "not found", "data": data}
-}
+// name
+
+func toggleOrder(current string) string { _ = "STUB: not implemented"; return "" }
+
+func badRequestData(data any) gin.H { _ = "STUB: not implemented"; return *new(gin.H) }
 
 func handleList(prefixPath string, o *listDirOptions) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		dir := c.Query("dir")
-		root := c.Query("root")
-		sortBy := c.DefaultQuery("sort", "size")
-		order := c.DefaultQuery("order", "desc")
-		page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-		if page < 1 {
-			page = 1
-		}
-		pageSize := 20 // Default display of 20 files per page.
-
-		if dir == "" {
-			c.JSON(http.StatusBadRequest, badRequestData("dir parameter is required, e.g. /list?dir=/tmp/dist"))
-			return
-		}
-		if root == "" {
-			root = dir
-		}
-
-		files, err := listDirectory(dir, o.enableFilter)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, badRequestData(fmt.Sprintf("failed to read directory: %v", err)))
-			return
-		}
-		sortFiles(files, sortBy, order)
-
-		// Calculate pagination information
-		totalFiles := len(files)
-		totalPages := (totalFiles + pageSize - 1) / pageSize
-		if page > totalPages && totalPages > 0 {
-			page = totalPages
-		}
-
-		// Pagination
-		startIndex := (page - 1) * pageSize
-		endIndex := startIndex + pageSize
-		if endIndex > totalFiles {
-			endIndex = totalFiles
-		}
-
-		// Retrieve the file of the current page
-		var pagedFiles []FileInfo
-		if startIndex < totalFiles {
-			pagedFiles = files[startIndex:endIndex]
-		}
-
-		var parentDir string
-		if dir != root {
-			parentDir = filepath.Dir(strings.TrimRight(dir, "/"))
-			if parentDir == "" {
-				parentDir = "/"
-			}
-		}
-
-		// Template FuncMap
-		funcMap := template.FuncMap{
-			"ToUpper":    strings.ToUpper,
-			"FormatSize": formatSize,
-		}
-
-		tmpl := template.Must(template.New("list-dir").Funcs(funcMap).Parse(htmlTextSrc))
-
-		c.Header("Content-Type", "text/html; charset=utf-8")
-		_ = tmpl.Execute(c.Writer, gin.H{
-			"Dir":            dir,
-			"Root":           root,
-			"ParentDir":      parentDir,
-			"Files":          pagedFiles,
-			"SortBy":         sortBy,
-			"Order":          order,
-			"NextOrder":      toggleOrder(order),
-			"EnableFileMeta": true,
-			"EnableDownload": o.enableDownload,
-			"ListPath":       prefixPath + "/dir/list",
-			"DownloadPath":   prefixPath + "/dir/file/download",
-			"CurrentPage":    page,
-			"TotalPages":     totalPages,
-			"HasPrevPage":    page > 1,
-			"HasNextPage":    page < totalPages,
-			"PrevPage":       page - 1,
-			"NextPage":       page + 1,
-		})
-	}
+	_ = "STUB: not implemented"
+	return *new(gin.HandlerFunc)
 }
 
-func handleDownload(c *gin.Context) {
-	path := c.Query("path")
-	if path == "" || !isAllowedPath(path, true) {
-		c.JSON(http.StatusBadRequest, badRequestData("invalid file path"))
-		return
-	}
-	c.FileAttachment(path, filepath.Base(path))
-}
+// Default display of 20 files per page.
+
+// Calculate pagination information
+
+// Pagination
+
+// Retrieve the file of the current page
+
+// Template FuncMap
+
+func handleDownload(c *gin.Context) { _ = "STUB: not implemented"; return }
 
 func handleAPIList(enableFilter bool) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		dir := c.Query("dir")
-		sortBy := c.DefaultQuery("sort", "name")
-		order := c.DefaultQuery("order", "desc")
-
-		files, err := listDirectory(dir, enableFilter)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, badRequestData(fmt.Sprintf("failed to read directory: %v", err)))
-			return
-		}
-
-		sortFiles(files, sortBy, order)
-		c.JSON(http.StatusOK, gin.H{
-			"dir":   dir,
-			"sort":  sortBy,
-			"order": order,
-			"files": files,
-		})
-	}
+	_ = "STUB: not implemented"
+	return *new(gin.HandlerFunc)
 }
 
 // ListDir registers the routes for serving static files.
-func ListDir(r *gin.Engine, opts ...ListDirOption) {
-	o := defaultListDirOptions()
-	o.apply(opts...)
-
-	prefixPath := o.prefixPath
-	if prefixPath != "" {
-		if !strings.HasPrefix(prefixPath, "/") {
-			prefixPath = "/" + prefixPath
-		}
-		prefixPath = strings.TrimSuffix(prefixPath, "/")
-	}
-	if prefixPath == "/" {
-		prefixPath = ""
-	}
-
-	if len(o.middlewares) > 0 {
-		group := r.Group("", o.middlewares...)
-		group.GET(prefixPath+"/dir/list", handleList(prefixPath, o))
-		if o.enableDownload {
-			group.GET(prefixPath+"/dir/file/download", handleDownload)
-		}
-		group.GET(prefixPath+"/dir/list/api", handleAPIList(o.enableFilter))
-	} else {
-		r.GET(prefixPath+"/dir/list", handleList(prefixPath, o))
-		if o.enableDownload {
-			r.GET(prefixPath+"/dir/file/download", handleDownload)
-		}
-		r.GET(prefixPath+"/dir/list/api", handleAPIList(o.enableFilter))
-	}
-}
+func ListDir(r *gin.Engine, opts ...ListDirOption) { _ = "STUB: not implemented"; return }
 
 // nolint
 var htmlTextSrc = `

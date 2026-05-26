@@ -38,168 +38,24 @@ var (
 // Validate checks the field values on CreateUserExampleRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *CreateUserExampleRequest) Validate() error {
-	return m.validate(false)
-}
+func (m *CreateUserExampleRequest) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on CreateUserExampleRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // CreateUserExampleRequestMultiError, or nil if none found.
-func (m *CreateUserExampleRequest) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *CreateUserExampleRequest) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
-func (m *CreateUserExampleRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if utf8.RuneCountInString(m.GetName()) < 2 {
-		err := CreateUserExampleRequestValidationError{
-			field:  "Name",
-			reason: "value length must be at least 2 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if err := m._validateEmail(m.GetEmail()); err != nil {
-		err = CreateUserExampleRequestValidationError{
-			field:  "Email",
-			reason: "value must be a valid email address",
-			cause:  err,
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetPassword()) < 10 {
-		err := CreateUserExampleRequestValidationError{
-			field:  "Password",
-			reason: "value length must be at least 10 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_CreateUserExampleRequest_Phone_Pattern.MatchString(m.GetPhone()) {
-		err := CreateUserExampleRequestValidationError{
-			field:  "Phone",
-			reason: "value does not match regex pattern \"^1[3456789]\\\\d{9}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if uri, err := url.Parse(m.GetAvatar()); err != nil {
-		err = CreateUserExampleRequestValidationError{
-			field:  "Avatar",
-			reason: "value must be a valid URI",
-			cause:  err,
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	} else if !uri.IsAbs() {
-		err := CreateUserExampleRequestValidationError{
-			field:  "Avatar",
-			reason: "value must be absolute",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if val := m.GetAge(); val < 0 || val > 120 {
-		err := CreateUserExampleRequestValidationError{
-			field:  "Age",
-			reason: "value must be inside range [0, 120]",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if _, ok := GenderType_name[int32(m.GetGender())]; !ok {
-		err := CreateUserExampleRequestValidationError{
-			field:  "Gender",
-			reason: "value must be one of the defined enum values",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return CreateUserExampleRequestMultiError(errors)
-	}
-
-	return nil
-}
+func (m *CreateUserExampleRequest) validate(all bool) error { _ = "STUB: not implemented"; return nil }
 
 func (m *CreateUserExampleRequest) _validateHostname(host string) error {
-	s := strings.ToLower(strings.TrimSuffix(host, "."))
-
-	if len(host) > 253 {
-		return errors.New("hostname cannot exceed 253 characters")
-	}
-
-	for _, part := range strings.Split(s, ".") {
-		if l := len(part); l == 0 || l > 63 {
-			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
-		}
-
-		if part[0] == '-' {
-			return errors.New("hostname parts cannot begin with hyphens")
-		}
-
-		if part[len(part)-1] == '-' {
-			return errors.New("hostname parts cannot end with hyphens")
-		}
-
-		for _, r := range part {
-			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
-				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
-			}
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (m *CreateUserExampleRequest) _validateEmail(addr string) error {
-	a, err := mail.ParseAddress(addr)
-	if err != nil {
-		return err
-	}
-	addr = a.Address
-
-	if len(addr) > 254 {
-		return errors.New("email addresses cannot exceed 254 characters")
-	}
-
-	parts := strings.SplitN(addr, "@", 2)
-
-	if len(parts[0]) > 64 {
-		return errors.New("email address local phrase cannot exceed 64 characters")
-	}
-
-	return m._validateHostname(parts[1])
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CreateUserExampleRequestMultiError is an error wrapping multiple validation
@@ -208,19 +64,17 @@ func (m *CreateUserExampleRequest) _validateEmail(addr string) error {
 type CreateUserExampleRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CreateUserExampleRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m CreateUserExampleRequestMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m CreateUserExampleRequestMultiError) AllErrors() []error { return m }
+func (m CreateUserExampleRequestMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// CreateUserExampleRequestValidationError is the validation error returned by
-// CreateUserExampleRequest.Validate if the designated constraints aren't met.
+	// CreateUserExampleRequestValidationError is the validation error returned by
+	// CreateUserExampleRequest.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type CreateUserExampleRequestValidationError struct {
 	field  string
 	reason string
@@ -229,40 +83,43 @@ type CreateUserExampleRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateUserExampleRequestValidationError) Field() string { return e.field }
+func (e CreateUserExampleRequestValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e CreateUserExampleRequestValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e CreateUserExampleRequestValidationError) Cause() error { return e.cause }
+func (e CreateUserExampleRequestValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e CreateUserExampleRequestValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e CreateUserExampleRequestValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e CreateUserExampleRequestValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e CreateUserExampleRequestValidationError) ErrorName() string {
-	return "CreateUserExampleRequestValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
 func (e CreateUserExampleRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sCreateUserExampleRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 var _ error = CreateUserExampleRequestValidationError{}
@@ -280,33 +137,17 @@ var _CreateUserExampleRequest_Phone_Pattern = regexp.MustCompile("^1[3456789]\\d
 // Validate checks the field values on CreateUserExampleReply with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *CreateUserExampleReply) Validate() error {
-	return m.validate(false)
-}
+func (m *CreateUserExampleReply) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on CreateUserExampleReply with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // CreateUserExampleReplyMultiError, or nil if none found.
-func (m *CreateUserExampleReply) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *CreateUserExampleReply) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
-func (m *CreateUserExampleReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
+func (m *CreateUserExampleReply) validate(all bool) error { _ = "STUB: not implemented"; return nil }
 
-	var errors []error
-
-	// no validation rules for Id
-
-	if len(errors) > 0 {
-		return CreateUserExampleReplyMultiError(errors)
-	}
-
-	return nil
-}
+// no validation rules for Id
 
 // CreateUserExampleReplyMultiError is an error wrapping multiple validation
 // errors returned by CreateUserExampleReply.ValidateAll() if the designated
@@ -314,19 +155,17 @@ func (m *CreateUserExampleReply) validate(all bool) error {
 type CreateUserExampleReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CreateUserExampleReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m CreateUserExampleReplyMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m CreateUserExampleReplyMultiError) AllErrors() []error { return m }
+func (m CreateUserExampleReplyMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// CreateUserExampleReplyValidationError is the validation error returned by
-// CreateUserExampleReply.Validate if the designated constraints aren't met.
+	// CreateUserExampleReplyValidationError is the validation error returned by
+	// CreateUserExampleReply.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type CreateUserExampleReplyValidationError struct {
 	field  string
 	reason string
@@ -335,41 +174,41 @@ type CreateUserExampleReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateUserExampleReplyValidationError) Field() string { return e.field }
+func (e CreateUserExampleReplyValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e CreateUserExampleReplyValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e CreateUserExampleReplyValidationError) Cause() error { return e.cause }
+func (e CreateUserExampleReplyValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e CreateUserExampleReplyValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e CreateUserExampleReplyValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e CreateUserExampleReplyValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e CreateUserExampleReplyValidationError) ErrorName() string {
-	return "CreateUserExampleReplyValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
-func (e CreateUserExampleReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sCreateUserExampleReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
+func (e CreateUserExampleReplyValidationError) Error() string { _ = "STUB: not implemented"; return "" }
 
 var _ error = CreateUserExampleReplyValidationError{}
 
@@ -384,40 +223,16 @@ var _ interface {
 // Validate checks the field values on DeleteUserExampleByIDRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *DeleteUserExampleByIDRequest) Validate() error {
-	return m.validate(false)
-}
+func (m *DeleteUserExampleByIDRequest) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on DeleteUserExampleByIDRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // DeleteUserExampleByIDRequestMultiError, or nil if none found.
-func (m *DeleteUserExampleByIDRequest) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *DeleteUserExampleByIDRequest) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
 func (m *DeleteUserExampleByIDRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.GetId() < 1 {
-		err := DeleteUserExampleByIDRequestValidationError{
-			field:  "Id",
-			reason: "value must be greater than or equal to 1",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return DeleteUserExampleByIDRequestMultiError(errors)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -428,19 +243,20 @@ type DeleteUserExampleByIDRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m DeleteUserExampleByIDRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeleteUserExampleByIDRequestMultiError) AllErrors() []error { return m }
+func (m DeleteUserExampleByIDRequestMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// DeleteUserExampleByIDRequestValidationError is the validation error returned
-// by DeleteUserExampleByIDRequest.Validate if the designated constraints
-// aren't met.
+	// DeleteUserExampleByIDRequestValidationError is the validation error returned
+	// by DeleteUserExampleByIDRequest.Validate if the designated constraints
+	// aren't met.
+	return nil
+}
+
 type DeleteUserExampleByIDRequestValidationError struct {
 	field  string
 	reason string
@@ -449,40 +265,43 @@ type DeleteUserExampleByIDRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteUserExampleByIDRequestValidationError) Field() string { return e.field }
+func (e DeleteUserExampleByIDRequestValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e DeleteUserExampleByIDRequestValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e DeleteUserExampleByIDRequestValidationError) Cause() error { return e.cause }
+func (e DeleteUserExampleByIDRequestValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e DeleteUserExampleByIDRequestValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e DeleteUserExampleByIDRequestValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e DeleteUserExampleByIDRequestValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e DeleteUserExampleByIDRequestValidationError) ErrorName() string {
-	return "DeleteUserExampleByIDRequestValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
 func (e DeleteUserExampleByIDRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteUserExampleByIDRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 var _ error = DeleteUserExampleByIDRequestValidationError{}
@@ -498,29 +317,16 @@ var _ interface {
 // Validate checks the field values on DeleteUserExampleByIDReply with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *DeleteUserExampleByIDReply) Validate() error {
-	return m.validate(false)
-}
+func (m *DeleteUserExampleByIDReply) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on DeleteUserExampleByIDReply with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // DeleteUserExampleByIDReplyMultiError, or nil if none found.
-func (m *DeleteUserExampleByIDReply) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *DeleteUserExampleByIDReply) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
 func (m *DeleteUserExampleByIDReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return DeleteUserExampleByIDReplyMultiError(errors)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -530,19 +336,17 @@ func (m *DeleteUserExampleByIDReply) validate(all bool) error {
 type DeleteUserExampleByIDReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DeleteUserExampleByIDReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m DeleteUserExampleByIDReplyMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeleteUserExampleByIDReplyMultiError) AllErrors() []error { return m }
+func (m DeleteUserExampleByIDReplyMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// DeleteUserExampleByIDReplyValidationError is the validation error returned
-// by DeleteUserExampleByIDReply.Validate if the designated constraints aren't met.
+	// DeleteUserExampleByIDReplyValidationError is the validation error returned
+	// by DeleteUserExampleByIDReply.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type DeleteUserExampleByIDReplyValidationError struct {
 	field  string
 	reason string
@@ -551,40 +355,43 @@ type DeleteUserExampleByIDReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteUserExampleByIDReplyValidationError) Field() string { return e.field }
+func (e DeleteUserExampleByIDReplyValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e DeleteUserExampleByIDReplyValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e DeleteUserExampleByIDReplyValidationError) Cause() error { return e.cause }
+func (e DeleteUserExampleByIDReplyValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e DeleteUserExampleByIDReplyValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e DeleteUserExampleByIDReplyValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e DeleteUserExampleByIDReplyValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e DeleteUserExampleByIDReplyValidationError) ErrorName() string {
-	return "DeleteUserExampleByIDReplyValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
 func (e DeleteUserExampleByIDReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sDeleteUserExampleByIDReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 var _ error = DeleteUserExampleByIDReplyValidationError{}
@@ -600,60 +407,36 @@ var _ interface {
 // Validate checks the field values on UpdateUserExampleByIDRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *UpdateUserExampleByIDRequest) Validate() error {
-	return m.validate(false)
-}
+func (m *UpdateUserExampleByIDRequest) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on UpdateUserExampleByIDRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // UpdateUserExampleByIDRequestMultiError, or nil if none found.
-func (m *UpdateUserExampleByIDRequest) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *UpdateUserExampleByIDRequest) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
 func (m *UpdateUserExampleByIDRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.GetId() < 1 {
-		err := UpdateUserExampleByIDRequestValidationError{
-			field:  "Id",
-			reason: "value must be greater than or equal to 1",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	// no validation rules for Name
-
-	// no validation rules for Email
-
-	// no validation rules for Password
-
-	// no validation rules for Phone
-
-	// no validation rules for Avatar
-
-	// no validation rules for Age
-
-	// no validation rules for Gender
-
-	// no validation rules for Status
-
-	// no validation rules for LoginAt
-
-	if len(errors) > 0 {
-		return UpdateUserExampleByIDRequestMultiError(errors)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// no validation rules for Name
+
+// no validation rules for Email
+
+// no validation rules for Password
+
+// no validation rules for Phone
+
+// no validation rules for Avatar
+
+// no validation rules for Age
+
+// no validation rules for Gender
+
+// no validation rules for Status
+
+// no validation rules for LoginAt
 
 // UpdateUserExampleByIDRequestMultiError is an error wrapping multiple
 // validation errors returned by UpdateUserExampleByIDRequest.ValidateAll() if
@@ -662,19 +445,20 @@ type UpdateUserExampleByIDRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m UpdateUserExampleByIDRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m UpdateUserExampleByIDRequestMultiError) AllErrors() []error { return m }
+func (m UpdateUserExampleByIDRequestMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// UpdateUserExampleByIDRequestValidationError is the validation error returned
-// by UpdateUserExampleByIDRequest.Validate if the designated constraints
-// aren't met.
+	// UpdateUserExampleByIDRequestValidationError is the validation error returned
+	// by UpdateUserExampleByIDRequest.Validate if the designated constraints
+	// aren't met.
+	return nil
+}
+
 type UpdateUserExampleByIDRequestValidationError struct {
 	field  string
 	reason string
@@ -683,40 +467,43 @@ type UpdateUserExampleByIDRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e UpdateUserExampleByIDRequestValidationError) Field() string { return e.field }
+func (e UpdateUserExampleByIDRequestValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e UpdateUserExampleByIDRequestValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e UpdateUserExampleByIDRequestValidationError) Cause() error { return e.cause }
+func (e UpdateUserExampleByIDRequestValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e UpdateUserExampleByIDRequestValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e UpdateUserExampleByIDRequestValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e UpdateUserExampleByIDRequestValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e UpdateUserExampleByIDRequestValidationError) ErrorName() string {
-	return "UpdateUserExampleByIDRequestValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
 func (e UpdateUserExampleByIDRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateUserExampleByIDRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 var _ error = UpdateUserExampleByIDRequestValidationError{}
@@ -732,29 +519,16 @@ var _ interface {
 // Validate checks the field values on UpdateUserExampleByIDReply with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *UpdateUserExampleByIDReply) Validate() error {
-	return m.validate(false)
-}
+func (m *UpdateUserExampleByIDReply) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on UpdateUserExampleByIDReply with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // UpdateUserExampleByIDReplyMultiError, or nil if none found.
-func (m *UpdateUserExampleByIDReply) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *UpdateUserExampleByIDReply) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
 func (m *UpdateUserExampleByIDReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return UpdateUserExampleByIDReplyMultiError(errors)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -764,19 +538,17 @@ func (m *UpdateUserExampleByIDReply) validate(all bool) error {
 type UpdateUserExampleByIDReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UpdateUserExampleByIDReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m UpdateUserExampleByIDReplyMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m UpdateUserExampleByIDReplyMultiError) AllErrors() []error { return m }
+func (m UpdateUserExampleByIDReplyMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// UpdateUserExampleByIDReplyValidationError is the validation error returned
-// by UpdateUserExampleByIDReply.Validate if the designated constraints aren't met.
+	// UpdateUserExampleByIDReplyValidationError is the validation error returned
+	// by UpdateUserExampleByIDReply.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type UpdateUserExampleByIDReplyValidationError struct {
 	field  string
 	reason string
@@ -785,40 +557,43 @@ type UpdateUserExampleByIDReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e UpdateUserExampleByIDReplyValidationError) Field() string { return e.field }
+func (e UpdateUserExampleByIDReplyValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e UpdateUserExampleByIDReplyValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e UpdateUserExampleByIDReplyValidationError) Cause() error { return e.cause }
+func (e UpdateUserExampleByIDReplyValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e UpdateUserExampleByIDReplyValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e UpdateUserExampleByIDReplyValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e UpdateUserExampleByIDReplyValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e UpdateUserExampleByIDReplyValidationError) ErrorName() string {
-	return "UpdateUserExampleByIDReplyValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
 func (e UpdateUserExampleByIDReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateUserExampleByIDReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 var _ error = UpdateUserExampleByIDReplyValidationError{}
@@ -834,72 +609,54 @@ var _ interface {
 // Validate checks the field values on UserExample with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *UserExample) Validate() error {
-	return m.validate(false)
-}
+func (m *UserExample) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on UserExample with the rules defined in
 // the proto definition for this message. If any rules are violated, the
 // result is a list of violation errors wrapped in UserExampleMultiError, or
 // nil if none found.
-func (m *UserExample) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *UserExample) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
-func (m *UserExample) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
+func (m *UserExample) validate(all bool) error { _ = "STUB: not implemented"; return nil }
 
-	var errors []error
+// no validation rules for Id
 
-	// no validation rules for Id
+// no validation rules for Name
 
-	// no validation rules for Name
+// no validation rules for Email
 
-	// no validation rules for Email
+// no validation rules for Phone
 
-	// no validation rules for Phone
+// no validation rules for Avatar
 
-	// no validation rules for Avatar
+// no validation rules for Age
 
-	// no validation rules for Age
+// no validation rules for Gender
 
-	// no validation rules for Gender
+// no validation rules for Status
 
-	// no validation rules for Status
+// no validation rules for LoginAt
 
-	// no validation rules for LoginAt
+// no validation rules for CreatedAt
 
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
-
-	if len(errors) > 0 {
-		return UserExampleMultiError(errors)
-	}
-
-	return nil
-}
+// no validation rules for UpdatedAt
 
 // UserExampleMultiError is an error wrapping multiple validation errors
 // returned by UserExample.ValidateAll() if the designated constraints aren't met.
 type UserExampleMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UserExampleMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m UserExampleMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m UserExampleMultiError) AllErrors() []error { return m }
+func (m UserExampleMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// UserExampleValidationError is the validation error returned by
-// UserExample.Validate if the designated constraints aren't met.
+	// UserExampleValidationError is the validation error returned by
+	// UserExample.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type UserExampleValidationError struct {
 	field  string
 	reason string
@@ -908,39 +665,38 @@ type UserExampleValidationError struct {
 }
 
 // Field function returns field value.
-func (e UserExampleValidationError) Field() string { return e.field }
+func (e UserExampleValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e UserExampleValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e UserExampleValidationError) Cause() error { return e.cause }
+func (e UserExampleValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e UserExampleValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
-func (e UserExampleValidationError) ErrorName() string { return "UserExampleValidationError" }
+func (e UserExampleValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e UserExampleValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
+func (e UserExampleValidationError) ErrorName() string { _ = "STUB: not implemented"; return "" }
 
 // Error satisfies the builtin error interface
-func (e UserExampleValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUserExample.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
+func (e UserExampleValidationError) Error() string { _ = "STUB: not implemented"; return "" }
 
 var _ error = UserExampleValidationError{}
 
@@ -955,42 +711,15 @@ var _ interface {
 // Validate checks the field values on GetUserExampleByIDRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetUserExampleByIDRequest) Validate() error {
-	return m.validate(false)
-}
+func (m *GetUserExampleByIDRequest) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on GetUserExampleByIDRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // GetUserExampleByIDRequestMultiError, or nil if none found.
-func (m *GetUserExampleByIDRequest) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *GetUserExampleByIDRequest) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
-func (m *GetUserExampleByIDRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.GetId() < 1 {
-		err := GetUserExampleByIDRequestValidationError{
-			field:  "Id",
-			reason: "value must be greater than or equal to 1",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return GetUserExampleByIDRequestMultiError(errors)
-	}
-
-	return nil
-}
+func (m *GetUserExampleByIDRequest) validate(all bool) error { _ = "STUB: not implemented"; return nil }
 
 // GetUserExampleByIDRequestMultiError is an error wrapping multiple validation
 // errors returned by GetUserExampleByIDRequest.ValidateAll() if the
@@ -998,19 +727,17 @@ func (m *GetUserExampleByIDRequest) validate(all bool) error {
 type GetUserExampleByIDRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetUserExampleByIDRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m GetUserExampleByIDRequestMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetUserExampleByIDRequestMultiError) AllErrors() []error { return m }
+func (m GetUserExampleByIDRequestMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// GetUserExampleByIDRequestValidationError is the validation error returned by
-// GetUserExampleByIDRequest.Validate if the designated constraints aren't met.
+	// GetUserExampleByIDRequestValidationError is the validation error returned by
+	// GetUserExampleByIDRequest.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type GetUserExampleByIDRequestValidationError struct {
 	field  string
 	reason string
@@ -1019,40 +746,43 @@ type GetUserExampleByIDRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetUserExampleByIDRequestValidationError) Field() string { return e.field }
+func (e GetUserExampleByIDRequestValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e GetUserExampleByIDRequestValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e GetUserExampleByIDRequestValidationError) Cause() error { return e.cause }
+func (e GetUserExampleByIDRequestValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e GetUserExampleByIDRequestValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e GetUserExampleByIDRequestValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e GetUserExampleByIDRequestValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e GetUserExampleByIDRequestValidationError) ErrorName() string {
-	return "GetUserExampleByIDRequestValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
 func (e GetUserExampleByIDRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetUserExampleByIDRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 var _ error = GetUserExampleByIDRequestValidationError{}
@@ -1068,60 +798,15 @@ var _ interface {
 // Validate checks the field values on GetUserExampleByIDReply with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetUserExampleByIDReply) Validate() error {
-	return m.validate(false)
-}
+func (m *GetUserExampleByIDReply) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on GetUserExampleByIDReply with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // GetUserExampleByIDReplyMultiError, or nil if none found.
-func (m *GetUserExampleByIDReply) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *GetUserExampleByIDReply) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
-func (m *GetUserExampleByIDReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetUserExample()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetUserExampleByIDReplyValidationError{
-					field:  "UserExample",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, GetUserExampleByIDReplyValidationError{
-					field:  "UserExample",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetUserExample()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetUserExampleByIDReplyValidationError{
-				field:  "UserExample",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return GetUserExampleByIDReplyMultiError(errors)
-	}
-
-	return nil
-}
+func (m *GetUserExampleByIDReply) validate(all bool) error { _ = "STUB: not implemented"; return nil }
 
 // GetUserExampleByIDReplyMultiError is an error wrapping multiple validation
 // errors returned by GetUserExampleByIDReply.ValidateAll() if the designated
@@ -1129,19 +814,17 @@ func (m *GetUserExampleByIDReply) validate(all bool) error {
 type GetUserExampleByIDReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetUserExampleByIDReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m GetUserExampleByIDReplyMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetUserExampleByIDReplyMultiError) AllErrors() []error { return m }
+func (m GetUserExampleByIDReplyMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// GetUserExampleByIDReplyValidationError is the validation error returned by
-// GetUserExampleByIDReply.Validate if the designated constraints aren't met.
+	// GetUserExampleByIDReplyValidationError is the validation error returned by
+	// GetUserExampleByIDReply.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type GetUserExampleByIDReplyValidationError struct {
 	field  string
 	reason string
@@ -1150,40 +833,43 @@ type GetUserExampleByIDReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetUserExampleByIDReplyValidationError) Field() string { return e.field }
+func (e GetUserExampleByIDReplyValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e GetUserExampleByIDReplyValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e GetUserExampleByIDReplyValidationError) Cause() error { return e.cause }
+func (e GetUserExampleByIDReplyValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e GetUserExampleByIDReplyValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e GetUserExampleByIDReplyValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e GetUserExampleByIDReplyValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e GetUserExampleByIDReplyValidationError) ErrorName() string {
-	return "GetUserExampleByIDReplyValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
 func (e GetUserExampleByIDReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sGetUserExampleByIDReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 var _ error = GetUserExampleByIDReplyValidationError{}
@@ -1199,71 +885,15 @@ var _ interface {
 // Validate checks the field values on ListUserExampleRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListUserExampleRequest) Validate() error {
-	return m.validate(false)
-}
+func (m *ListUserExampleRequest) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on ListUserExampleRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // ListUserExampleRequestMultiError, or nil if none found.
-func (m *ListUserExampleRequest) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *ListUserExampleRequest) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
-func (m *ListUserExampleRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.GetParams() == nil {
-		err := ListUserExampleRequestValidationError{
-			field:  "Params",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetParams()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ListUserExampleRequestValidationError{
-					field:  "Params",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, ListUserExampleRequestValidationError{
-					field:  "Params",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetParams()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return ListUserExampleRequestValidationError{
-				field:  "Params",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return ListUserExampleRequestMultiError(errors)
-	}
-
-	return nil
-}
+func (m *ListUserExampleRequest) validate(all bool) error { _ = "STUB: not implemented"; return nil }
 
 // ListUserExampleRequestMultiError is an error wrapping multiple validation
 // errors returned by ListUserExampleRequest.ValidateAll() if the designated
@@ -1271,19 +901,17 @@ func (m *ListUserExampleRequest) validate(all bool) error {
 type ListUserExampleRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListUserExampleRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m ListUserExampleRequestMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListUserExampleRequestMultiError) AllErrors() []error { return m }
+func (m ListUserExampleRequestMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// ListUserExampleRequestValidationError is the validation error returned by
-// ListUserExampleRequest.Validate if the designated constraints aren't met.
+	// ListUserExampleRequestValidationError is the validation error returned by
+	// ListUserExampleRequest.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type ListUserExampleRequestValidationError struct {
 	field  string
 	reason string
@@ -1292,41 +920,41 @@ type ListUserExampleRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListUserExampleRequestValidationError) Field() string { return e.field }
+func (e ListUserExampleRequestValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e ListUserExampleRequestValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e ListUserExampleRequestValidationError) Cause() error { return e.cause }
+func (e ListUserExampleRequestValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e ListUserExampleRequestValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e ListUserExampleRequestValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e ListUserExampleRequestValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e ListUserExampleRequestValidationError) ErrorName() string {
-	return "ListUserExampleRequestValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
-func (e ListUserExampleRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sListUserExampleRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
+func (e ListUserExampleRequestValidationError) Error() string { _ = "STUB: not implemented"; return "" }
 
 var _ error = ListUserExampleRequestValidationError{}
 
@@ -1341,67 +969,17 @@ var _ interface {
 // Validate checks the field values on ListUserExampleReply with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListUserExampleReply) Validate() error {
-	return m.validate(false)
-}
+func (m *ListUserExampleReply) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateAll checks the field values on ListUserExampleReply with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
 // ListUserExampleReplyMultiError, or nil if none found.
-func (m *ListUserExampleReply) ValidateAll() error {
-	return m.validate(true)
-}
+func (m *ListUserExampleReply) ValidateAll() error { _ = "STUB: not implemented"; return nil }
 
-func (m *ListUserExampleReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
+func (m *ListUserExampleReply) validate(all bool) error { _ = "STUB: not implemented"; return nil }
 
-	var errors []error
-
-	// no validation rules for Total
-
-	for idx, item := range m.GetUserExamples() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ListUserExampleReplyValidationError{
-						field:  fmt.Sprintf("UserExamples[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ListUserExampleReplyValidationError{
-						field:  fmt.Sprintf("UserExamples[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ListUserExampleReplyValidationError{
-					field:  fmt.Sprintf("UserExamples[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if len(errors) > 0 {
-		return ListUserExampleReplyMultiError(errors)
-	}
-
-	return nil
-}
+// no validation rules for Total
 
 // ListUserExampleReplyMultiError is an error wrapping multiple validation
 // errors returned by ListUserExampleReply.ValidateAll() if the designated
@@ -1409,19 +987,17 @@ func (m *ListUserExampleReply) validate(all bool) error {
 type ListUserExampleReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListUserExampleReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
+func (m ListUserExampleReplyMultiError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListUserExampleReplyMultiError) AllErrors() []error { return m }
+func (m ListUserExampleReplyMultiError) AllErrors() []error {
+	_ = "STUB: not implemented"
 
-// ListUserExampleReplyValidationError is the validation error returned by
-// ListUserExampleReply.Validate if the designated constraints aren't met.
+	// ListUserExampleReplyValidationError is the validation error returned by
+	// ListUserExampleReply.Validate if the designated constraints aren't met.
+	return nil
+}
+
 type ListUserExampleReplyValidationError struct {
 	field  string
 	reason string
@@ -1430,41 +1006,41 @@ type ListUserExampleReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListUserExampleReplyValidationError) Field() string { return e.field }
+func (e ListUserExampleReplyValidationError) Field() string {
+	_ = "STUB: not implemented"
 
-// Reason function returns reason value.
-func (e ListUserExampleReplyValidationError) Reason() string { return e.reason }
+	// Reason function returns reason value.
+	return ""
+}
 
-// Cause function returns cause value.
-func (e ListUserExampleReplyValidationError) Cause() error { return e.cause }
+func (e ListUserExampleReplyValidationError) Reason() string {
+	_ = "STUB: not implemented"
 
-// Key function returns key value.
-func (e ListUserExampleReplyValidationError) Key() bool { return e.key }
+	// Cause function returns cause value.
+	return ""
+}
 
-// ErrorName returns error name.
+func (e ListUserExampleReplyValidationError) Cause() error {
+	_ = "STUB: not implemented"
+
+	// Key function returns key value.
+	return nil
+}
+
+func (e ListUserExampleReplyValidationError) Key() bool {
+	_ = "STUB: not implemented"
+
+	// ErrorName returns error name.
+	return false
+}
+
 func (e ListUserExampleReplyValidationError) ErrorName() string {
-	return "ListUserExampleReplyValidationError"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Error satisfies the builtin error interface
-func (e ListUserExampleReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sListUserExampleReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
+func (e ListUserExampleReplyValidationError) Error() string { _ = "STUB: not implemented"; return "" }
 
 var _ error = ListUserExampleReplyValidationError{}
 

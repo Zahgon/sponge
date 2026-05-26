@@ -2,31 +2,15 @@
 
 package config
 
-import (
-	"github.com/go-dev-frame/sponge/pkg/conf"
-)
-
 var config *Config
 
-func Init(configFile string, fs ...func()) error {
-	config = &Config{}
-	return conf.Parse(configFile, config, fs...)
-}
+func Init(configFile string, fs ...func()) error { _ = "STUB: not implemented"; return nil }
 
-func Show(hiddenFields ...string) string {
-	return conf.Show(config, hiddenFields...)
-}
+func Show(hiddenFields ...string) string { _ = "STUB: not implemented"; return "" }
 
-func Get() *Config {
-	if config == nil {
-		panic("config is nil, please call config.Init() first")
-	}
-	return config
-}
+func Get() *Config { _ = "STUB: not implemented"; return nil }
 
-func Set(conf *Config) {
-	config = conf
-}
+func Set(conf *Config) { _ = "STUB: not implemented"; return }
 
 type Config struct {
 	App        App          `yaml:"app" json:"app"`

@@ -1,14 +1,5 @@
 package parser
 
-import (
-	"encoding/json"
-	"fmt"
-	"strings"
-
-	"github.com/huandu/xstrings"
-	"github.com/jinzhu/inflection"
-)
-
 // TableInfo is the struct for extend template
 type TableInfo struct {
 	TableNamePrefix string // table name prefix, example: t_
@@ -58,83 +49,18 @@ type PrimaryKey struct {
 	IsStringType bool // go type is string or not
 }
 
-func newTableInfo(data tmplData) TableInfo {
-	pluralName := inflection.Plural(data.TableName)
-	return TableInfo{
-		TableNamePrefix:         data.TableNamePrefix,
-		TableName:               data.RawTableName,
-		TableNameCamel:          data.TableName,
-		TableNameCamelFCL:       data.TName,
-		TableNamePluralCamel:    customEndOfLetterToLower(data.TableName, pluralName),
-		TableNamePluralCamelFCL: customFirstLetterToLower(customEndOfLetterToLower(data.TableName, pluralName)),
-		TableNameSnake:          xstrings.ToSnakeCase(data.TName),
-		TableComment:            data.Comment,
-		Columns:                 getColumns(data.DBDriver, data.Fields),
-		PrimaryKey:              getPrimaryKeyInfo(data.CrudInfo),
-		DBDriver:                data.DBDriver,
-		ColumnSubStructure:      data.SubStructs,
-		ColumnSubMessage:        data.ProtoSubStructs,
-	}
-}
+func newTableInfo(data tmplData) TableInfo { _ = "STUB: not implemented"; return *new(TableInfo) }
 
-func (table TableInfo) getCode() []byte {
-	code, err := json.Marshal(&table)
-	if err != nil {
-		fmt.Printf("table: %v, json.Marshal error: %v\n", table.TableName, err)
-	}
-	return code
-}
+func (table TableInfo) getCode() []byte { _ = "STUB: not implemented"; return nil }
 
-func getColumns(dbDriver string, fields []tmplField) []Field {
-	var columns []Field
+func getColumns(dbDriver string, fields []tmplField) []Field { _ = "STUB: not implemented"; return nil }
 
-	for _, field := range fields {
-		columns = append(columns, Field{
-			ColumnName:         field.ColName,
-			ColumnNameCamel:    field.Name,
-			ColumnNameCamelFCL: customFirstLetterToLower(field.Name),
-			ColumnComment:      field.Comment,
-			IsPrimaryKey:       field.IsPrimaryKey,
-			GoType:             field.GoType,
-			Tag:                handleTag(dbDriver, field.Tag),
-		})
-	}
+func handleTag(dbDriver string, tag string) string { _ = "STUB: not implemented"; return "" }
 
-	return columns
-}
-
-func handleTag(dbDriver string, tag string) string {
-	if dbDriver == DBDriverMongodb {
-		tag = strings.ReplaceAll(tag, `bson:"column:`, `bson:"`)
-		tag = strings.ReplaceAll(tag, `;type:"`, `"`)
-		tag = strings.ReplaceAll(tag, `;type:;primary_key`, ``)
-		tag = strings.ReplaceAll(tag, `bson:"id" json:"id"`, `bson:"_id" json:"id"`)
-	}
-	return tag
-}
-
-func getPrimaryKeyInfo(info *CrudInfo) *PrimaryKey {
-	if info == nil {
-		return nil
-	}
-	return &PrimaryKey{
-		Name:               info.ColumnName,
-		NameCamel:          info.ColumnNameCamel,
-		NameCamelFCL:       info.ColumnNameCamelFCL,
-		NamePluralCamel:    info.ColumnNamePluralCamel,
-		NamePluralCamelFCL: info.ColumnNamePluralCamelFCL,
-		GoType:             info.GoType,
-		GoTypeFCU:          info.GoTypeFCU,
-		IsStringType:       info.IsStringType,
-	}
-}
+func getPrimaryKeyInfo(info *CrudInfo) *PrimaryKey { _ = "STUB: not implemented"; return nil }
 
 // UnMarshalTableInfo unmarshal the json data to TableInfo struct
 func UnMarshalTableInfo(data string) (map[string]interface{}, error) {
-	info := map[string]interface{}{}
-	err := json.Unmarshal([]byte(data), &info)
-	if err != nil {
-		return info, err
-	}
-	return info, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

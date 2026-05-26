@@ -2,7 +2,6 @@ package utils
 
 import (
 	"context"
-	"fmt"
 	"time"
 )
 
@@ -14,65 +13,12 @@ type WaitPrinter struct {
 }
 
 // NewWaitPrinter create a new WaitPrinter instance.
-func NewWaitPrinter(interval time.Duration) *WaitPrinter {
-	ctx, cancel := context.WithCancel(context.Background())
-	if interval < time.Millisecond*100 || interval > time.Second*5 {
-		interval = time.Millisecond * 500
-	}
-	return &WaitPrinter{
-		ctx:            ctx,
-		cancel:         cancel,
-		printFrequency: interval,
-	}
-}
+func NewWaitPrinter(interval time.Duration) *WaitPrinter { _ = "STUB: not implemented"; return nil }
 
 // LoopPrint start the waiting loop and print the running tip message.
-func (p *WaitPrinter) LoopPrint(runningTip string) {
-	if p == nil {
-		return
-	}
-	go func() {
-		symbols := []string{runningTip + ".", runningTip + "..", runningTip +
-			"...", runningTip + "....", runningTip + ".....", runningTip + "......"}
-		index := 0
-		fmt.Printf("\r%s", symbols[index])
-
-		ticker := time.NewTicker(p.printFrequency)
-		defer ticker.Stop()
-
-		for {
-			select {
-			case <-p.ctx.Done():
-				return
-			case <-ticker.C:
-				index++
-				if index >= len(symbols) {
-					index = 0
-				}
-				p.clearCurrentLine()
-				fmt.Printf("\r%s", symbols[index])
-			}
-		}
-	}()
-}
+func (p *WaitPrinter) LoopPrint(runningTip string) { _ = "STUB: not implemented"; return }
 
 // StopPrint stop the waiting loop and print the tip message.
-func (p *WaitPrinter) StopPrint(tip string) {
-	if p == nil {
-		return
-	}
+func (p *WaitPrinter) StopPrint(tip string) { _ = "STUB: not implemented"; return }
 
-	defer func() {
-		if e := recover(); e != nil {
-			fmt.Println(e)
-		}
-	}()
-
-	p.cancel()
-	p.clearCurrentLine()
-	fmt.Println(tip)
-}
-
-func (p *WaitPrinter) clearCurrentLine() {
-	fmt.Print("\033[2K\r")
-}
+func (p *WaitPrinter) clearCurrentLine() { _ = "STUB: not implemented"; return }

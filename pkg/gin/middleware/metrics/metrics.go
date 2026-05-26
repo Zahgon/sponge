@@ -4,12 +4,9 @@ package metrics
 
 import (
 	"net/http"
-	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var (
@@ -59,84 +56,27 @@ var (
 )
 
 // init registers the prometheus metrics
-func initPrometheus() {
-	prometheus.MustRegister(uptime, reqCount, reqDuration, reqSizeBytes, respSizeBytes)
-	go recordUptime()
-}
+func initPrometheus() { _ = "STUB: not implemented"; return }
 
 // recordUptime increases service uptime per 1 minute.
-func recordUptime() {
-	for range time.Tick(time.Minute) {
-		uptime.WithLabelValues().Inc()
-	}
-}
+func recordUptime() { _ = "STUB: not implemented"; return }
 
 // calcRequestSize returns the size of request object.
-func calcRequestSize(r *http.Request) float64 {
-	size := 0
-	if r.URL != nil {
-		size = len(r.URL.String())
-	}
+func calcRequestSize(r *http.Request) float64 { _ = "STUB: not implemented"; return 0 }
 
-	size += len(r.Method)
-	size += len(r.Proto)
-
-	for name, values := range r.Header {
-		size += len(name)
-		for _, value := range values {
-			size += len(value)
-		}
-	}
-	size += len(r.Host)
-
-	// r.Form and r.MultipartForm are assumed to be included in r.URL.
-	if r.ContentLength != -1 {
-		size += int(r.ContentLength)
-	}
-	return float64(size)
-}
+// r.Form and r.MultipartForm are assumed to be included in r.URL.
 
 // ------------------------------------------------------------------------------------------
 
 // metricsHandler wrappers the standard http.Handler to gin.HandlerFunc
-func metricsHandler() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		handler := promhttp.Handler()
-		handler.ServeHTTP(c.Writer, c.Request)
-	}
-}
+func metricsHandler() gin.HandlerFunc { _ = "STUB: not implemented"; return *new(gin.HandlerFunc) }
 
 // Metrics returns a gin.HandlerFunc for exporting some Web metrics
 func Metrics(r *gin.Engine, opts ...Option) gin.HandlerFunc {
-	o := defaultOptions()
-	o.apply(opts...)
-
-	// init prometheus
-	initPrometheus()
-
-	r.GET(o.metricsPath, metricsHandler())
-
-	return func(c *gin.Context) {
-		start := time.Now()
-		c.Next()
-
-		ok := o.isIgnoreCodeStatus(c.Writer.Status()) ||
-			o.isIgnorePath(c.Request.URL.Path) ||
-			o.checkIgnoreMethod(c.Request.Method)
-		if ok {
-			return
-		}
-
-		// no response content will return -1
-		respSize := c.Writer.Size()
-		if respSize < 0 {
-			respSize = 0
-		}
-
-		lvs := []string{strconv.Itoa(c.Writer.Status()), c.Request.URL.Path, c.Request.Method}
-		reqCount.WithLabelValues(lvs...).Inc()
-		reqDuration.WithLabelValues(lvs...).Observe(time.Since(start).Seconds())
-		reqSizeBytes.WithLabelValues(lvs...).Observe(calcRequestSize(c.Request))
-		respSizeBytes.WithLabelValues(lvs...).Observe(float64(respSize))
-	}
+	_ = "STUB: not implemented"
+	return *new(gin.HandlerFunc)
 }
+
+// init prometheus
+
+// no response content will return -1

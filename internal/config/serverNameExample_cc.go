@@ -2,15 +2,7 @@
 
 package config
 
-import (
-	"github.com/go-dev-frame/sponge/pkg/conf"
-)
-
-func NewCenter(configFile string) (*Center, error) {
-	nacosConf := &Center{}
-	err := conf.Parse(configFile, nacosConf)
-	return nacosConf, err
-}
+func NewCenter(configFile string) (*Center, error) { _ = "STUB: not implemented"; return nil, nil }
 
 type Center struct {
 	Nacos Nacos `yaml:"nacos" json:"nacos"`

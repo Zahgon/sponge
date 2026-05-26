@@ -2,10 +2,7 @@ package generate
 
 import (
 	"embed"
-	"fmt"
 	"math/rand"
-	"os"
-	"strings"
 	"time"
 
 	"github.com/go-dev-frame/sponge/pkg/gofile"
@@ -33,66 +30,21 @@ type Template struct {
 
 // Init initializing the template
 func Init() error {
+	_ = "STUB: not implemented"
 	// determine if the template file exists, if not, prompt to initialize first
-	if !gofile.IsExists(SpongeDir) {
-		if isShowCommand() {
-			return nil
-		}
-		return fmt.Errorf("%s not yet initialized, run the command \"sponge init\"", warnSymbol)
-	}
-
-	var err error
-	if _, ok := Replacers[TplNameSponge]; ok {
-		panic(fmt.Sprintf("template name \"%s\" already exists", TplNameSponge))
-	}
-	Replacers[TplNameSponge], err = replacer.New(SpongeDir)
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
 
 // InitFS initializing th FS templates
-func InitFS(name string, filepath string, fs embed.FS) {
-	var err error
-	if _, ok := Replacers[name]; ok {
-		panic(fmt.Sprintf("template name \"%s\" already exists", name))
-	}
-	Replacers[name], err = replacer.NewFS(filepath, fs)
-	if err != nil {
-		panic(err)
-	}
-}
+func InitFS(name string, filepath string, fs embed.FS) { _ = "STUB: not implemented"; return }
 
 func isShowCommand() bool {
-	l := len(os.Args)
+	_ = "STUB: not implemented"
 
 	// sponge
-	if l == 1 {
-		return true
-	}
-
-	// sponge init or sponge -h
-	if l == 2 {
-		if os.Args[1] == "init" || os.Args[1] == "-h" {
-			return true
-		}
-		return false
-	}
-	if l > 2 {
-		return strings.Contains(strings.Join(os.Args[:3], ""), "init")
-	}
-
 	return false
 }
 
-func getHomeDir() string {
-	dir, err := os.UserHomeDir()
-	if err != nil {
-		fmt.Println("can't get home directory'")
-		return ""
-	}
+// sponge init or sponge -h
 
-	return dir
-}
+func getHomeDir() string { _ = "STUB: not implemented"; return "" }

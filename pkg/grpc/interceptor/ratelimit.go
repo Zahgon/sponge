@@ -1,12 +1,10 @@
 package interceptor
 
 import (
-	"context"
 	"time"
 
 	"google.golang.org/grpc"
 
-	"github.com/go-dev-frame/sponge/pkg/errcode"
 	rl "github.com/go-dev-frame/sponge/pkg/shield/ratelimit"
 )
 
@@ -26,90 +24,39 @@ type ratelimitOptions struct {
 	cpuQuota     float64
 }
 
-func defaultRatelimitOptions() *ratelimitOptions {
-	return &ratelimitOptions{
-		window:       time.Second * 10,
-		bucket:       100,
-		cpuThreshold: 800,
-	}
-}
+func defaultRatelimitOptions() *ratelimitOptions { _ = "STUB: not implemented"; return nil }
 
-func (o *ratelimitOptions) apply(opts ...RatelimitOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *ratelimitOptions) apply(opts ...RatelimitOption) { _ = "STUB: not implemented"; return }
 
 // WithWindow with window size.
 func WithWindow(d time.Duration) RatelimitOption {
-	return func(o *ratelimitOptions) {
-		o.window = d
-	}
+	_ = "STUB: not implemented"
+	return *new(RatelimitOption)
 }
 
 // WithBucket with bucket size.
-func WithBucket(b int) RatelimitOption {
-	return func(o *ratelimitOptions) {
-		o.bucket = b
-	}
-}
+func WithBucket(b int) RatelimitOption { _ = "STUB: not implemented"; return *new(RatelimitOption) }
 
 // WithCPUThreshold with cpu threshold
 func WithCPUThreshold(threshold int64) RatelimitOption {
-	return func(o *ratelimitOptions) {
-		o.cpuThreshold = threshold
-	}
+	_ = "STUB: not implemented"
+	return *new(RatelimitOption)
 }
 
 // WithCPUQuota with real cpu quota(if it can not collect from process correct);
 func WithCPUQuota(quota float64) RatelimitOption {
-	return func(o *ratelimitOptions) {
-		o.cpuQuota = quota
-	}
+	_ = "STUB: not implemented"
+	return *new(RatelimitOption)
 }
 
 // UnaryServerRateLimit server-side unary circuit breaker interceptor
 func UnaryServerRateLimit(opts ...RatelimitOption) grpc.UnaryServerInterceptor {
-	o := defaultRatelimitOptions()
-	o.apply(opts...)
-	limiter := rl.NewLimiter(
-		rl.WithWindow(o.window),
-		rl.WithBucket(o.bucket),
-		rl.WithCPUThreshold(o.cpuThreshold),
-		rl.WithCPUQuota(o.cpuQuota),
-	)
-
-	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
-		done, err := limiter.Allow()
-		if err != nil {
-			return nil, errcode.StatusLimitExceed.ToRPCErr(err.Error())
-		}
-
-		reply, err := handler(ctx, req)
-		done(rl.DoneInfo{Err: err})
-		return reply, err
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryServerInterceptor)
 }
 
 // StreamServerRateLimit server-side stream circuit breaker interceptor
 func StreamServerRateLimit(opts ...RatelimitOption) grpc.StreamServerInterceptor {
-	o := defaultRatelimitOptions()
-	o.apply(opts...)
-	limiter := rl.NewLimiter(
-		rl.WithWindow(o.window),
-		rl.WithBucket(o.bucket),
-		rl.WithCPUThreshold(o.cpuThreshold),
-		rl.WithCPUQuota(o.cpuQuota),
-	)
-
-	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		done, err := limiter.Allow()
-		if err != nil {
-			return errcode.StatusLimitExceed.ToRPCErr(err.Error())
-		}
-
-		err = handler(srv, ss)
-		done(rl.DoneInfo{Err: err})
-		return err
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamServerInterceptor)
 }

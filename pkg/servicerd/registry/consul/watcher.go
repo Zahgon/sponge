@@ -16,24 +16,10 @@ type watcher struct {
 }
 
 func (w *watcher) Next() (services []*registry.ServiceInstance, err error) {
-	select {
-	case <-w.ctx.Done():
-		err = w.ctx.Err()
-	case <-w.event:
-	}
-
-	ss, ok := w.set.services.Load().([]*registry.ServiceInstance)
-
-	if ok {
-		services = append(services, ss...)
-	}
-	return //nolint
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (w *watcher) Stop() error {
-	w.cancel()
-	w.set.lock.Lock()
-	defer w.set.lock.Unlock()
-	delete(w.set.watcher, w)
-	return nil
-}
+//nolint
+
+func (w *watcher) Stop() error { _ = "STUB: not implemented"; return nil }

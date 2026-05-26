@@ -29,53 +29,24 @@ type aesOptions struct {
 // AesOption set the aes options.
 type AesOption func(*aesOptions)
 
-func (o *aesOptions) apply(opts ...AesOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *aesOptions) apply(opts ...AesOption) { _ = "STUB: not implemented"; return }
 
-func defaultAesOptions() *aesOptions {
-	return &aesOptions{
-		aesKey: defaultAesKey,
-		mode:   defaultMode,
-	}
-}
+func defaultAesOptions() *aesOptions { _ = "STUB: not implemented"; return nil }
 
 // WithAesKey set aes key
-func WithAesKey(key []byte) AesOption {
-	return func(o *aesOptions) {
-		o.aesKey = key
-	}
-}
+func WithAesKey(key []byte) AesOption { _ = "STUB: not implemented"; return *new(AesOption) }
 
 // WithAesModeCBC set mode to CBC
-func WithAesModeCBC() AesOption {
-	return func(o *aesOptions) {
-		o.mode = modeCBC
-	}
-}
+func WithAesModeCBC() AesOption { _ = "STUB: not implemented"; return *new(AesOption) }
 
 // WithAesModeECB set mode to ECB
-func WithAesModeECB() AesOption {
-	return func(o *aesOptions) {
-		o.mode = modeECB
-	}
-}
+func WithAesModeECB() AesOption { _ = "STUB: not implemented"; return *new(AesOption) }
 
 // WithAesModeCFB set mode to CFB
-func WithAesModeCFB() AesOption {
-	return func(o *aesOptions) {
-		o.mode = modeCFB
-	}
-}
+func WithAesModeCFB() AesOption { _ = "STUB: not implemented"; return *new(AesOption) }
 
 // WithAesModeCTR set mode to CTR
-func WithAesModeCTR() AesOption {
-	return func(o *aesOptions) {
-		o.mode = modeCTR
-	}
-}
+func WithAesModeCTR() AesOption { _ = "STUB: not implemented"; return *new(AesOption) }
 
 // ------------------------------------------------------------------------------------------
 
@@ -87,53 +58,24 @@ type desOptions struct {
 // DesOption set the des options.
 type DesOption func(*desOptions)
 
-func (o *desOptions) apply(opts ...DesOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *desOptions) apply(opts ...DesOption) { _ = "STUB: not implemented"; return }
 
-func defaultDesOptions() *desOptions {
-	return &desOptions{
-		desKey: defaultDesKey,
-		mode:   defaultMode,
-	}
-}
+func defaultDesOptions() *desOptions { _ = "STUB: not implemented"; return nil }
 
 // WithDesKey set des key
-func WithDesKey(key []byte) DesOption {
-	return func(o *desOptions) {
-		o.desKey = key
-	}
-}
+func WithDesKey(key []byte) DesOption { _ = "STUB: not implemented"; return *new(DesOption) }
 
 // WithDesModeCBC set mode to CBC
-func WithDesModeCBC() DesOption {
-	return func(o *desOptions) {
-		o.mode = modeCBC
-	}
-}
+func WithDesModeCBC() DesOption { _ = "STUB: not implemented"; return *new(DesOption) }
 
 // WithDesModeECB set mode to ECB
-func WithDesModeECB() DesOption {
-	return func(o *desOptions) {
-		o.mode = modeECB
-	}
-}
+func WithDesModeECB() DesOption { _ = "STUB: not implemented"; return *new(DesOption) }
 
 // WithDesModeCFB set mode to CFB
-func WithDesModeCFB() DesOption {
-	return func(o *desOptions) {
-		o.mode = modeCFB
-	}
-}
+func WithDesModeCFB() DesOption { _ = "STUB: not implemented"; return *new(DesOption) }
 
 // WithDesModeCTR set mode to CTR
-func WithDesModeCTR() DesOption {
-	return func(o *desOptions) {
-		o.mode = modeCTR
-	}
-}
+func WithDesModeCTR() DesOption { _ = "STUB: not implemented"; return *new(DesOption) }
 
 // ------------------------------------------------------------------------------------------
 
@@ -147,64 +89,27 @@ type rsaOptions struct {
 // RsaOption set the rsa options.
 type RsaOption func(*rsaOptions)
 
-func (o *rsaOptions) apply(opts ...RsaOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *rsaOptions) apply(opts ...RsaOption) { _ = "STUB: not implemented"; return }
 
-func defaultRsaOptions() *rsaOptions {
-	return &rsaOptions{
-		format:   defaultRsaFormat,
-		hashType: defaultRsaHashType,
-	}
-}
+func defaultRsaOptions() *rsaOptions { _ = "STUB: not implemented"; return nil }
 
 // WithRsaFormatPKCS1 set format
-func WithRsaFormatPKCS1() RsaOption {
-	return func(o *rsaOptions) {
-		o.format = pkcs1
-	}
-}
+func WithRsaFormatPKCS1() RsaOption { _ = "STUB: not implemented"; return *new(RsaOption) }
 
 // WithRsaFormatPKCS8 set format
-func WithRsaFormatPKCS8() RsaOption {
-	return func(o *rsaOptions) {
-		o.format = pkcs8
-	}
-}
+func WithRsaFormatPKCS8() RsaOption { _ = "STUB: not implemented"; return *new(RsaOption) }
 
 // WithRsaHashTypeMd5 set hash type
-func WithRsaHashTypeMd5() RsaOption {
-	return func(o *rsaOptions) {
-		o.hashType = crypto.MD5
-	}
-}
+func WithRsaHashTypeMd5() RsaOption { _ = "STUB: not implemented"; return *new(RsaOption) }
 
 // WithRsaHashTypeSha1 set hash type
-func WithRsaHashTypeSha1() RsaOption {
-	return func(o *rsaOptions) {
-		o.hashType = crypto.SHA1
-	}
-}
+func WithRsaHashTypeSha1() RsaOption { _ = "STUB: not implemented"; return *new(RsaOption) }
 
 // WithRsaHashTypeSha256 set hash type
-func WithRsaHashTypeSha256() RsaOption {
-	return func(o *rsaOptions) {
-		o.hashType = crypto.SHA256
-	}
-}
+func WithRsaHashTypeSha256() RsaOption { _ = "STUB: not implemented"; return *new(RsaOption) }
 
 // WithRsaHashTypeSha512 set hash type
-func WithRsaHashTypeSha512() RsaOption {
-	return func(o *rsaOptions) {
-		o.hashType = crypto.SHA512
-	}
-}
+func WithRsaHashTypeSha512() RsaOption { _ = "STUB: not implemented"; return *new(RsaOption) }
 
 // WithRsaHashType set hash type
-func WithRsaHashType(hash crypto.Hash) RsaOption {
-	return func(o *rsaOptions) {
-		o.hashType = hash
-	}
-}
+func WithRsaHashType(hash crypto.Hash) RsaOption { _ = "STUB: not implemented"; return *new(RsaOption) }

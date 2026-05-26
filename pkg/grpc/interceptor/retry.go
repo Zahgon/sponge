@@ -1,10 +1,8 @@
 package interceptor
 
 import (
-	"context"
 	"time"
 
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 )
@@ -25,80 +23,47 @@ type retryOptions struct {
 	errCodes []codes.Code
 }
 
-func defaultRetryOptions() *retryOptions {
-	return &retryOptions{
-		times:    2,                      // default retry times
-		interval: time.Millisecond * 100, // default retry interval 100 ms
-		errCodes: defaultErrCodes,        // default error code for triggering a retry
-	}
-}
+func defaultRetryOptions() *retryOptions { _ = "STUB: not implemented"; return nil }
 
-func (o *retryOptions) apply(opts ...RetryOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+// default retry times
+// default retry interval 100 ms
+// default error code for triggering a retry
+
+func (o *retryOptions) apply(opts ...RetryOption) { _ = "STUB: not implemented"; return }
 
 // WithRetryTimes set number of retries, max 10
-func WithRetryTimes(n uint) RetryOption {
-	return func(o *retryOptions) {
-		if n > 10 {
-			n = 10
-		}
-		o.times = n
-	}
-}
+func WithRetryTimes(n uint) RetryOption { _ = "STUB: not implemented"; return *new(RetryOption) }
 
 // WithRetryInterval set the retry interval from 1 ms to 10 seconds
 func WithRetryInterval(t time.Duration) RetryOption {
-	return func(o *retryOptions) {
-		if t < time.Millisecond {
-			t = time.Millisecond
-		} else if t > 10*time.Second {
-			t = 10 * time.Second
-		}
-		o.interval = t
-	}
+	_ = "STUB: not implemented"
+	return *new(RetryOption)
 }
 
 // WithRetryErrCodes set the trigger retry error code
 func WithRetryErrCodes(errCodes ...codes.Code) RetryOption {
-	for _, errCode := range errCodes {
-		switch errCode {
-		case codes.Internal, codes.DeadlineExceeded, codes.Unavailable:
-		default:
-			defaultErrCodes = append(defaultErrCodes, errCode)
-		}
-	}
-	return func(o *retryOptions) {
-		o.errCodes = defaultErrCodes
-	}
+	_ = "STUB: not implemented"
+	return *new(RetryOption)
 }
 
 // UnaryClientRetry client-side retry unary interceptor
 func UnaryClientRetry(opts ...RetryOption) grpc.UnaryClientInterceptor {
-	o := defaultRetryOptions()
-	o.apply(opts...)
-
-	return grpc_retry.UnaryClientInterceptor(
-		grpc_retry.WithMax(o.times), // set the number of retries
-		grpc_retry.WithBackoff(func(ctx context.Context, attempt uint) time.Duration { // set retry interval
-			return o.interval
-		}),
-		grpc_retry.WithCodes(o.errCodes...), // set retry error code
-	)
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryClientInterceptor)
 }
+
+// set the number of retries
+// set retry interval
+
+// set retry error code
 
 // StreamClientRetry client-side retry stream interceptor
 func StreamClientRetry(opts ...RetryOption) grpc.StreamClientInterceptor {
-	o := defaultRetryOptions()
-	o.apply(opts...)
-
-	return grpc_retry.StreamClientInterceptor(
-		grpc_retry.WithMax(o.times), // set the number of retries
-		grpc_retry.WithBackoff(func(ctx context.Context, attempt uint) time.Duration { // set retry interval
-			return o.interval
-		}),
-		grpc_retry.WithCodes(o.errCodes...), // set retry error code
-	)
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamClientInterceptor)
 }
+
+// set the number of retries
+// set retry interval
+
+// set retry error code

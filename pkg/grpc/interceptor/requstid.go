@@ -4,12 +4,8 @@ import (
 	"context"
 	"sync"
 
-	grpc_metadata "github.com/grpc-ecosystem/go-grpc-middleware/v2/metadata"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
-
-	"github.com/go-dev-frame/sponge/pkg/krand"
 )
 
 var (
@@ -19,14 +15,7 @@ var (
 )
 
 // SetContextRequestIDKey set context request id key
-func SetContextRequestIDKey(key string) {
-	if len(key) < 4 {
-		return
-	}
-	once.Do(func() {
-		ContextRequestIDKey = key
-	})
-}
+func SetContextRequestIDKey(key string) { _ = "STUB: not implemented"; return }
 
 // CtxKeyString for context.WithValue key type
 type CtxKeyString string
@@ -38,43 +27,29 @@ var RequestIDKey = CtxKeyString(ContextRequestIDKey)
 
 // CtxRequestIDField get request id field from context.Context
 func CtxRequestIDField(ctx context.Context) zap.Field {
-	return zap.String(ContextRequestIDKey, grpc_metadata.ExtractOutgoing(ctx).Get(ContextRequestIDKey))
+	_ = "STUB: not implemented"
+	return *new(zap.Field)
 }
 
 // ClientCtxRequestID get request id from rpc client context.Context
-func ClientCtxRequestID(ctx context.Context) string {
-	return grpc_metadata.ExtractOutgoing(ctx).Get(ContextRequestIDKey)
-}
+func ClientCtxRequestID(ctx context.Context) string { _ = "STUB: not implemented"; return "" }
 
 // ClientCtxRequestIDField get request id field from rpc client context.Context
 func ClientCtxRequestIDField(ctx context.Context) zap.Field {
-	return zap.String(ContextRequestIDKey, grpc_metadata.ExtractOutgoing(ctx).Get(ContextRequestIDKey))
+	_ = "STUB: not implemented"
+	return *new(zap.Field)
 }
 
 // UnaryClientRequestID client-side request_id unary interceptor
 func UnaryClientRequestID() grpc.UnaryClientInterceptor {
-	return func(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
-		requestID := ClientCtxRequestID(ctx)
-		if requestID == "" {
-			requestID = krand.String(krand.R_All, 10)
-			ctx = metadata.AppendToOutgoingContext(ctx, ContextRequestIDKey, requestID)
-		}
-		return invoker(ctx, method, req, reply, cc, opts...)
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryClientInterceptor)
 }
 
 // StreamClientRequestID client request id stream interceptor
 func StreamClientRequestID() grpc.StreamClientInterceptor {
-	return func(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string,
-		streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
-		requestID := ClientCtxRequestID(ctx)
-		if requestID == "" {
-			requestID = krand.String(krand.R_All, 10)
-			ctx = metadata.AppendToOutgoingContext(ctx, ContextRequestIDKey, requestID)
-		}
-
-		return streamer(ctx, desc, cc, method, opts...)
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamClientInterceptor)
 }
 
 // ---------------------------------- server interceptor ----------------------------------
@@ -87,46 +62,39 @@ type KV struct {
 
 // WrapServerCtx wrap context, used in grpc server-side
 func WrapServerCtx(ctx context.Context, kvs ...KV) context.Context {
-	ctx = context.WithValue(ctx, ContextRequestIDKey, grpc_metadata.ExtractIncoming(ctx).Get(ContextRequestIDKey)) //nolint
-	for _, kv := range kvs {
-		ctx = context.WithValue(ctx, kv.Key, kv.Val) //nolint
-	}
-	return ctx
+	_ = "STUB: not implemented"
+	return *new(context.Context)
 }
 
+//nolint
+
+//nolint
+
 // ServerCtxRequestID get request id from rpc server context.Context
-func ServerCtxRequestID(ctx context.Context) string {
-	return grpc_metadata.ExtractIncoming(ctx).Get(ContextRequestIDKey)
-}
+func ServerCtxRequestID(ctx context.Context) string { _ = "STUB: not implemented"; return "" }
 
 // ServerCtxRequestIDField get request id field from rpc server context.Context
 func ServerCtxRequestIDField(ctx context.Context) zap.Field {
-	return zap.String(ContextRequestIDKey, grpc_metadata.ExtractIncoming(ctx).Get(ContextRequestIDKey))
+	_ = "STUB: not implemented"
+	return *new(zap.Field)
 }
 
 // UnaryServerRequestID server-side request_id unary interceptor
 func UnaryServerRequestID() grpc.UnaryServerInterceptor {
-	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-		requestID := ServerCtxRequestID(ctx)
-		if requestID == "" {
-			requestID = krand.String(krand.R_All, 10)
-			ctx = grpc_metadata.ExtractIncoming(ctx).Add(ContextRequestIDKey, requestID).ToIncoming(ctx)
-		}
-
-		return handler(ctx, req)
-	}
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryServerInterceptor)
 }
 
 // StreamServerRequestID server-side request id stream interceptor
 func StreamServerRequestID() grpc.StreamServerInterceptor {
+	_ = "STUB: not implemented"
 	// todo
-	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		//ctx := stream.Context()
-		//requestID := ServerCtxRequestID(ctx)
-		//if requestID == "" {
-		//	requestID = krand.String(krand.R_All, 10)
-		//	ctx = grpc_metadata.ExtractIncoming(ctx).Add(ContextRequestIDKey, requestID).ToIncoming(ctx)
-		//}
-		return handler(srv, stream)
-	}
+	return *new(grpc.StreamServerInterceptor)
 }
+
+//ctx := stream.Context()
+//requestID := ServerCtxRequestID(ctx)
+//if requestID == "" {
+//	requestID = krand.String(krand.R_All, 10)
+//	ctx = grpc_metadata.ExtractIncoming(ctx).Add(ContextRequestIDKey, requestID).ToIncoming(ctx)
+//}

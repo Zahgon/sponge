@@ -2,8 +2,6 @@ package dlock
 
 import (
 	"context"
-	"errors"
-	"time"
 
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"go.etcd.io/etcd/client/v3/concurrency"
@@ -18,64 +16,23 @@ type EtcdLock struct {
 
 // NewEtcd creates a new etcd locker with the given key and ttl.
 func NewEtcd(client *clientv3.Client, key string, ttl int) (Locker, error) {
-	if client == nil {
-		return nil, errors.New("etcd client is nil")
-	}
-
-	if key == "" {
-		return nil, errors.New("key is empty")
-	}
-
-	if ttl <= 0 {
-		ttl = defaultTTL
-	}
-	expiration := time.Duration(ttl) * time.Second
-	ctx, _ := context.WithTimeout(context.Background(), expiration) //nolint
-
-	session, err := concurrency.NewSession(
-		client,
-		concurrency.WithTTL(ttl),
-		concurrency.WithContext(ctx),
-	)
-	if err != nil {
-		return nil, err
-	}
-	mutex := concurrency.NewMutex(session, key)
-
-	locker := &EtcdLock{
-		session: session,
-		mutex:   mutex,
-	}
-
-	return locker, nil
+	_ = "STUB: not implemented"
+	return *new(Locker), nil
 }
+
+//nolint
 
 // Lock blocks until the lock is acquired or the context is canceled.
-func (l *EtcdLock) Lock(ctx context.Context) error {
-	return l.mutex.Lock(ctx)
-}
+func (l *EtcdLock) Lock(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
 // Unlock releases the lock.
-func (l *EtcdLock) Unlock(ctx context.Context) error {
-	return l.mutex.Unlock(ctx)
-}
+func (l *EtcdLock) Unlock(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
 // TryLock tries to acquire the lock without blocking.
 func (l *EtcdLock) TryLock(ctx context.Context) (bool, error) {
-	err := l.mutex.TryLock(ctx)
-	if err == nil {
-		return true, nil
-	}
-	if err == concurrency.ErrLocked {
-		return false, nil
-	}
-	return false, err
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 // Close releases the lock and the etcd session.
-func (l *EtcdLock) Close() error {
-	if l.session != nil {
-		return l.session.Close()
-	}
-	return nil
-}
+func (l *EtcdLock) Close() error { _ = "STUB: not implemented"; return nil }

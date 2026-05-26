@@ -2,17 +2,13 @@ package dao
 
 import (
 	"context"
-	"errors"
 
 	"golang.org/x/sync/singleflight"
 	"gorm.io/gorm"
 
-	"github.com/go-dev-frame/sponge/pkg/logger"
 	"github.com/go-dev-frame/sponge/pkg/sgorm/query"
-	"github.com/go-dev-frame/sponge/pkg/utils"
 
 	"github.com/go-dev-frame/sponge/internal/cache"
-	"github.com/go-dev-frame/sponge/internal/database"
 	"github.com/go-dev-frame/sponge/internal/model"
 )
 
@@ -39,196 +35,92 @@ type userExampleDao struct {
 
 // NewUserExampleDao creating the dao interface
 func NewUserExampleDao(db *gorm.DB, xCache cache.UserExampleCache) UserExampleDao {
-	if xCache == nil {
-		return &userExampleDao{db: db}
-	}
-	return &userExampleDao{
-		db:    db,
-		cache: xCache,
-		sfg:   new(singleflight.Group),
-	}
+	_ = "STUB: not implemented"
+	return *new(UserExampleDao)
 }
 
 func (d *userExampleDao) deleteCache(ctx context.Context, id uint64) error {
-	if d.cache != nil {
-		return d.cache.Del(ctx, id)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Create a new userExample, insert the record and the id value is written back to the table
 func (d *userExampleDao) Create(ctx context.Context, table *model.UserExample) error {
-	return d.db.WithContext(ctx).Create(table).Error
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeleteByID delete a userExample by id
 func (d *userExampleDao) DeleteByID(ctx context.Context, id uint64) error {
-	err := d.db.WithContext(ctx).Where("id = ?", id).Delete(&model.UserExample{}).Error
-	if err != nil {
-		return err
-	}
-
-	// delete cache
-	_ = d.deleteCache(ctx, id)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// delete cache
+
 // UpdateByID update a userExample by id, support partial update
 func (d *userExampleDao) UpdateByID(ctx context.Context, table *model.UserExample) error {
-	err := d.updateDataByID(ctx, d.db, table)
-
-	// delete cache
-	_ = d.deleteCache(ctx, table.ID)
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// delete cache
 
 func (d *userExampleDao) updateDataByID(ctx context.Context, db *gorm.DB, table *model.UserExample) error {
-	if table.ID < 1 {
-		return errors.New("id cannot be 0")
-	}
-
-	update := map[string]interface{}{}
-	// todo generate the update fields code to here
-	// delete the templates code start
-	if table.Name != "" {
-		update["name"] = table.Name
-	}
-	if table.Password != "" {
-		update["password"] = table.Password
-	}
-	if table.Email != "" {
-		update["email"] = table.Email
-	}
-	if table.Phone != "" {
-		update["phone"] = table.Phone
-	}
-	if table.Avatar != "" {
-		update["avatar"] = table.Avatar
-	}
-	if table.Age > 0 {
-		update["age"] = table.Age
-	}
-	if table.Gender > 0 {
-		update["gender"] = table.Gender
-	}
-	if table.LoginAt > 0 {
-		update["login_at"] = table.LoginAt
-	}
-	// delete the templates code end
-
-	return db.WithContext(ctx).Model(table).Updates(update).Error
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// todo generate the update fields code to here
+// delete the templates code start
+
+// delete the templates code end
 
 // GetByID get a userExample by id
 func (d *userExampleDao) GetByID(ctx context.Context, id uint64) (*model.UserExample, error) {
+	_ = "STUB: not implemented"
 	// no cache
-	if d.cache == nil {
-		record := &model.UserExample{}
-		err := d.db.WithContext(ctx).Where("id = ?", id).First(record).Error
-		return record, err
-	}
-
-	// get from cache
-	record, err := d.cache.Get(ctx, id)
-	if err == nil {
-		return record, nil
-	}
-
-	// get from database
-	if errors.Is(err, database.ErrCacheNotFound) {
-		// for the same id, prevent high concurrent simultaneous access to database
-		val, err, _ := d.sfg.Do(utils.Uint64ToStr(id), func() (interface{}, error) { //nolint
-			table := &model.UserExample{}
-			err = d.db.WithContext(ctx).Where("id = ?", id).First(table).Error
-			if err != nil {
-				if errors.Is(err, database.ErrRecordNotFound) {
-					// set placeholder cache to prevent cache penetration, default expiration time 10 minutes
-					if err = d.cache.SetPlaceholder(ctx, id); err != nil {
-						logger.Warn("cache.SetPlaceholder error", logger.Err(err), logger.Any("id", id))
-					}
-					return nil, database.ErrRecordNotFound
-				}
-				return nil, err
-			}
-			// set cache
-			if err = d.cache.Set(ctx, id, table, cache.UserExampleExpireTime); err != nil {
-				logger.Warn("cache.Set error", logger.Err(err), logger.Any("id", id))
-			}
-			return table, nil
-		})
-		if err != nil {
-			return nil, err
-		}
-		table, ok := val.(*model.UserExample)
-		if !ok {
-			return nil, database.ErrRecordNotFound
-		}
-		return table, nil
-	}
-
-	if d.cache.IsPlaceholderErr(err) {
-		return nil, database.ErrRecordNotFound
-	}
-
-	return nil, err
+	return nil, nil
 }
+
+// get from cache
+
+// get from database
+
+// for the same id, prevent high concurrent simultaneous access to database
+//nolint
+
+// set placeholder cache to prevent cache penetration, default expiration time 10 minutes
+
+// set cache
 
 // GetByColumns get a paginated list of userExamples by custom conditions.
 // For more details, please refer to https://go-sponge.com/component/data/custom-page-query.html
 func (d *userExampleDao) GetByColumns(ctx context.Context, params *query.Params) ([]*model.UserExample, int64, error) {
-	queryStr, args, err := params.ConvertToGormConditions(query.WithWhitelistNames(model.UserExampleColumnNames))
-	if err != nil {
-		return nil, 0, errors.New("query params error: " + err.Error())
-	}
-
-	var total int64
-	if params.Sort != "ignore count" { // determine if count is required
-		err = d.db.WithContext(ctx).Model(&model.UserExample{}).Where(queryStr, args...).Count(&total).Error
-		if err != nil {
-			return nil, 0, err
-		}
-		if total == 0 {
-			return nil, total, nil
-		}
-	}
-
-	records := []*model.UserExample{}
-	order, limit, offset := params.ConvertToPage()
-	err = d.db.WithContext(ctx).Order(order).Limit(limit).Offset(offset).Where(queryStr, args...).Find(&records).Error
-	if err != nil {
-		return nil, 0, err
-	}
-
-	return records, total, err
+	_ = "STUB: not implemented"
+	return nil, 0, nil
 }
+
+// determine if count is required
 
 // CreateByTx create a record in the database using the provided transaction
 func (d *userExampleDao) CreateByTx(ctx context.Context, tx *gorm.DB, table *model.UserExample) (uint64, error) {
-	err := tx.WithContext(ctx).Create(table).Error
-	return table.ID, err
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // DeleteByTx delete a record by id in the database using the provided transaction
 func (d *userExampleDao) DeleteByTx(ctx context.Context, tx *gorm.DB, id uint64) error {
-	err := tx.WithContext(ctx).Where("id = ?", id).Delete(&model.UserExample{}).Error
-	if err != nil {
-		return err
-	}
-
-	// delete cache
-	_ = d.deleteCache(ctx, id)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// delete cache
+
 // UpdateByTx update a record by id in the database using the provided transaction
 func (d *userExampleDao) UpdateByTx(ctx context.Context, tx *gorm.DB, table *model.UserExample) error {
-	err := d.updateDataByID(ctx, tx, table)
-
-	// delete cache
-	_ = d.deleteCache(ctx, table.ID)
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// delete cache

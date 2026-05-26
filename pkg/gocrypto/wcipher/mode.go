@@ -16,70 +16,66 @@ type cipherMode struct {
 
 // SetPadding set padding
 func (c *cipherMode) SetPadding(padding Padding) CipherMode {
-	_ = padding
-	return c
+	_ = "STUB: not implemented"
+	return *
+
+	// Cipher mode cipher
+	new(CipherMode)
 }
 
-// Cipher mode cipher
 func (c *cipherMode) Cipher(block cipher.Block, iv []byte) Cipher {
-	_ = block
-	_ = iv
-	return nil
+	_ = "STUB: not implemented"
+	return *new(Cipher)
 }
 
 type ecbCipherModel cipherMode
 
 // NewECBMode new ecb mode
-func NewECBMode() CipherMode {
-	return &ecbCipherModel{padding: NewPKCS57Padding()}
-}
+func NewECBMode() CipherMode { _ = "STUB: not implemented"; return *new(CipherMode) }
 
 // SetPadding set ecb padding
 func (ecb *ecbCipherModel) SetPadding(padding Padding) CipherMode {
-	ecb.padding = padding
-	return ecb
+	_ = "STUB: not implemented"
+	return *new(CipherMode)
 }
 
 // Cipher ecb cipher
 func (ecb *ecbCipherModel) Cipher(block cipher.Block, iv []byte) Cipher {
-	_ = iv
-	encrypter := NewECBEncrypt(block)
-	decrypter := NewECBDecrypt(block)
-	return NewBlockCipher(ecb.padding, encrypter, decrypter)
+	_ = "STUB: not implemented"
+	return *new(Cipher)
 }
 
 type cbcCipherModel cipherMode
 
 // NewCBCMode new cbc mode
-func NewCBCMode() CipherMode {
-	return &cbcCipherModel{padding: NewPKCS57Padding()}
-}
+func NewCBCMode() CipherMode { _ = "STUB: not implemented"; return *new(CipherMode) }
 
 // SetPadding set cbc padding
 func (cbc *cbcCipherModel) SetPadding(padding Padding) CipherMode {
-	cbc.padding = padding
-	return cbc
+	_ = "STUB: not implemented"
+	return *new(CipherMode)
 }
 
 // Cipher cbc cipher
 func (cbc *cbcCipherModel) Cipher(block cipher.Block, iv []byte) Cipher {
-	encrypter := cipher.NewCBCEncrypter(block, iv)
-	decrypter := cipher.NewCBCDecrypter(block, iv)
-	return NewBlockCipher(cbc.padding, encrypter, decrypter)
+	_ = "STUB: not implemented"
+	return *new(Cipher)
 }
 
 type cfbCipherModel cipherMode //nolint
 
 // NewCFBMode new cfb mode
 func NewCFBMode() CipherMode {
-	return &ofbCipherModel{}
+	_ = "STUB: not implemented"
+	return *
+
+	// Cipher cfb cipher
+	new(CipherMode)
 }
 
-// Cipher cfb cipher
-func (cfb *cfbCipherModel) Cipher(block cipher.Block, iv []byte) Cipher { //nolint
-	encrypter := cipher.NewCFBEncrypter(block, iv)
-	decrypter := cipher.NewCFBDecrypter(block, iv)
-	return NewStreamCipher(encrypter, decrypter)
+func (cfb *cfbCipherModel) Cipher(block cipher.Block, iv []byte) Cipher {
+	_ = "STUB: not implemented" //nolint
+	return *new(Cipher)
 }
 
 type ofbCipherModel struct {
@@ -88,14 +84,16 @@ type ofbCipherModel struct {
 
 // NewOFBMode new ofb mode
 func NewOFBMode() CipherMode {
-	return &ofbCipherModel{}
+	_ = "STUB: not implemented"
+	return *
+
+	// Cipher ofb cipher
+	new(CipherMode)
 }
 
-// Cipher ofb cipher
 func (ofb *ofbCipherModel) Cipher(block cipher.Block, iv []byte) Cipher {
-	encrypter := cipher.NewOFB(block, iv)
-	decrypter := cipher.NewOFB(block, iv)
-	return NewStreamCipher(encrypter, decrypter)
+	_ = "STUB: not implemented"
+	return *new(Cipher)
 }
 
 type ctrCipherModel struct {
@@ -104,12 +102,14 @@ type ctrCipherModel struct {
 
 // NewCTRMode new ctr mode
 func NewCTRMode() CipherMode {
-	return &ctrCipherModel{}
+	_ = "STUB: not implemented"
+	return *
+
+	// Cipher ctr cipher
+	new(CipherMode)
 }
 
-// Cipher ctr cipher
 func (ctr *ctrCipherModel) Cipher(block cipher.Block, iv []byte) Cipher {
-	encrypter := cipher.NewCTR(block, iv)
-	decrypter := cipher.NewCTR(block, iv)
-	return NewStreamCipher(encrypter, decrypter)
+	_ = "STUB: not implemented"
+	return *new(Cipher)
 }

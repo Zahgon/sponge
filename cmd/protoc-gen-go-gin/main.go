@@ -2,21 +2,13 @@
 package main
 
 import (
-	"bytes"
 	"flag"
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/types/pluginpb"
-
-	"github.com/go-dev-frame/sponge/cmd/protoc-gen-go-gin/internal/generate/handler"
-	"github.com/go-dev-frame/sponge/cmd/protoc-gen-go-gin/internal/generate/router"
-	"github.com/go-dev-frame/sponge/cmd/protoc-gen-go-gin/internal/generate/service"
-	"github.com/go-dev-frame/sponge/pkg/gofile"
 )
 
 const (
@@ -158,152 +150,37 @@ func main() {
 	})
 }
 
-func saveGinRouterFiles(f *protogen.File) error {
-	ginRouterFileContent := router.GenerateFiles(f)
-	if len(ginRouterFileContent) == 0 {
-		return nil
-	}
-	if !bytes.Contains(ginRouterFileContent, []byte("errors.")) {
-		ginRouterFileContent = bytes.Replace(ginRouterFileContent, []byte(`"errors"`), []byte(""), 1)
-	}
-	if !bytes.Contains(ginRouterFileContent, []byte("middleware.")) {
-		ginRouterFileContent = bytes.Replace(ginRouterFileContent, []byte(`"github.com/go-dev-frame/sponge/pkg/gin/middleware"`), []byte(""), 1)
-	}
-	filePath := f.GeneratedFilenamePrefix + "_router.pb.go"
-	return os.WriteFile(filePath, ginRouterFileContent, 0666)
-}
+func saveGinRouterFiles(f *protogen.File) error { _ = "STUB: not implemented"; return nil }
 
 func saveHandlerAndRouterFiles(f *protogen.File, moduleName string, serverName string,
 	logicOut string, routerOut string, ecodeOut string, suitedMonoRepo bool, isMixType bool) error {
-	filenamePrefix := f.GeneratedFilenamePrefix
-	handlerLogicContent, routerContent, errCodeFileContent := handler.GenerateFiles(f, isMixType, moduleName)
-
-	filePath := filenamePrefix + ".go"
-	err := saveFile(moduleName, serverName, logicOut, filePath, handlerLogicContent, false, handlerPlugin, suitedMonoRepo)
-	if err != nil {
-		return err
-	}
-
-	filePath = filenamePrefix + "_router.go"
-	err = saveFile(moduleName, serverName, routerOut, filePath, routerContent, false, handlerPlugin, suitedMonoRepo)
-	if err != nil {
-		return err
-	}
-
-	if !isMixType {
-		filePath = filenamePrefix + "_http.go"
-		err = saveFileSimple(ecodeOut, filePath, errCodeFileContent, false)
-		if err != nil {
-			return err
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func saveServiceAndRouterFiles(f *protogen.File, moduleName string, serverName string,
 	logicOut string, routerOut string, ecodeOut string, suitedMonoRepo bool) error {
-	filenamePrefix := f.GeneratedFilenamePrefix
-	serviceLogicContent, routerContent, errCodeFileContent := service.GenerateFiles(f, moduleName)
-
-	filePath := filenamePrefix + ".go"
-	err := saveFile(moduleName, serverName, logicOut, filePath, serviceLogicContent, false, servicePlugin, suitedMonoRepo)
-	if err != nil {
-		return err
-	}
-
-	filePath = filenamePrefix + "_router.go"
-	err = saveFile(moduleName, serverName, routerOut, filePath, routerContent, false, servicePlugin, suitedMonoRepo)
-	if err != nil {
-		return err
-	}
-
-	filePath = filenamePrefix + "_rpc.go"
-	err = saveFileSimple(ecodeOut, filePath, errCodeFileContent, false)
-	if err != nil {
-		return err
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func saveFile(moduleName string, serverName string, out string, filePath string, content []byte, isNeedCovered bool, pluginName string, suitedMonoRepo bool) error {
-	if len(content) == 0 {
-		return nil
-	}
-
-	if moduleName == "" {
-		panic(fmt.Sprintf(optErrFormat, "moduleName", pluginName))
-	}
-	if serverName == "" {
-		panic(fmt.Sprintf(optErrFormat, "serverName", pluginName))
-	}
-
-	_ = os.MkdirAll(out, 0766)
-	_, name := filepath.Split(filePath)
-	file := out + "/" + name
-	if !isNeedCovered && isExists(file) {
-		removeOldGenFile(file)
-		file += ".gen" + time.Now().Format("20060102T150405")
-	}
-
-	content = bytes.ReplaceAll(content, []byte("moduleNameExample"), []byte(moduleName))
-	content = bytes.ReplaceAll(content, []byte("serverNameExample"), []byte(serverName))
-	content = bytes.ReplaceAll(content, firstLetterToUpper("serverNameExample"), firstLetterToUpper(serverName))
-	if suitedMonoRepo {
-		content = adaptMonoRepo(moduleName, serverName, content)
-	}
-
-	return os.WriteFile(file, content, 0666)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func saveFileSimple(out string, filePath string, content []byte, isNeedCovered bool) error {
-	if len(content) == 0 {
-		return nil
-	}
-
-	_ = os.MkdirAll(out, 0766)
-	_, name := filepath.Split(filePath)
-	file := out + "/" + name
-	if !isNeedCovered && isExists(file) {
-		removeOldGenFile(file)
-		file += ".gen" + time.Now().Format("20060102T150405")
-	}
-
-	return os.WriteFile(file, content, 0666)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func isExists(f string) bool {
-	_, err := os.Stat(f)
-	if err != nil {
-		return !os.IsNotExist(err)
-	}
-	return true
-}
+func isExists(f string) bool { _ = "STUB: not implemented"; return false }
 
-func removeOldGenFile(file string) {
-	oldGenFiles := gofile.FuzzyMatchFiles(file + ".gen*")
-	for _, oldGenFile := range oldGenFiles {
-		_ = os.Remove(oldGenFile)
-	}
-}
+func removeOldGenFile(file string) { _ = "STUB: not implemented"; return }
 
-func firstLetterToUpper(s string) []byte {
-	if s == "" {
-		return []byte{}
-	}
-
-	return []byte(strings.ToUpper(s[:1]) + s[1:])
-}
+func firstLetterToUpper(s string) []byte { _ = "STUB: not implemented"; return nil }
 
 func adaptMonoRepo(moduleName string, serverName string, data []byte) []byte {
-	matchStr := map[string]string{
-		fmt.Sprintf("\"%s/internal/", moduleName): fmt.Sprintf("\"%s/internal/", moduleName+"/"+serverName),
-		fmt.Sprintf("\"%s/configs", moduleName):   fmt.Sprintf("\"%s/configs", moduleName+"/"+serverName),
-		fmt.Sprintf("\"%s/api", moduleName):       fmt.Sprintf("\"%s/api", moduleName+"/"+serverName),
-	}
-	for oldStr, newStr := range matchStr {
-		data = bytes.ReplaceAll(data, []byte(oldStr), []byte(newStr))
-	}
-	return data
+	_ = "STUB: not implemented"
+	return nil
 }

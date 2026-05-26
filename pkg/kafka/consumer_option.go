@@ -2,7 +2,6 @@ package kafka
 
 import (
 	"crypto/tls"
-	"fmt"
 	"time"
 
 	"github.com/IBM/sarama"
@@ -32,93 +31,61 @@ type consumerOptions struct {
 	zapLogger *zap.Logger // default NewProduction
 }
 
-func (o *consumerOptions) apply(opts ...ConsumerOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *consumerOptions) apply(opts ...ConsumerOption) { _ = "STUB: not implemented"; return }
 
-func defaultConsumerOptions() *consumerOptions {
-	zapLogger, _ := zap.NewProduction()
-	return &consumerOptions{
-		version:                   sarama.V2_1_0_0,
-		groupStrategies:           []sarama.BalanceStrategy{sarama.NewBalanceStrategyRange()},
-		offsetsInitial:            sarama.OffsetOldest,
-		offsetsAutoCommitEnable:   true,
-		offsetsAutoCommitInterval: time.Second,
-		clientID:                  "sarama",
-		zapLogger:                 zapLogger,
-	}
-}
+func defaultConsumerOptions() *consumerOptions { _ = "STUB: not implemented"; return nil }
 
 // ConsumerWithVersion set kafka version.
 func ConsumerWithVersion(version sarama.KafkaVersion) ConsumerOption {
-	return func(o *consumerOptions) {
-		o.version = version
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }
 
 // ConsumerWithGroupStrategies set groupStrategies.
 func ConsumerWithGroupStrategies(groupStrategies ...sarama.BalanceStrategy) ConsumerOption {
-	return func(o *consumerOptions) {
-		if len(groupStrategies) > 0 {
-			o.groupStrategies = groupStrategies
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }
 
 // ConsumerWithOffsetsInitial set offsetsInitial.
 func ConsumerWithOffsetsInitial(offsetsInitial int64) ConsumerOption {
-	return func(o *consumerOptions) {
-		o.offsetsInitial = offsetsInitial
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }
 
 // ConsumerWithOffsetsAutoCommitEnable set offsetsAutoCommitEnable.
 func ConsumerWithOffsetsAutoCommitEnable(offsetsAutoCommitEnable bool) ConsumerOption {
-	return func(o *consumerOptions) {
-		o.offsetsAutoCommitEnable = offsetsAutoCommitEnable
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }
 
 // ConsumerWithOffsetsAutoCommitInterval set offsetsAutoCommitInterval.
 func ConsumerWithOffsetsAutoCommitInterval(offsetsAutoCommitInterval time.Duration) ConsumerOption {
-	return func(o *consumerOptions) {
-		o.offsetsAutoCommitInterval = offsetsAutoCommitInterval
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }
 
 // ConsumerWithClientID set clientID.
 func ConsumerWithClientID(clientID string) ConsumerOption {
-	return func(o *consumerOptions) {
-		o.clientID = clientID
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }
 
 // ConsumerWithTLS set tlsConfig, if isSkipVerify is true, crypto/tls accepts any certificate presented by
 // the server and any host name in that certificate.
 func ConsumerWithTLS(certFile, keyFile, caFile string, isSkipVerify bool) ConsumerOption {
-	return func(o *consumerOptions) {
-		var err error
-		o.tlsConfig, err = getTLSConfig(certFile, keyFile, caFile, isSkipVerify)
-		if err != nil {
-			fmt.Println("ConsumerWithTLS error:", err)
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }
 
 // ConsumerWithZapLogger set zapLogger.
 func ConsumerWithZapLogger(zapLogger *zap.Logger) ConsumerOption {
-	return func(o *consumerOptions) {
-		if zapLogger != nil {
-			o.zapLogger = zapLogger
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }
 
 // ConsumerWithConfig set custom config.
 func ConsumerWithConfig(config *sarama.Config) ConsumerOption {
-	return func(o *consumerOptions) {
-		o.config = config
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerOption)
 }

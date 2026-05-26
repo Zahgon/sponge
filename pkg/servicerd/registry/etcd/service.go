@@ -2,21 +2,16 @@
 package etcd
 
 import (
-	"encoding/json"
-
 	"github.com/go-dev-frame/sponge/pkg/servicerd/registry"
 )
 
 func marshal(si *registry.ServiceInstance) (string, error) {
-	data, err := json.Marshal(si)
-	if err != nil {
-		return "", err
-	}
-	return string(data), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // nolint
 func unmarshal(data []byte) (si *registry.ServiceInstance, err error) {
-	err = json.Unmarshal(data, &si)
-	return
+	_ = "STUB: not implemented"
+	return nil, nil
 }

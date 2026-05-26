@@ -35,30 +35,33 @@ type Cache interface {
 
 // Set data
 func Set(ctx context.Context, key string, val interface{}, expiration time.Duration) error {
-	return DefaultClient.Set(ctx, key, val, expiration)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Get data
 func Get(ctx context.Context, key string, val interface{}) error {
-	return DefaultClient.Get(ctx, key, val)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MultiSet multiple set data
 func MultiSet(ctx context.Context, valMap map[string]interface{}, expiration time.Duration) error {
-	return DefaultClient.MultiSet(ctx, valMap, expiration)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MultiGet multiple get data
 func MultiGet(ctx context.Context, keys []string, valueMap interface{}) error {
-	return DefaultClient.MultiGet(ctx, keys, valueMap)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Del multiple delete data
-func Del(ctx context.Context, keys ...string) error {
-	return DefaultClient.Del(ctx, keys...)
-}
+func Del(ctx context.Context, keys ...string) error { _ = "STUB: not implemented"; return nil }
 
 // SetCacheWithNotFound .
 func SetCacheWithNotFound(ctx context.Context, key string) error {
-	return DefaultClient.SetCacheWithNotFound(ctx, key)
+	_ = "STUB: not implemented"
+	return nil
 }

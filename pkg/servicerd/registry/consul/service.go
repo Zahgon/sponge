@@ -14,14 +14,4 @@ type serviceSet struct {
 	lock        sync.RWMutex
 }
 
-func (s *serviceSet) broadcast(ss []*registry.ServiceInstance) {
-	s.services.Store(ss)
-	s.lock.RLock()
-	defer s.lock.RUnlock()
-	for k := range s.watcher {
-		select {
-		case k.event <- struct{}{}:
-		default:
-		}
-	}
-}
+func (s *serviceSet) broadcast(ss []*registry.ServiceInstance) { _ = "STUB: not implemented"; return }

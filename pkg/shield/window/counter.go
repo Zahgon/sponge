@@ -1,7 +1,6 @@
 package window
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -53,46 +52,25 @@ type rollingCounter struct {
 
 // NewRollingCounter creates a new RollingCounter bases on RollingCounterOpts.
 func NewRollingCounter(opts RollingCounterOpts) RollingCounter {
-	window := NewWindow(Options{Size: opts.Size})
-	policy := NewRollingPolicy(window, RollingPolicyOpts{BucketDuration: opts.BucketDuration})
-	return &rollingCounter{
-		policy: policy,
-	}
+	_ = "STUB: not implemented"
+	return *new(RollingCounter)
 }
 
-func (r *rollingCounter) Add(val int64) {
-	if val < 0 {
-		panic(fmt.Errorf("stat/metric: cannot decrease in value. val: %d", val))
-	}
-	r.policy.Add(float64(val))
-}
+func (r *rollingCounter) Add(val int64) { _ = "STUB: not implemented"; return }
 
 func (r *rollingCounter) Reduce(f func(Iterator) float64) float64 {
-	return r.policy.Reduce(f)
+	_ = "STUB: not implemented"
+	return 0
 }
 
-func (r *rollingCounter) Avg() float64 {
-	return r.policy.Reduce(Avg)
-}
+func (r *rollingCounter) Avg() float64 { _ = "STUB: not implemented"; return 0 }
 
-func (r *rollingCounter) Min() float64 {
-	return r.policy.Reduce(Min)
-}
+func (r *rollingCounter) Min() float64 { _ = "STUB: not implemented"; return 0 }
 
-func (r *rollingCounter) Max() float64 {
-	return r.policy.Reduce(Max)
-}
+func (r *rollingCounter) Max() float64 { _ = "STUB: not implemented"; return 0 }
 
-func (r *rollingCounter) Sum() float64 {
-	return r.policy.Reduce(Sum)
-}
+func (r *rollingCounter) Sum() float64 { _ = "STUB: not implemented"; return 0 }
 
-func (r *rollingCounter) Value() int64 {
-	return int64(r.Sum())
-}
+func (r *rollingCounter) Value() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (r *rollingCounter) Timespan() int {
-	r.policy.mu.RLock()
-	defer r.policy.mu.RUnlock()
-	return r.policy.timespan()
-}
+func (r *rollingCounter) Timespan() int { _ = "STUB: not implemented"; return 0 }

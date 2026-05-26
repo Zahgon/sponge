@@ -2,9 +2,6 @@
 package gocron
 
 import (
-	"errors"
-	"fmt"
-	"strings"
 	"sync"
 
 	"github.com/robfig/cron/v3"
@@ -31,127 +28,35 @@ type Task struct {
 }
 
 // Init initialize and start timed tasks
-func Init(opts ...Option) error {
-	o := defaultOptions()
-	o.apply(opts...)
+func Init(opts ...Option) error { _ = "STUB: not implemented"; return nil }
 
-	log := &zapLog{zapLog: o.zapLog, isOnlyPrintError: o.isOnlyPrintError}
-	cronOpts := []cron.Option{
-		cron.WithLogger(log),
-		cron.WithChain(
-			cron.Recover(log),
-		),
-	}
-	if o.granularity == SecondType {
-		cronOpts = append(cronOpts, cron.WithSeconds()) // second-level granularity, default is minute-level granularity
-	}
-
-	c = cron.New(cronOpts...)
-	c.Start()
-
-	return nil
-}
+// second-level granularity, default is minute-level granularity
 
 // Run the tasks
-func Run(tasks ...*Task) error {
-	if c == nil {
-		return errors.New("cron is not initialized")
-	}
+func Run(tasks ...*Task) error { _ = "STUB: not implemented"; return nil }
 
-	var errs []string
-	for _, task := range tasks {
-		if IsRunningTask(task.Name) {
-			errs = append(errs, fmt.Sprintf("task '%s' is already exists", task.Name))
-			continue
-		}
-
-		if err := checkRunOnce(task); err != nil {
-			errs = append(errs, err.Error())
-			continue
-		}
-
-		id, err := c.AddFunc(task.TimeSpec, task.Fn)
-		if err != nil {
-			errs = append(errs, fmt.Sprintf("run task '%s' error: %v", task.Name, err))
-			continue
-		}
-		idName.Store(id, task.Name)
-		nameID.Store(task.Name, id)
-	}
-
-	if len(errs) > 0 {
-		return errors.New(strings.Join(errs, " || "))
-	}
-
-	return nil
-}
-
-func checkRunOnce(task *Task) error {
-	if task.Fn == nil {
-		return fmt.Errorf("task '%s' is nil", task.Name)
-	}
-	if task.IsRunOnce {
-		job := task.Fn
-		task.Fn = func() {
-			job()
-			DeleteTask(task.Name)
-		}
-	}
-	return nil
-}
+func checkRunOnce(task *Task) error { _ = "STUB: not implemented"; return nil }
 
 // IsRunningTask determine if the task is running
-func IsRunningTask(name string) bool {
-	_, ok := nameID.Load(name)
-	return ok
-}
+func IsRunningTask(name string) bool { _ = "STUB: not implemented"; return false }
 
 // GetRunningTasks gets a list of running task names
-func GetRunningTasks() []string {
-	var names []string
-	nameID.Range(func(key, value interface{}) bool {
-		names = append(names, key.(string))
-		return true
-	})
-	return names
-}
+func GetRunningTasks() []string { _ = "STUB: not implemented"; return nil }
 
 // DeleteTask stop and delete the specified task
-func DeleteTask(name string) {
-	if id, ok := nameID.Load(name); ok {
-		entryID, isOk := id.(cron.EntryID)
-		if !isOk {
-			return
-		}
-		c.Remove(entryID)
-		nameID.Delete(name)
-		idName.Delete(entryID)
-	}
-}
+func DeleteTask(name string) { _ = "STUB: not implemented"; return }
 
 // Stop all scheduled tasks
-func Stop() {
-	if c != nil {
-		c.Stop()
-	}
-}
+func Stop() { _ = "STUB: not implemented"; return }
 
 // EverySecond every second size (1~59)
-func EverySecond(size int) string {
-	return fmt.Sprintf("@every %ds", size)
-}
+func EverySecond(size int) string { _ = "STUB: not implemented"; return "" }
 
 // EveryMinute every minute size (1~59)
-func EveryMinute(size int) string {
-	return fmt.Sprintf("@every %dm", size)
-}
+func EveryMinute(size int) string { _ = "STUB: not implemented"; return "" }
 
 // EveryHour every hour size (1~23)
-func EveryHour(size int) string {
-	return fmt.Sprintf("@every %dh", size)
-}
+func EveryHour(size int) string { _ = "STUB: not implemented"; return "" }
 
 // Everyday size (1~31)
-func Everyday(size int) string {
-	return fmt.Sprintf("@every %dh", size*24)
-}
+func Everyday(size int) string { _ = "STUB: not implemented"; return "" }

@@ -8,32 +8,14 @@ type AsyncTaskPool struct {
 }
 
 // NewAsyncTaskPool creates a task pool with a fixed capacity
-func NewAsyncTaskPool(maxWorkers int) *AsyncTaskPool {
-	pool := &AsyncTaskPool{
-		tasks: make(chan func(), 10000), // default capacity is 10000
-	}
-	for i := 0; i < maxWorkers; i++ {
-		go pool.worker()
-	}
-	return pool
-}
+func NewAsyncTaskPool(maxWorkers int) *AsyncTaskPool { _ = "STUB: not implemented"; return nil }
 
-func (p *AsyncTaskPool) worker() {
-	for task := range p.tasks {
-		task()
-		p.wg.Done()
-	}
-}
+// default capacity is 10000
 
-func (p *AsyncTaskPool) Submit(task func()) {
-	p.wg.Add(1)
-	p.tasks <- task
-}
+func (p *AsyncTaskPool) worker() { _ = "STUB: not implemented"; return }
 
-func (p *AsyncTaskPool) Wait() {
-	p.wg.Wait()
-}
+func (p *AsyncTaskPool) Submit(task func()) { _ = "STUB: not implemented"; return }
 
-func (p *AsyncTaskPool) Stop() {
-	close(p.tasks)
-}
+func (p *AsyncTaskPool) Wait() { _ = "STUB: not implemented"; return }
+
+func (p *AsyncTaskPool) Stop() { _ = "STUB: not implemented"; return }

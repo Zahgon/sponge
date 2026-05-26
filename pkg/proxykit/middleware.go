@@ -13,37 +13,24 @@ type Middleware func(http.Handler) http.Handler
 
 // Chain links multiple middlewares together to form a single http.Handler.
 func Chain(h http.Handler, middlewares ...Middleware) http.Handler {
+	_ = "STUB: not implemented"
 	// Start from the last middleware and wrap backwards,
 	// so that the first middleware is the outermost layer.
-	for i := len(middlewares) - 1; i >= 0; i-- {
-		h = middlewares[i](h)
-	}
-	return h
+	return *new(http.Handler)
 }
 
 type logger struct {
 	*zap.Logger
 }
 
-func newLogger() *logger {
-	var l, _ = zap.NewProduction()
-	return &logger{l}
-}
+func newLogger() *logger { _ = "STUB: not implemented"; return nil }
 
-func (l *logger) Printf(format string, v ...interface{}) {
-	l.Sugar().Infof(format, v...)
-}
+func (l *logger) Printf(format string, v ...interface{}) { _ = "STUB: not implemented"; return }
 
-func (l *logger) Println(v ...interface{}) {
-	l.Sugar().Info(v...)
-}
+func (l *logger) Println(v ...interface{}) { _ = "STUB: not implemented"; return }
 
 var log = newLogger()
 
 var doOnce sync.Once
 
-func SetLogger(l *zap.Logger) {
-	doOnce.Do(func() {
-		log = &logger{l}
-	})
-}
+func SetLogger(l *zap.Logger) { _ = "STUB: not implemented"; return }

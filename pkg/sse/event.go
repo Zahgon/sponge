@@ -2,7 +2,6 @@ package sse
 
 import (
 	"context"
-	"errors"
 )
 
 // DefaultEventType is the default event type if not provided in the event
@@ -16,23 +15,10 @@ type Event struct {
 }
 
 // CheckValid checks if the event is valid
-func (e *Event) CheckValid() error {
-	if e.Event == "" {
-		return errors.New("invalid event")
-	}
-	if e.Data == nil {
-		return errors.New("invalid data")
-	}
-	return nil
-}
+func (e *Event) CheckValid() error { _ = "STUB: not implemented"; return nil }
 
 // CloseEvent returns a close event
-func CloseEvent() *Event {
-	return &Event{
-		Event: "close",
-		Data:  "server closed connection, do not retry",
-	}
-}
+func CloseEvent() *Event { _ = "STUB: not implemented"; return nil }
 
 // Store defines the interface for storing and retrieving events
 type Store interface {

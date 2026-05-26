@@ -1,11 +1,5 @@
 package generate
 
-import (
-	"fmt"
-	"strings"
-	"text/template"
-)
-
 const (
 	overviewDesc = `## 概述
 
@@ -584,87 +578,8 @@ type readmeTemp struct {
 }
 
 func newReadmeTemp(moduleName, serverName, serverType, dbDriver string, suitedMonoRepo bool) *readmeTemp {
-	var repoType string
-	if suitedMonoRepo {
-		repoType = "mono-repo"
-	} else {
-		if serverType == codeNameHTTP {
-			repoType = "monolith"
-		} else {
-			repoType = "multi-repo"
-		}
-	}
-	var ormType string
-	if dbDriver != "" {
-		if dbDriver == DBDriverMongodb {
-			ormType = DBDriverMongodb
-		} else {
-			ormType = "gorm"
-		}
-	}
-
-	return &readmeTemp{
-		ServerType:   serverType,
-		ServerName:   serverName,
-		ORMType:      ormType,
-		DatabaseType: dbDriver,
-		ModuleName:   moduleName,
-		RepoType:     repoType,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (r *readmeTemp) genReadmeContent() (string, error) {
-	var (
-		err            error
-		readmeTemplate *template.Template
-		readmeContent  = fmt.Sprintf("# %s (%s, %s)\n\n%s\n", r.ServerName, r.ServerType, r.RepoType, overviewDesc)
-	)
-
-	switch r.ServerType {
-	case codeNameHTTP:
-		readmeTemplate, err = template.New(r.ServerType).Parse(httpServerReadmeTmplRaw)
-		if err != nil {
-			return readmeContent, err
-		}
-	case codeNameHTTPPb:
-		readmeTemplate, err = template.New(r.ServerType).Parse(httpPbServerReadmeTmplRaw)
-		if err != nil {
-			return readmeContent, err
-		}
-	case codeNameGRPC:
-		readmeTemplate, err = template.New(r.ServerType).Parse(grpcServerReadmeTmplRaw)
-		if err != nil {
-			return readmeContent, err
-		}
-	case codeNameGRPCPb:
-		readmeTemplate, err = template.New(r.ServerType).Parse(grpcPbServerReadmeTmplRaw)
-		if err != nil {
-			return readmeContent, err
-		}
-	case codeNameGRPCHTTP:
-		readmeTemplate, err = template.New(r.ServerType).Parse(grpcHTTPServerReadmeTmplRaw)
-		if err != nil {
-			return readmeContent, err
-		}
-	case codeNameGRPCHTTPPb:
-		readmeTemplate, err = template.New(r.ServerType).Parse(grpcHTTPPbServerReadmeTmplRaw)
-		if err != nil {
-			return readmeContent, err
-		}
-	case codeNameGRPCGW:
-		readmeTemplate, err = template.New(r.ServerType).Parse(grpcGwPbServerReadmeTmplRaw)
-		if err != nil {
-			return readmeContent, err
-		}
-	}
-
-	builder := strings.Builder{}
-	err = readmeTemplate.Execute(&builder, *r)
-	if err != nil {
-		return readmeContent, fmt.Errorf("readmeTemplate.Execute error: %v", err)
-	}
-	partContent := strings.ReplaceAll(builder.String(), "<BQ>", "`")
-
-	readmeContent += partContent + deploymentDesc
-	return readmeContent, err
-}
+func (r *readmeTemp) genReadmeContent() (string, error) { _ = "STUB: not implemented"; return "", nil }

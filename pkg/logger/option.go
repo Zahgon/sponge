@@ -1,8 +1,6 @@
 package logger
 
 import (
-	"strings"
-
 	"go.uber.org/zap/zapcore"
 )
 
@@ -29,62 +27,29 @@ type options struct {
 	hooks []func(zapcore.Entry) error
 }
 
-func defaultOptions() *options {
-	return &options{
-		level:    defaultLevel,
-		encoding: defaultEncoding,
-		isSave:   defaultIsSave,
-	}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // Option set the logger options.
 type Option func(*options)
 
 // WithLevel setting the log level
-func WithLevel(levelName string) Option {
-	return func(o *options) {
-		levelName = strings.ToUpper(levelName)
-		switch levelName {
-		case levelDebug, levelInfo, levelWarn, levelError:
-			o.level = levelName
-		default:
-			o.level = levelDebug
-		}
-	}
-}
+func WithLevel(levelName string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithFormat set the output log format, console or json
-func WithFormat(format string) Option {
-	return func(o *options) {
-		if strings.ToLower(format) == formatJSON {
-			o.encoding = formatJSON
-		}
-	}
-}
+func WithFormat(format string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithSave save log to file
 func WithSave(isSave bool, opts ...FileOption) Option {
-	return func(o *options) {
-		if isSave {
-			o.isSave = true
-			fo := defaultFileOptions()
-			fo.apply(opts...)
-			o.fileConfig = fo
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithHooks set the log hooks
 func WithHooks(hooks ...func(zapcore.Entry) error) Option {
-	return func(o *options) {
-		o.hooks = hooks
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // ------------------------------------------------------------------------------------------
@@ -98,72 +63,33 @@ type fileOptions struct {
 	isLocalTime   bool
 }
 
-func defaultFileOptions() *fileOptions {
-	return &fileOptions{
-		filename:      defaultFilename,
-		maxSize:       defaultMaxSize,
-		maxBackups:    defaultMaxBackups,
-		maxAge:        defaultMaxAge,
-		isCompression: defaultIsCompression,
-		isLocalTime:   defaultIsLocalTime,
-	}
-}
+func defaultFileOptions() *fileOptions { _ = "STUB: not implemented"; return nil }
 
-func (o *fileOptions) apply(opts ...FileOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *fileOptions) apply(opts ...FileOption) { _ = "STUB: not implemented"; return }
 
 // FileOption set the file options.
 type FileOption func(*fileOptions)
 
 // WithFileName set log filename
-func WithFileName(filename string) FileOption {
-	return func(f *fileOptions) {
-		if filename != "" {
-			f.filename = filename
-		}
-	}
-}
+func WithFileName(filename string) FileOption { _ = "STUB: not implemented"; return *new(FileOption) }
 
 // WithFileMaxSize set maximum file size (MB)
-func WithFileMaxSize(maxSize int) FileOption {
-	return func(f *fileOptions) {
-		if maxSize > 0 {
-			f.maxSize = maxSize
-		}
-	}
-}
+func WithFileMaxSize(maxSize int) FileOption { _ = "STUB: not implemented"; return *new(FileOption) }
 
 // WithFileMaxBackups set maximum number of old files
 func WithFileMaxBackups(maxBackups int) FileOption {
-	return func(f *fileOptions) {
-		if f.maxBackups > 0 {
-			f.maxBackups = maxBackups
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(FileOption)
 }
 
 // WithFileMaxAge set maximum number of days for old documents
-func WithFileMaxAge(maxAge int) FileOption {
-	return func(f *fileOptions) {
-		if f.maxAge > 0 {
-			f.maxAge = maxAge
-		}
-	}
-}
+func WithFileMaxAge(maxAge int) FileOption { _ = "STUB: not implemented"; return *new(FileOption) }
 
 // WithFileIsCompression set whether to compress log files
 func WithFileIsCompression(isCompression bool) FileOption {
-	return func(f *fileOptions) {
-		f.isCompression = isCompression
-	}
+	_ = "STUB: not implemented"
+	return *new(FileOption)
 }
 
 // WithLocalTime set whether to use local time
-func WithLocalTime(isLocalTime bool) FileOption {
-	return func(f *fileOptions) {
-		f.isLocalTime = isLocalTime
-	}
-}
+func WithLocalTime(isLocalTime bool) FileOption { _ = "STUB: not implemented"; return *new(FileOption) }

@@ -6,10 +6,8 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/resolver"
 
-	"github.com/go-dev-frame/sponge/pkg/servicerd/discovery"
 	"github.com/go-dev-frame/sponge/pkg/servicerd/registry"
 )
 
@@ -28,117 +26,71 @@ type options struct {
 	dialOptions        []grpc.DialOption
 }
 
-func defaultOptions() *options {
-	return &options{}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithServiceDiscover set service discover
 func WithServiceDiscover(d registry.Discovery, isInsecure bool) Option {
-	return func(o *options) {
-		o.iDiscovery = d
-		o.isInsecure = isInsecure
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithServiceDiscoverBuilder set service discover builder
 func WithServiceDiscoverBuilder(builder ...resolver.Builder) Option {
-	return func(o *options) {
-		o.builders = builder
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithLoadBalance set load balance
-func WithLoadBalance() Option {
-	return func(o *options) {
-		o.isLoadBalance = true
-	}
-}
+func WithLoadBalance() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithSecure set secure
 func WithSecure(credential credentials.TransportCredentials) Option {
-	return func(o *options) {
-		o.credentials = credential
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithUnaryInterceptor set unary interceptor
 func WithUnaryInterceptor(interceptors ...grpc.UnaryClientInterceptor) Option {
-	return func(o *options) {
-		o.unaryInterceptors = interceptors
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithStreamInterceptor set stream interceptor
 func WithStreamInterceptor(interceptors ...grpc.StreamClientInterceptor) Option {
-	return func(o *options) {
-		o.streamInterceptors = interceptors
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithDialOption set DialOption
 func WithDialOption(dialOptions ...grpc.DialOption) Option {
-	return func(o *options) {
-		o.dialOptions = dialOptions
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // NewClient create a new grpc client
 func NewClient(endpoint string, opts ...Option) (*grpc.ClientConn, error) {
-	o := defaultOptions()
-	o.apply(opts...)
-
-	var dialOptions []grpc.DialOption
-
-	// service discovery
-	if len(o.builders) > 0 {
-		dialOptions = append(dialOptions, grpc.WithResolvers(o.builders...)) // higher priority
-	} else {
-		if o.iDiscovery != nil {
-			dialOptions = append(dialOptions, grpc.WithResolvers(
-				discovery.NewBuilder(
-					o.iDiscovery,
-					discovery.WithInsecure(o.isInsecure),
-				)))
-		}
-	}
-
-	// load balance option
-	if o.isLoadBalance {
-		dialOptions = append(dialOptions, grpc.WithDefaultServiceConfig(`{"loadBalancingConfig": [{"round_robin":{}}]}`))
-	}
-
-	// secure option
-	if o.credentials == nil {
-		dialOptions = append(dialOptions, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	} else {
-		dialOptions = append(dialOptions, grpc.WithTransportCredentials(o.credentials))
-	}
-
-	// custom dial option
-	if len(o.dialOptions) > 0 {
-		dialOptions = append(dialOptions, o.dialOptions...)
-	}
-
-	// custom unary interceptor option
-	if len(o.unaryInterceptors) > 0 {
-		dialOptions = append(dialOptions, grpc.WithChainUnaryInterceptor(o.unaryInterceptors...))
-	}
-
-	// custom stream interceptor option
-	if len(o.streamInterceptors) > 0 {
-		dialOptions = append(dialOptions, grpc.WithChainStreamInterceptor(o.streamInterceptors...))
-	}
-
-	return grpc.NewClient(endpoint, dialOptions...)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// service discovery
+
+// higher priority
+
+// load balance option
+
+// secure option
+
+// custom dial option
+
+// custom unary interceptor option
+
+// custom stream interceptor option
 
 // Dial to grpc server
 func Dial(_ context.Context, endpoint string, opts ...Option) (*grpc.ClientConn, error) {
-	return NewClient(endpoint, opts...)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

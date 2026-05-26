@@ -19,27 +19,20 @@ type blockCipher struct {
 
 // NewBlockCipher new block encryption
 func NewBlockCipher(padding Padding, encrypt, decrypt cipher.BlockMode) Cipher {
-	return &blockCipher{
-		encrypt: encrypt,
-		decrypt: decrypt,
-		padding: padding,
-	}
+	_ = "STUB: not implemented"
+	return *new(Cipher)
 }
 
 // Encrypt encrypted
 func (blockCipher *blockCipher) Encrypt(plaintext []byte) []byte {
-	plaintext = blockCipher.padding.Padding(plaintext, blockCipher.encrypt.BlockSize())
-	ciphertext := make([]byte, len(plaintext))
-	blockCipher.encrypt.CryptBlocks(ciphertext, plaintext)
-	return ciphertext
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Decrypt decrypt
 func (blockCipher *blockCipher) Decrypt(ciphertext []byte) []byte {
-	plaintext := make([]byte, len(ciphertext))
-	blockCipher.decrypt.CryptBlocks(plaintext, ciphertext)
-	plaintext = blockCipher.padding.UnPadding(plaintext)
-	return plaintext
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ---------------------------------------------------------------------------------------
@@ -51,21 +44,18 @@ type streamCipher struct {
 
 // NewStreamCipher new stream encryption
 func NewStreamCipher(encrypt cipher.Stream, decrypt cipher.Stream) Cipher {
-	return &streamCipher{
-		encrypt: encrypt,
-		decrypt: decrypt}
+	_ = "STUB: not implemented"
+	return *new(Cipher)
 }
 
 // Encrypt stream encryption
 func (streamCipher *streamCipher) Encrypt(plaintext []byte) []byte {
-	ciphertext := make([]byte, len(plaintext))
-	streamCipher.encrypt.XORKeyStream(ciphertext, plaintext)
-	return ciphertext
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Decrypt stream decryption
 func (streamCipher *streamCipher) Decrypt(ciphertext []byte) []byte {
-	plaintext := make([]byte, len(ciphertext))
-	streamCipher.decrypt.XORKeyStream(plaintext, ciphertext)
-	return plaintext
+	_ = "STUB: not implemented"
+	return nil
 }

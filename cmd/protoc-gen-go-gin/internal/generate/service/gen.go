@@ -2,8 +2,6 @@
 package service
 
 import (
-	"bytes"
-
 	"google.golang.org/protobuf/compiler/protogen"
 
 	"github.com/go-dev-frame/sponge/cmd/protoc-gen-go-gin/internal/parse"
@@ -12,70 +10,32 @@ import (
 // GenerateFiles generate service logic, router, error code files.
 func GenerateFiles(file *protogen.File, moduleName string) (logicContent []byte,
 	routerFileContent []byte, errCodeFileContent []byte) {
-	if len(file.Services) == 0 {
-		return nil, nil, nil
-	}
-
-	pss := parse.GetServices(file, moduleName)
-	logicContent = genServiceLogicFile(pss)
-	routerFileContent = genRouterFile(pss)
-	errCodeFileContent = genErrCodeFile(pss)
-
-	return logicContent, routerFileContent, errCodeFileContent
+	_ = "STUB: not implemented"
+	return nil, nil, nil
 }
 
-func genServiceLogicFile(fields []*parse.PbService) []byte {
-	slf := &serviceLogicFields{PbServices: fields}
-	return slf.execute()
-}
+func genServiceLogicFile(fields []*parse.PbService) []byte { _ = "STUB: not implemented"; return nil }
 
-func genRouterFile(fields []*parse.PbService) []byte {
-	rf := &routerFields{PbServices: fields}
-	return rf.execute()
-}
+func genRouterFile(fields []*parse.PbService) []byte { _ = "STUB: not implemented"; return nil }
 
-func genErrCodeFile(fields []*parse.PbService) []byte {
-	cf := &errCodeFields{PbServices: fields}
-	return cf.execute()
-}
+func genErrCodeFile(fields []*parse.PbService) []byte { _ = "STUB: not implemented"; return nil }
 
 type serviceLogicFields struct {
 	PbServices []*parse.PbService
 }
 
-func (f *serviceLogicFields) execute() []byte {
-	buf := new(bytes.Buffer)
-	if err := serviceLogicTmpl.Execute(buf, f); err != nil {
-		panic(err)
-	}
-	content := buf.Bytes()
-	return bytes.ReplaceAll(content, []byte(importPkgPathMark), parse.GetImportPkg(f.PbServices))
-}
+func (f *serviceLogicFields) execute() []byte { _ = "STUB: not implemented"; return nil }
 
 type routerFields struct {
 	PbServices []*parse.PbService
 }
 
-func (f *routerFields) execute() []byte {
-	buf := new(bytes.Buffer)
-	if err := routerTmpl.Execute(buf, f); err != nil {
-		panic(err)
-	}
-	content := buf.Bytes()
-	return bytes.ReplaceAll(content, []byte(importPkgPathMark), parse.GetSourceImportPkg(f.PbServices))
-}
+func (f *routerFields) execute() []byte { _ = "STUB: not implemented"; return nil }
 
 type errCodeFields struct {
 	PbServices []*parse.PbService
 }
 
-func (f *errCodeFields) execute() []byte {
-	buf := new(bytes.Buffer)
-	if err := rpcErrCodeTmpl.Execute(buf, f); err != nil {
-		panic(err)
-	}
-	data := bytes.ReplaceAll(buf.Bytes(), []byte("// --blank line--"), []byte{})
-	return data
-}
+func (f *errCodeFields) execute() []byte { _ = "STUB: not implemented"; return nil }
 
 const importPkgPathMark = "// import api service package here"

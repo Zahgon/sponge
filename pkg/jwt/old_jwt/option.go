@@ -35,49 +35,25 @@ type options struct {
 	signingMethod *jwt.SigningMethodHMAC
 }
 
-func defaultOptions() *options {
-	return &options{
-		signingKey:    defaultSigningKey,
-		signingMethod: defaultSigningMethod,
-		expire:        defaultExpire,
-		issuer:        defaultIssuer,
-	}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
 // Option set the jwt options.
 // Deprecated: use "github.com/go-dev-frame/sponge/pkg/jwt" RegisteredClaimsOption instead.
 type Option func(*options)
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithSigningKey set signing key value
-func WithSigningKey(key string) Option {
-	return func(o *options) {
-		o.signingKey = []byte(key)
-	}
-}
+func WithSigningKey(key string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithSigningMethod set signing method value
 func WithSigningMethod(sm *jwt.SigningMethodHMAC) Option {
-	return func(o *options) {
-		o.signingMethod = sm
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithExpire set expire value
-func WithExpire(d time.Duration) Option {
-	return func(o *options) {
-		o.expire = d
-	}
-}
+func WithExpire(d time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithIssuer set issuer value
-func WithIssuer(issuer string) Option {
-	return func(o *options) {
-		o.issuer = issuer
-	}
-}
+func WithIssuer(issuer string) Option { _ = "STUB: not implemented"; return *new(Option) }

@@ -12,10 +12,10 @@ package v1
 import (
 	types "github.com/go-dev-frame/sponge/api/types"
 
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -47,32 +47,27 @@ var (
 	}
 )
 
-func (x GenderType) Enum() *GenderType {
-	p := new(GenderType)
-	*p = x
-	return p
-}
+func (x GenderType) Enum() *GenderType { _ = "STUB: not implemented"; return nil }
 
-func (x GenderType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x GenderType) String() string { _ = "STUB: not implemented"; return "" }
 
 func (GenderType) Descriptor() protoreflect.EnumDescriptor {
-	return file_api_serverNameExample_v1_userExample_proto_enumTypes[0].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (GenderType) Type() protoreflect.EnumType {
-	return &file_api_serverNameExample_v1_userExample_proto_enumTypes[0]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x GenderType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use GenderType.Descriptor instead.
-func (GenderType) EnumDescriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{0}
-}
+func (GenderType) EnumDescriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 type CreateUserExampleRequest struct {
 	state         protoimpl.MessageState
@@ -88,85 +83,38 @@ type CreateUserExampleRequest struct {
 	Gender   GenderType `protobuf:"varint,7,opt,name=gender,proto3,enum=api.serverNameExample.v1.GenderType" json:"gender"` // gender, 1:Male, 2:Female, other values:unknown
 }
 
-func (x *CreateUserExampleRequest) Reset() {
-	*x = CreateUserExampleRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *CreateUserExampleRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *CreateUserExampleRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *CreateUserExampleRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*CreateUserExampleRequest) ProtoMessage() {}
+func (*CreateUserExampleRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *CreateUserExampleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use CreateUserExampleRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserExampleRequest) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *CreateUserExampleRequest) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
+func (x *CreateUserExampleRequest) GetName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *CreateUserExampleRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
+func (x *CreateUserExampleRequest) GetEmail() string { _ = "STUB: not implemented"; return "" }
 
-func (x *CreateUserExampleRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
+func (x *CreateUserExampleRequest) GetPassword() string { _ = "STUB: not implemented"; return "" }
 
-func (x *CreateUserExampleRequest) GetPhone() string {
-	if x != nil {
-		return x.Phone
-	}
-	return ""
-}
+func (x *CreateUserExampleRequest) GetPhone() string { _ = "STUB: not implemented"; return "" }
 
-func (x *CreateUserExampleRequest) GetAvatar() string {
-	if x != nil {
-		return x.Avatar
-	}
-	return ""
-}
+func (x *CreateUserExampleRequest) GetAvatar() string { _ = "STUB: not implemented"; return "" }
 
-func (x *CreateUserExampleRequest) GetAge() int32 {
-	if x != nil {
-		return x.Age
-	}
-	return 0
-}
+func (x *CreateUserExampleRequest) GetAge() int32 { _ = "STUB: not implemented"; return 0 }
 
 func (x *CreateUserExampleRequest) GetGender() GenderType {
-	if x != nil {
-		return x.Gender
-	}
-	return GenderType_UNKNOWN
+	_ = "STUB: not implemented"
+	return *new(GenderType)
 }
 
 type CreateUserExampleReply struct {
@@ -177,44 +125,24 @@ type CreateUserExampleReply struct {
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 }
 
-func (x *CreateUserExampleReply) Reset() {
-	*x = CreateUserExampleReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *CreateUserExampleReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *CreateUserExampleReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *CreateUserExampleReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*CreateUserExampleReply) ProtoMessage() {}
+func (*CreateUserExampleReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *CreateUserExampleReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use CreateUserExampleReply.ProtoReflect.Descriptor instead.
 func (*CreateUserExampleReply) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *CreateUserExampleReply) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
+func (x *CreateUserExampleReply) GetId() uint64 { _ = "STUB: not implemented"; return 0 }
 
 type DeleteUserExampleByIDRequest struct {
 	state         protoimpl.MessageState
@@ -224,44 +152,24 @@ type DeleteUserExampleByIDRequest struct {
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id" uri:"id"`
 }
 
-func (x *DeleteUserExampleByIDRequest) Reset() {
-	*x = DeleteUserExampleByIDRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *DeleteUserExampleByIDRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *DeleteUserExampleByIDRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *DeleteUserExampleByIDRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*DeleteUserExampleByIDRequest) ProtoMessage() {}
+func (*DeleteUserExampleByIDRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *DeleteUserExampleByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use DeleteUserExampleByIDRequest.ProtoReflect.Descriptor instead.
 func (*DeleteUserExampleByIDRequest) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{2}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *DeleteUserExampleByIDRequest) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
+func (x *DeleteUserExampleByIDRequest) GetId() uint64 { _ = "STUB: not implemented"; return 0 }
 
 type DeleteUserExampleByIDReply struct {
 	state         protoimpl.MessageState
@@ -269,36 +177,21 @@ type DeleteUserExampleByIDReply struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *DeleteUserExampleByIDReply) Reset() {
-	*x = DeleteUserExampleByIDReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *DeleteUserExampleByIDReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *DeleteUserExampleByIDReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *DeleteUserExampleByIDReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*DeleteUserExampleByIDReply) ProtoMessage() {}
+func (*DeleteUserExampleByIDReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *DeleteUserExampleByIDReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use DeleteUserExampleByIDReply.ProtoReflect.Descriptor instead.
 func (*DeleteUserExampleByIDReply) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{3}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type UpdateUserExampleByIDRequest struct {
@@ -318,107 +211,45 @@ type UpdateUserExampleByIDRequest struct {
 	LoginAt  int64      `protobuf:"varint,10,opt,name=loginAt,proto3" json:"loginAt"`                                       // login timestamp
 }
 
-func (x *UpdateUserExampleByIDRequest) Reset() {
-	*x = UpdateUserExampleByIDRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *UpdateUserExampleByIDRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *UpdateUserExampleByIDRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *UpdateUserExampleByIDRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*UpdateUserExampleByIDRequest) ProtoMessage() {}
+func (*UpdateUserExampleByIDRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *UpdateUserExampleByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use UpdateUserExampleByIDRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserExampleByIDRequest) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{4}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *UpdateUserExampleByIDRequest) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
+func (x *UpdateUserExampleByIDRequest) GetId() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *UpdateUserExampleByIDRequest) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
+func (x *UpdateUserExampleByIDRequest) GetName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UpdateUserExampleByIDRequest) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
+func (x *UpdateUserExampleByIDRequest) GetEmail() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UpdateUserExampleByIDRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
+func (x *UpdateUserExampleByIDRequest) GetPassword() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UpdateUserExampleByIDRequest) GetPhone() string {
-	if x != nil {
-		return x.Phone
-	}
-	return ""
-}
+func (x *UpdateUserExampleByIDRequest) GetPhone() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UpdateUserExampleByIDRequest) GetAvatar() string {
-	if x != nil {
-		return x.Avatar
-	}
-	return ""
-}
+func (x *UpdateUserExampleByIDRequest) GetAvatar() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UpdateUserExampleByIDRequest) GetAge() int32 {
-	if x != nil {
-		return x.Age
-	}
-	return 0
-}
+func (x *UpdateUserExampleByIDRequest) GetAge() int32 { _ = "STUB: not implemented"; return 0 }
 
 func (x *UpdateUserExampleByIDRequest) GetGender() GenderType {
-	if x != nil {
-		return x.Gender
-	}
-	return GenderType_UNKNOWN
+	_ = "STUB: not implemented"
+	return *new(GenderType)
 }
 
-func (x *UpdateUserExampleByIDRequest) GetStatus() int32 {
-	if x != nil {
-		return x.Status
-	}
-	return 0
-}
+func (x *UpdateUserExampleByIDRequest) GetStatus() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *UpdateUserExampleByIDRequest) GetLoginAt() int64 {
-	if x != nil {
-		return x.LoginAt
-	}
-	return 0
-}
+func (x *UpdateUserExampleByIDRequest) GetLoginAt() int64 { _ = "STUB: not implemented"; return 0 }
 
 type UpdateUserExampleByIDReply struct {
 	state         protoimpl.MessageState
@@ -426,36 +257,21 @@ type UpdateUserExampleByIDReply struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *UpdateUserExampleByIDReply) Reset() {
-	*x = UpdateUserExampleByIDReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *UpdateUserExampleByIDReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *UpdateUserExampleByIDReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *UpdateUserExampleByIDReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*UpdateUserExampleByIDReply) ProtoMessage() {}
+func (*UpdateUserExampleByIDReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *UpdateUserExampleByIDReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use UpdateUserExampleByIDReply.ProtoReflect.Descriptor instead.
 func (*UpdateUserExampleByIDReply) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{5}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type UserExample struct {
@@ -476,114 +292,41 @@ type UserExample struct {
 	UpdatedAt string     `protobuf:"bytes,11,opt,name=updatedAt,proto3" json:"updatedAt"`                                    // update time
 }
 
-func (x *UserExample) Reset() {
-	*x = UserExample{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *UserExample) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *UserExample) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *UserExample) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*UserExample) ProtoMessage() {}
+func (*UserExample) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *UserExample) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use UserExample.ProtoReflect.Descriptor instead.
-func (*UserExample) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{6}
-}
+func (*UserExample) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *UserExample) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
+func (x *UserExample) GetId() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *UserExample) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
+func (x *UserExample) GetName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UserExample) GetEmail() string {
-	if x != nil {
-		return x.Email
-	}
-	return ""
-}
+func (x *UserExample) GetEmail() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UserExample) GetPhone() string {
-	if x != nil {
-		return x.Phone
-	}
-	return ""
-}
+func (x *UserExample) GetPhone() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UserExample) GetAvatar() string {
-	if x != nil {
-		return x.Avatar
-	}
-	return ""
-}
+func (x *UserExample) GetAvatar() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UserExample) GetAge() int32 {
-	if x != nil {
-		return x.Age
-	}
-	return 0
-}
+func (x *UserExample) GetAge() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *UserExample) GetGender() GenderType {
-	if x != nil {
-		return x.Gender
-	}
-	return GenderType_UNKNOWN
-}
+func (x *UserExample) GetGender() GenderType { _ = "STUB: not implemented"; return *new(GenderType) }
 
-func (x *UserExample) GetStatus() int32 {
-	if x != nil {
-		return x.Status
-	}
-	return 0
-}
+func (x *UserExample) GetStatus() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *UserExample) GetLoginAt() int64 {
-	if x != nil {
-		return x.LoginAt
-	}
-	return 0
-}
+func (x *UserExample) GetLoginAt() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *UserExample) GetCreatedAt() string {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return ""
-}
+func (x *UserExample) GetCreatedAt() string { _ = "STUB: not implemented"; return "" }
 
-func (x *UserExample) GetUpdatedAt() string {
-	if x != nil {
-		return x.UpdatedAt
-	}
-	return ""
-}
+func (x *UserExample) GetUpdatedAt() string { _ = "STUB: not implemented"; return "" }
 
 type GetUserExampleByIDRequest struct {
 	state         protoimpl.MessageState
@@ -593,44 +336,24 @@ type GetUserExampleByIDRequest struct {
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id" uri:"id"`
 }
 
-func (x *GetUserExampleByIDRequest) Reset() {
-	*x = GetUserExampleByIDRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *GetUserExampleByIDRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *GetUserExampleByIDRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *GetUserExampleByIDRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*GetUserExampleByIDRequest) ProtoMessage() {}
+func (*GetUserExampleByIDRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *GetUserExampleByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use GetUserExampleByIDRequest.ProtoReflect.Descriptor instead.
 func (*GetUserExampleByIDRequest) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{7}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *GetUserExampleByIDRequest) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
+func (x *GetUserExampleByIDRequest) GetId() uint64 { _ = "STUB: not implemented"; return 0 }
 
 type GetUserExampleByIDReply struct {
 	state         protoimpl.MessageState
@@ -640,42 +363,25 @@ type GetUserExampleByIDReply struct {
 	UserExample *UserExample `protobuf:"bytes,1,opt,name=userExample,proto3" json:"userExample"`
 }
 
-func (x *GetUserExampleByIDReply) Reset() {
-	*x = GetUserExampleByIDReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *GetUserExampleByIDReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *GetUserExampleByIDReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *GetUserExampleByIDReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*GetUserExampleByIDReply) ProtoMessage() {}
+func (*GetUserExampleByIDReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *GetUserExampleByIDReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use GetUserExampleByIDReply.ProtoReflect.Descriptor instead.
 func (*GetUserExampleByIDReply) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{8}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (x *GetUserExampleByIDReply) GetUserExample() *UserExample {
-	if x != nil {
-		return x.UserExample
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -687,44 +393,24 @@ type ListUserExampleRequest struct {
 	Params *types.Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
 }
 
-func (x *ListUserExampleRequest) Reset() {
-	*x = ListUserExampleRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *ListUserExampleRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ListUserExampleRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ListUserExampleRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ListUserExampleRequest) ProtoMessage() {}
+func (*ListUserExampleRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ListUserExampleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ListUserExampleRequest.ProtoReflect.Descriptor instead.
 func (*ListUserExampleRequest) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{9}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *ListUserExampleRequest) GetParams() *types.Params {
-	if x != nil {
-		return x.Params
-	}
-	return nil
-}
+func (x *ListUserExampleRequest) GetParams() *types.Params { _ = "STUB: not implemented"; return nil }
 
 type ListUserExampleReply struct {
 	state         protoimpl.MessageState
@@ -735,49 +421,27 @@ type ListUserExampleReply struct {
 	UserExamples []*UserExample `protobuf:"bytes,2,rep,name=userExamples,proto3" json:"userExamples"`
 }
 
-func (x *ListUserExampleReply) Reset() {
-	*x = ListUserExampleReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[10]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *ListUserExampleReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ListUserExampleReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ListUserExampleReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ListUserExampleReply) ProtoMessage() {}
+func (*ListUserExampleReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ListUserExampleReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_serverNameExample_v1_userExample_proto_msgTypes[10]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ListUserExampleReply.ProtoReflect.Descriptor instead.
 func (*ListUserExampleReply) Descriptor() ([]byte, []int) {
-	return file_api_serverNameExample_v1_userExample_proto_rawDescGZIP(), []int{10}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *ListUserExampleReply) GetTotal() int64 {
-	if x != nil {
-		return x.Total
-	}
-	return 0
-}
+func (x *ListUserExampleReply) GetTotal() int64 { _ = "STUB: not implemented"; return 0 }
 
 func (x *ListUserExampleReply) GetUserExamples() []*UserExample {
-	if x != nil {
-		return x.UserExamples
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -984,10 +648,8 @@ var (
 )
 
 func file_api_serverNameExample_v1_userExample_proto_rawDescGZIP() []byte {
-	file_api_serverNameExample_v1_userExample_proto_rawDescOnce.Do(func() {
-		file_api_serverNameExample_v1_userExample_proto_rawDescData = protoimpl.X.CompressGZIP(file_api_serverNameExample_v1_userExample_proto_rawDescData)
-	})
-	return file_api_serverNameExample_v1_userExample_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_api_serverNameExample_v1_userExample_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
@@ -1031,162 +693,5 @@ var file_api_serverNameExample_v1_userExample_proto_depIdxs = []int32{
 	0,  // [0:6] is the sub-list for field type_name
 }
 
-func init() { file_api_serverNameExample_v1_userExample_proto_init() }
-func file_api_serverNameExample_v1_userExample_proto_init() {
-	if File_api_serverNameExample_v1_userExample_proto != nil {
-		return
-	}
-	if !protoimpl.UnsafeEnabled {
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateUserExampleRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateUserExampleReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserExampleByIDRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserExampleByIDReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserExampleByIDRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserExampleByIDReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserExample); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserExampleByIDRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserExampleByIDReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListUserExampleRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_serverNameExample_v1_userExample_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListUserExampleReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_api_serverNameExample_v1_userExample_proto_rawDesc,
-			NumEnums:      1,
-			NumMessages:   11,
-			NumExtensions: 0,
-			NumServices:   1,
-		},
-		GoTypes:           file_api_serverNameExample_v1_userExample_proto_goTypes,
-		DependencyIndexes: file_api_serverNameExample_v1_userExample_proto_depIdxs,
-		EnumInfos:         file_api_serverNameExample_v1_userExample_proto_enumTypes,
-		MessageInfos:      file_api_serverNameExample_v1_userExample_proto_msgTypes,
-	}.Build()
-	File_api_serverNameExample_v1_userExample_proto = out.File
-	file_api_serverNameExample_v1_userExample_proto_rawDesc = nil
-	file_api_serverNameExample_v1_userExample_proto_goTypes = nil
-	file_api_serverNameExample_v1_userExample_proto_depIdxs = nil
-}
+func init()                                                 { file_api_serverNameExample_v1_userExample_proto_init() }
+func file_api_serverNameExample_v1_userExample_proto_init() { _ = "STUB: not implemented"; return }

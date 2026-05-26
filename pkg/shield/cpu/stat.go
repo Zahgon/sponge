@@ -65,11 +65,7 @@ type Info struct {
 }
 
 // ReadStat read cpu stat.
-func ReadStat(stat *Stat) {
-	stat.Usage = atomic.LoadUint64(&usage)
-}
+func ReadStat(stat *Stat) { _ = "STUB: not implemented"; return }
 
 // GetInfo get cpu info.
-func GetInfo() Info {
-	return stats.Info()
-}
+func GetInfo() Info { _ = "STUB: not implemented"; return *new(Info) }

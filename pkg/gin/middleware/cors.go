@@ -24,98 +24,60 @@ type coresOptions struct {
 	allowCredentials bool
 }
 
-func (o *coresOptions) apply(opts ...CoresOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *coresOptions) apply(opts ...CoresOption) { _ = "STUB: not implemented"; return }
 
-func defaultCoreOptions() *coresOptions {
-	return &coresOptions{
-		allowOrigins:     []string{"*"},
-		allowMethods:     []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
-		allowHeaders:     []string{"Origin", "Authorization", "Content-Type", "Accept", "X-Requested-With", "X-CSRF-Token"},
-		exposeHeaders:    []string{"Content-Length", "text/plain", "Authorization", "Content-Type"},
-		allowCredentials: true,
-		allowWildcard:    true,
-		maxAge:           12 * time.Hour,
-	}
-}
+func defaultCoreOptions() *coresOptions { _ = "STUB: not implemented"; return nil }
 
 // WithNewConfig set cors config, if nil, use default config under fields.
 func WithNewConfig(config *CoresConfig) CoresOption {
-	return func(o *coresOptions) {
-		o.newCoresConfig = config
-	}
+	_ = "STUB: not implemented"
+	return *new(CoresOption)
 }
 
 // WithAllowOrigins set allowOrigins, e.g. "https://yourdomain.com", "https://*.subdomain.com"
 func WithAllowOrigins(allowOrigins ...string) CoresOption {
-	return func(o *coresOptions) {
-		o.allowOrigins = allowOrigins
-	}
+	_ = "STUB: not implemented"
+	return *new(CoresOption)
 }
 
 // WithAllowMethods set allowMethods, e.g. "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"
 func WithAllowMethods(allowMethods ...string) CoresOption {
-	return func(o *coresOptions) {
-		o.allowMethods = allowMethods
-	}
+	_ = "STUB: not implemented"
+	return *new(CoresOption)
 }
 
 // WithAllowHeaders set allowHeaders, e.g. "Origin", "Authorization", "Content-Type", "Accept"
 func WithAllowHeaders(allowHeaders ...string) CoresOption {
-	return func(o *coresOptions) {
-		o.allowHeaders = allowHeaders
-	}
+	_ = "STUB: not implemented"
+	return *new(CoresOption)
 }
 
 // WithExposeHeaders set exposeHeaders
 func WithExposeHeaders(exposeHeaders ...string) CoresOption {
-	return func(o *coresOptions) {
-		o.exposeHeaders = exposeHeaders
-	}
+	_ = "STUB: not implemented"
+	return *new(CoresOption)
 }
 
 // WithMaxAge set maxAge
 func WithMaxAge(maxAge time.Duration) CoresOption {
-	return func(o *coresOptions) {
-		o.maxAge = maxAge
-	}
+	_ = "STUB: not implemented"
+	return *new(CoresOption)
 }
 
 // WithAllowCredentials set allowCredentials
 func WithAllowCredentials(allowCredentials bool) CoresOption {
-	return func(o *coresOptions) {
-		o.allowCredentials = allowCredentials
-	}
+	_ = "STUB: not implemented"
+	return *new(CoresOption)
 }
 
 // WithAllowWildcard set allowWildcard
 func WithAllowWildcard(allowWildcard bool) CoresOption {
-	return func(o *coresOptions) {
-		o.allowWildcard = allowWildcard
-	}
+	_ = "STUB: not implemented"
+	return *new(CoresOption)
 }
 
 // Cors cross domain
 func Cors(opts ...CoresOption) gin.HandlerFunc {
-	o := defaultCoreOptions()
-	o.apply(opts...)
-
-	var corsConfig cors.Config
-	if o.newCoresConfig != nil {
-		corsConfig = *o.newCoresConfig
-	} else {
-		corsConfig = cors.Config{}
-		corsConfig.AllowOrigins = o.allowOrigins
-		corsConfig.AllowMethods = o.allowMethods
-		corsConfig.AllowHeaders = o.allowHeaders
-		corsConfig.ExposeHeaders = o.exposeHeaders
-		corsConfig.AllowCredentials = o.allowCredentials
-		corsConfig.AllowWildcard = o.allowWildcard
-		corsConfig.MaxAge = o.maxAge
-	}
-
-	return cors.New(corsConfig)
+	_ = "STUB: not implemented"
+	return *new(gin.HandlerFunc)
 }

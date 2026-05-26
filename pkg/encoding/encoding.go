@@ -2,10 +2,7 @@
 package encoding
 
 import (
-	"encoding"
 	"errors"
-	"reflect"
-	"strings"
 )
 
 var (
@@ -43,24 +40,13 @@ var registeredCodecs = make(map[string]Codec)
 // NOTE: this function must only be called during initialization time (i.e. in
 // an init() function), and is not thread-safe.  If multiple Compressors are
 // registered with the same name, the one registered last will take effect.
-func RegisterCodec(codec Codec) {
-	if codec == nil {
-		panic("cannot register a nil Codec")
-	}
-	if codec.Name() == "" {
-		panic("cannot register Codec with empty string result for Name()")
-	}
-	contentSubtype := strings.ToLower(codec.Name())
-	registeredCodecs[contentSubtype] = codec
-}
+func RegisterCodec(codec Codec) { _ = "STUB: not implemented"; return }
 
 // GetCodec gets a registered Codec by content-subtype, or nil if no Codec is
 // registered for the content-subtype.
 //
 // The content-subtype is expected to be lowercase.
-func GetCodec(contentSubtype string) Codec {
-	return registeredCodecs[contentSubtype]
-}
+func GetCodec(contentSubtype string) Codec { _ = "STUB: not implemented"; return *new(Codec) }
 
 // Encoding definition of coding interfaces
 type Encoding interface {
@@ -70,50 +56,14 @@ type Encoding interface {
 
 // Marshal encode data
 func Marshal(e Encoding, v interface{}) (data []byte, err error) {
-	if !isPointer(v) {
-		return data, ErrNotAPointer
-	}
-	bm, ok := v.(encoding.BinaryMarshaler)
-	if ok && e == nil {
-		return bm.MarshalBinary()
-	}
-
-	data, err = e.Marshal(v)
-	if err == nil {
-		return data, err
-	}
-	if ok {
-		data, err = bm.MarshalBinary()
-	}
-
-	return data, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Unmarshal decode data
 func Unmarshal(e Encoding, data []byte, v interface{}) (err error) {
-	if !isPointer(v) {
-		return ErrNotAPointer
-	}
-	bm, ok := v.(encoding.BinaryUnmarshaler)
-	if ok && e == nil {
-		err = bm.UnmarshalBinary(data)
-		return err
-	}
-	err = e.Unmarshal(data, v)
-	if err == nil {
-		return err
-	}
-	if ok {
-		return bm.UnmarshalBinary(data)
-	}
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func isPointer(data interface{}) bool {
-	switch reflect.ValueOf(data).Kind() {
-	case reflect.Ptr, reflect.Interface:
-		return true
-	default:
-		return false
-	}
-}
+func isPointer(data interface{}) bool { _ = "STUB: not implemented"; return false }

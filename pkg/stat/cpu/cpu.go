@@ -1,16 +1,6 @@
 // Package cpu is a library that counts system and process cpu usage.
 package cpu
 
-import (
-	"fmt"
-	"os"
-	"runtime"
-	"strconv"
-
-	"github.com/shirou/gopsutil/v4/cpu"
-	"github.com/shirou/gopsutil/v4/process"
-)
-
 // System cpu information
 type System struct {
 	UsagePercent float64   `json:"usage_percent"` // cpu usage, unit(%), current logical CPU usage, total usage is cores*UsagePercent
@@ -33,68 +23,11 @@ type Process struct {
 }
 
 // GetSystemCPU get system cpu info
-func GetSystemCPU() *System {
-	sysUsagePercent := 0.0
-	vs, err := cpu.Percent(0, false) // total cpu Percent
-	if err != nil {
-		fmt.Printf("cpu.Percent error, %v\n", err)
-	}
-	if len(vs) == 1 {
-		sysUsagePercent = vs[0]
-	}
+func GetSystemCPU() *System { _ = "STUB: not implemented"; return nil }
 
-	var cpuInfos []CPUInfo
-	cpus, err := cpu.Info()
-	if err != nil {
-		fmt.Printf("cpu.Info error, %v\n", err)
-	} else {
-		for _, v := range cpus {
-			cpuInfos = append(cpuInfos, CPUInfo{
-				ModelName: v.ModelName,
-				Cores:     v.Cores,
-				Frequency: v.Mhz,
-			})
-		}
-	}
-
-	return &System{
-		UsagePercent: floatRound(sysUsagePercent, 1),
-		CPUInfo:      cpuInfos,
-	}
-}
+// total cpu Percent
 
 // GetProcess get current process info
-func GetProcess() *Process {
-	proc := &Process{}
+func GetProcess() *Process { _ = "STUB: not implemented"; return nil }
 
-	currentPid := os.Getpid()
-	p, err := process.NewProcess(int32(currentPid))
-	if err != nil {
-		fmt.Printf("process.NewProcess error, %v\n", err)
-		return proc
-	}
-
-	percent, err := p.CPUPercent()
-	if err != nil {
-		fmt.Printf("p.CPUPercent error, %v\n", err)
-		return proc
-	}
-	numCPU := runtime.NumCPU()
-	if numCPU > 1 {
-		proc.UsagePercent = floatRound(percent/float64(numCPU), 1)
-	} else {
-		proc.UsagePercent = floatRound(percent, 1)
-	}
-
-	mInfo, _ := p.MemoryInfo()
-	proc.RSS = mInfo.RSS >> 20
-	proc.VMS = mInfo.VMS >> 20
-
-	return proc
-}
-
-func floatRound(f float64, n int) float64 {
-	format := "%." + strconv.Itoa(n) + "f"
-	res, _ := strconv.ParseFloat(fmt.Sprintf(format, f), 64)
-	return res
-}
+func floatRound(f float64, n int) float64 { _ = "STUB: not implemented"; return 0 }

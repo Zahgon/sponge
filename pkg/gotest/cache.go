@@ -5,8 +5,6 @@ import (
 
 	"github.com/alicebob/miniredis/v2"
 	"github.com/redis/go-redis/v9"
-
-	"github.com/go-dev-frame/sponge/pkg/utils"
 )
 
 // Cache redis cache
@@ -20,53 +18,19 @@ type Cache struct {
 }
 
 // NewCache instantiated redis cache
-func NewCache(testDataMap map[string]interface{}) *Cache {
-	var tds []interface{}
-	for _, data := range testDataMap {
-		tds = append(tds, data)
-	}
-
-	redisServer, err := miniredis.Run()
-	if err != nil {
-		panic(err)
-	}
-
-	return &Cache{
-		Ctx:           context.Background(),
-		TestDataSlice: tds,
-		TestDataMap:   testDataMap,
-		RedisClient:   redis.NewClient(&redis.Options{Addr: redisServer.Addr()}),
-		redisServer:   redisServer,
-	}
-}
+func NewCache(testDataMap map[string]interface{}) *Cache { _ = "STUB: not implemented"; return nil }
 
 // Close redis server
-func (c *Cache) Close() {
-	c.redisServer.Close()
-}
+func (c *Cache) Close() { _ = "STUB: not implemented"; return }
 
 // GetIDs get test data ids
-func (c *Cache) GetIDs() []uint64 {
-	var ids []uint64
-	for idStr := range c.TestDataMap {
-		ids = append(ids, utils.StrToUint64(idStr))
-	}
-	return ids
-}
+func (c *Cache) GetIDs() []uint64 { _ = "STUB: not implemented"; return nil }
 
 // GetFields get test data fields
-func (c *Cache) GetFields() []string {
-	var fields []string
-	for idStr := range c.TestDataMap {
-		fields = append(fields, idStr)
-	}
-	return fields
-}
+func (c *Cache) GetFields() []string { _ = "STUB: not implemented"; return nil }
 
 // GetTestData get test data
-func (c *Cache) GetTestData() map[string]interface{} {
-	return c.TestDataMap
-}
+func (c *Cache) GetTestData() map[string]interface{} { _ = "STUB: not implemented"; return nil }
 
 // -------------------------------------------------------------------------------------------
 
@@ -81,41 +45,13 @@ type RCCache struct {
 }
 
 // NewRCCache instantiated redis cluster cache
-func NewRCCache(testDataMap map[string]interface{}) *RCCache {
-	var tds []interface{}
-	for _, data := range testDataMap {
-		tds = append(tds, data)
-	}
-
-	redisServer, err := miniredis.Run()
-	if err != nil {
-		panic(err)
-	}
-
-	return &RCCache{
-		Ctx:           context.Background(),
-		TestDataSlice: tds,
-		TestDataMap:   testDataMap,
-		RedisClient:   redis.NewClusterClient(&redis.ClusterOptions{Addrs: []string{redisServer.Addr()}}),
-		redisServer:   redisServer,
-	}
-}
+func NewRCCache(testDataMap map[string]interface{}) *RCCache { _ = "STUB: not implemented"; return nil }
 
 // Close redis server
-func (c *RCCache) Close() {
-	c.redisServer.Close()
-}
+func (c *RCCache) Close() { _ = "STUB: not implemented"; return }
 
 // GetIDs get test data ids
-func (c *RCCache) GetIDs() []uint64 {
-	var ids []uint64
-	for idStr := range c.TestDataMap {
-		ids = append(ids, utils.StrToUint64(idStr))
-	}
-	return ids
-}
+func (c *RCCache) GetIDs() []uint64 { _ = "STUB: not implemented"; return nil }
 
 // GetTestData get test data
-func (c *RCCache) GetTestData() map[string]interface{} {
-	return c.TestDataMap
-}
+func (c *RCCache) GetTestData() map[string]interface{} { _ = "STUB: not implemented"; return nil }

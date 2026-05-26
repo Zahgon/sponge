@@ -1,134 +1,87 @@
 package utils
 
-import (
-	"strconv"
-)
-
 // MaxStringID is the maximum string ID
 const MaxStringID = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
 
 // StrToInt string to int
-func StrToInt(str string) int {
-	v, _ := strconv.Atoi(str)
-	return v
-}
+func StrToInt(str string) int { _ = "STUB: not implemented"; return 0 }
 
 // StrToIntE string to int with error
 func StrToIntE(str string) (int, error) {
-	return strconv.Atoi(str)
+	_ = "STUB: not implemented"
+	return 0,
+
+		// StrToInt64 string to int64
+		nil
 }
 
-// StrToInt64 string to int64
-func StrToInt64(str string) int64 {
-	v, _ := strconv.ParseInt(str, 10, 64)
-	return v
-}
+func StrToInt64(str string) int64 { _ = "STUB: not implemented"; return 0 }
 
 // StrToInt64E string to int64 with error
-func StrToInt64E(str string) (int64, error) {
-	return strconv.ParseInt(str, 10, 64)
-}
+func StrToInt64E(str string) (int64, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // StrToUint32 string to uint32
-func StrToUint32(str string) uint32 {
-	v, _ := strconv.ParseUint(str, 10, 64)
-	return uint32(v)
-}
+func StrToUint32(str string) uint32 { _ = "STUB: not implemented"; return 0 }
 
 // StrToUint32E string to uint32 with error
-func StrToUint32E(str string) (uint32, error) {
-	v, err := strconv.ParseUint(str, 10, 64)
-	if err != nil {
-		return 0, err
-	}
-
-	return uint32(v), nil
-}
+func StrToUint32E(str string) (uint32, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // StrToUint64 string to uint64
-func StrToUint64(str string) uint64 {
-	v, _ := strconv.ParseUint(str, 10, 64)
-	return v
-}
+func StrToUint64(str string) uint64 { _ = "STUB: not implemented"; return 0 }
 
 // StrToUint64E string to uint64 with error
-func StrToUint64E(str string) (uint64, error) {
-	return strconv.ParseUint(str, 10, 64)
-}
+func StrToUint64E(str string) (uint64, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // StrToUint string to uint
-func StrToUint(str string) uint {
-	return uint(StrToUint64(str))
-}
+func StrToUint(str string) uint { _ = "STUB: not implemented"; return 0 }
 
 // StrToUintE string to uint
-func StrToUintE(str string) (uint, error) {
-	v, err := StrToUint64E(str)
-	return uint(v), err
-}
+func StrToUintE(str string) (uint, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // StrToFloat32 string to float32
-func StrToFloat32(str string) float32 {
-	v, _ := strconv.ParseFloat(str, 32)
-	return float32(v)
-}
+func StrToFloat32(str string) float32 { _ = "STUB: not implemented"; return 0 }
 
 // StrToFloat32E string to float32 with error
-func StrToFloat32E(str string) (float32, error) {
-	v, err := strconv.ParseFloat(str, 32)
-	if err != nil {
-		return 0, err
-	}
-	return float32(v), nil
-}
+func StrToFloat32E(str string) (float32, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // StrToFloat64 string to float64
-func StrToFloat64(str string) float64 {
-	v, _ := strconv.ParseFloat(str, 64)
-	return v
-}
+func StrToFloat64(str string) float64 { _ = "STUB: not implemented"; return 0 }
 
 // StrToFloat64E string to float64 with error
-func StrToFloat64E(str string) (float64, error) {
-	return strconv.ParseFloat(str, 64)
-}
+func StrToFloat64E(str string) (float64, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // IntToStr int to string
-func IntToStr(v int) string {
-	return strconv.Itoa(v)
-}
+func IntToStr(v int) string { _ = "STUB: not implemented"; return "" }
 
 // UintToStr uint to string
-func UintToStr(v uint) string {
-	return Uint64ToStr(uint64(v))
-}
+func UintToStr(v uint) string { _ = "STUB: not implemented"; return "" }
 
 // Uint64ToStr uint64 to string
-func Uint64ToStr(v uint64) string {
-	return strconv.FormatUint(v, 10)
-}
+func Uint64ToStr(v uint64) string { _ = "STUB: not implemented"; return "" }
 
 // Int64ToStr int64 to string
-func Int64ToStr(v int64) string {
-	return strconv.FormatInt(v, 10)
-}
+func Int64ToStr(v int64) string { _ = "STUB: not implemented"; return "" }
 
 // ProtoInt32ToInt convert proto int32 to int
 func ProtoInt32ToInt(v int32) int {
-	return int(v)
+	_ = "STUB: not implemented"
+
+	// IntToProtoInt32 convert int to proto int32
+	return 0
 }
 
-// IntToProtoInt32 convert int to proto int32
 func IntToProtoInt32(v int) int32 {
-	return int32(v)
+	_ = "STUB: not implemented"
+
+	// ProtoInt64ToUint64 convert proto int64 to uint64
+	return 0
 }
 
-// ProtoInt64ToUint64 convert proto int64 to uint64
 func ProtoInt64ToUint64(v int64) uint64 {
-	return uint64(v)
+	_ = "STUB: not implemented"
+
+	// Uint64ToProtoInt64 convert uint64 to proto int64
+	return 0
 }
 
-// Uint64ToProtoInt64 convert uint64 to proto int64
-func Uint64ToProtoInt64(v uint64) int64 {
-	return int64(v)
-}
+func Uint64ToProtoInt64(v uint64) int64 { _ = "STUB: not implemented"; return 0 }

@@ -27,59 +27,33 @@ type options struct {
 	config *clientv3.Config
 }
 
-func defaultOptions() *options {
-	return &options{
-		dialTimeout: time.Second * 5,
-	}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithDialTimeout set dial timeout
-func WithDialTimeout(duration time.Duration) Option {
-	return func(o *options) {
-		o.dialTimeout = duration
-	}
-}
+func WithDialTimeout(duration time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithAuth set authentication
 func WithAuth(username string, password string) Option {
-	return func(o *options) {
-		o.username = username
-		o.password = password
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithSecure set tls
 func WithSecure(serverNameOverride string, certFile string) Option {
-	return func(o *options) {
-		o.isSecure = true
-		o.serverNameOverride = serverNameOverride
-		o.certFile = certFile
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithAutoSyncInterval set auto sync interval value
 func WithAutoSyncInterval(duration time.Duration) Option {
-	return func(o *options) {
-		o.autoSyncInterval = duration
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithLog set logger
-func WithLog(l *zap.Logger) Option {
-	return func(o *options) {
-		o.logger = l
-	}
-}
+func WithLog(l *zap.Logger) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithConfig set etcd client config
-func WithConfig(c *clientv3.Config) Option {
-	return func(o *options) {
-		o.config = c
-	}
-}
+func WithConfig(c *clientv3.Config) Option { _ = "STUB: not implemented"; return *new(Option) }

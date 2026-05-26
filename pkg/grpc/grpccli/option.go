@@ -52,178 +52,83 @@ type options struct {
 	streamInterceptors []grpc.StreamClientInterceptor // custom stream interceptor
 }
 
-func defaultOptions() *options {
-	return &options{
-		secureType: "",
-		serverName: "localhost",
-		certFile:   "",
-		keyFile:    "",
-		caFile:     "",
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
-		enableLog:         false,
-		discoveryInsecure: true,
-
-		dialOptions:        nil,
-		unaryInterceptors:  nil,
-		streamInterceptors: nil,
-		discovery:          nil,
-	}
-}
-
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithTimeout set dial timeout
-func WithTimeout(d time.Duration) Option {
-	return func(o *options) {
-		o.requestTimeout = d
-	}
-}
+func WithTimeout(d time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableRequestID enable request id
-func WithEnableRequestID() Option {
-	return func(o *options) {
-		o.enableRequestID = true
-	}
-}
+func WithEnableRequestID() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableLog enable log
-func WithEnableLog(log *zap.Logger) Option {
-	return func(o *options) {
-		o.enableLog = true
-		if log != nil {
-			o.log = log
-			return
-		}
-		o.log, _ = zap.NewProduction()
-	}
-}
+func WithEnableLog(log *zap.Logger) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableTrace enable trace
-func WithEnableTrace() Option {
-	return func(o *options) {
-		o.enableTrace = true
-	}
-}
+func WithEnableTrace() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableMetrics enable metrics
-func WithEnableMetrics() Option {
-	return func(o *options) {
-		o.enableMetrics = true
-	}
-}
+func WithEnableMetrics() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableLoadBalance enable load balance
-func WithEnableLoadBalance() Option {
-	return func(o *options) {
-		o.enableLoadBalance = true
-	}
-}
+func WithEnableLoadBalance() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableRetry enable registry
-func WithEnableRetry() Option {
-	return func(o *options) {
-		o.enableRetry = true
-	}
-}
+func WithEnableRetry() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithEnableCircuitBreaker enable circuit breaker
-func WithEnableCircuitBreaker() Option {
-	return func(o *options) {
-		o.enableCircuitBreaker = true
-	}
-}
+func WithEnableCircuitBreaker() Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithDiscoveryInsecure setting discovery insecure
-func WithDiscoveryInsecure(b bool) Option {
-	return func(o *options) {
-		o.discoveryInsecure = b
-	}
-}
+func WithDiscoveryInsecure(b bool) Option { _ = "STUB: not implemented"; return *new(Option) }
 
-func (o *options) isSecure() bool {
-	if o.secureType == secureOneWay || o.secureType == secureTwoWay {
-		return true
-	}
-	return false
-}
+func (o *options) isSecure() bool { _ = "STUB: not implemented"; return false }
 
 // WithSecure support setting one-way or two-way secure
 func WithSecure(t string, serverName string, caFile string, certFile string, keyFile string) Option {
-	switch t {
-	case secureOneWay:
-		return WithOneWaySecure(serverName, certFile)
-	case secureTwoWay:
-		return WithTwoWaySecure(serverName, caFile, certFile, keyFile)
-	}
-
-	return func(o *options) {
-		o.secureType = t
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithOneWaySecure set one-way secure
 func WithOneWaySecure(serverName string, certFile string) Option {
-	return func(o *options) {
-		if serverName == "" {
-			serverName = "localhost"
-		}
-		o.secureType = secureOneWay
-		o.serverName = serverName
-		o.certFile = certFile
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithTwoWaySecure set two-way secure
 func WithTwoWaySecure(serverName string, caFile string, certFile string, keyFile string) Option {
-	return func(o *options) {
-		if serverName == "" {
-			serverName = "localhost"
-		}
-		o.secureType = secureTwoWay
-		o.serverName = serverName
-		o.caFile = caFile
-		o.certFile = certFile
-		o.keyFile = keyFile
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithToken set token
 func WithToken(enable bool, appID string, appKey string) Option {
-	return func(o *options) {
-		o.enableToken = enable
-		o.appID = appID
-		o.appKey = appKey
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithDialOptions set dial options
 func WithDialOptions(dialOptions ...grpc.DialOption) Option {
-	return func(o *options) {
-		o.dialOptions = append(o.dialOptions, dialOptions...)
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithUnaryInterceptors set dial unaryInterceptors
 func WithUnaryInterceptors(unaryInterceptors ...grpc.UnaryClientInterceptor) Option {
-	return func(o *options) {
-		o.unaryInterceptors = append(o.unaryInterceptors, unaryInterceptors...)
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithStreamInterceptors set dial streamInterceptors
 func WithStreamInterceptors(streamInterceptors ...grpc.StreamClientInterceptor) Option {
-	return func(o *options) {
-		o.streamInterceptors = append(o.streamInterceptors, streamInterceptors...)
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithDiscovery set dial discovery
 func WithDiscovery(discovery registry.Discovery) Option {
-	return func(o *options) {
-		o.discovery = discovery
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }

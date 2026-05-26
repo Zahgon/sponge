@@ -43,34 +43,8 @@ type RedisConfig struct {
 // GetAsynqRedisConnOpt converts RedisConfig to asynq's RedisConnOpt interface.
 // This is the core of the high-availability switching logic.
 func (c RedisConfig) GetAsynqRedisConnOpt() asynq.RedisConnOpt {
-	switch c.Mode {
-	case RedisModeSentinel:
-		return asynq.RedisFailoverClientOpt{
-			MasterName:    c.MasterName,
-			SentinelAddrs: c.SentinelAddrs,
-			Username:      c.Username,
-			Password:      c.Password,
-			DB:            c.DB,
-			TLSConfig:     c.TLSConfig,
-		}
-	case RedisModeCluster:
-		return asynq.RedisClusterClientOpt{
-			Addrs:     c.ClusterAddrs,
-			Username:  c.Username,
-			Password:  c.Password,
-			TLSConfig: c.TLSConfig,
-		}
-	case RedisModeSingle:
-		fallthrough
-	default:
-		return asynq.RedisClientOpt{
-			Addr:      c.Addr,
-			Username:  c.Username,
-			Password:  c.Password,
-			DB:        c.DB,
-			TLSConfig: c.TLSConfig,
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(asynq.RedisConnOpt)
 }
 
 // ServerConfig holds configurations for the asynq server.
@@ -80,18 +54,6 @@ type ServerConfig struct {
 
 // DefaultServerConfig returns a default server configuration.
 func DefaultServerConfig(opts ...LoggerOption) ServerConfig {
-	o := defaultLoggerOptions()
-	o.apply(opts...)
-
-	cfg := &asynq.Config{
-		Concurrency: 10,
-		Queues: map[string]int{
-			"critical": 6,
-			"default":  3,
-			"low":      1,
-		},
-		Logger: NewZapLogger(o.logger, o.zapSkip),
-	}
-
-	return ServerConfig{cfg}
+	_ = "STUB: not implemented"
+	return *new(ServerConfig)
 }

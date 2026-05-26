@@ -9,9 +9,7 @@ import (
 )
 
 // Copy src to dst with option Converters for time.Time <--> String
-func Copy(dst interface{}, src interface{}) error {
-	return copier.CopyWithOption(dst, src, Converter)
-}
+func Copy(dst interface{}, src interface{}) error { _ = "STUB: not implemented"; return nil }
 
 // Converter Converters for time.Time <--> String
 var Converter = copier.Option{
@@ -82,11 +80,10 @@ var Converter = copier.Option{
 }
 
 // CopyDefault copy src to dst with default option
-func CopyDefault(dst interface{}, src interface{}) error {
-	return copier.Copy(dst, src)
-}
+func CopyDefault(dst interface{}, src interface{}) error { _ = "STUB: not implemented"; return nil }
 
 // CopyWithOption copy src to dst with option
 func CopyWithOption(dst interface{}, src interface{}, options copier.Option) error {
-	return copier.CopyWithOption(dst, src, options)
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -5,8 +5,6 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-
-	"github.com/go-dev-frame/sponge/pkg/krand"
 )
 
 type SigningMethodHMAC = jwt.SigningMethodHMAC
@@ -37,82 +35,64 @@ type registeredClaimsOptions struct {
 }
 
 func defaultRegisteredClaimsOptions(expire time.Duration, id string) *registeredClaimsOptions {
-	now := time.Now()
-	return &registeredClaimsOptions{
-		registeredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(now.Add(expire)),
-			IssuedAt:  jwt.NewNumericDate(now),
-			ID:        id,
-		},
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RegisteredClaimsOption set the registered claims options.
 type RegisteredClaimsOption func(*registeredClaimsOptions)
 
 func (o *registeredClaimsOptions) apply(opts ...RegisteredClaimsOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // WithIssuer set issuer (iss) value
 func WithIssuer(issuer string) RegisteredClaimsOption {
-	return func(o *registeredClaimsOptions) {
-		o.registeredClaims.Issuer = issuer
-	}
+	_ = "STUB: not implemented"
+	return *new(RegisteredClaimsOption)
 }
 
 // WithSubject set subject (sub) value
 func WithSubject(subject string) RegisteredClaimsOption {
-	return func(o *registeredClaimsOptions) {
-		o.registeredClaims.Subject = subject
-	}
+	_ = "STUB: not implemented"
+	return *new(RegisteredClaimsOption)
 }
 
 // WithAudience set audience (aud) value
 func WithAudience(audience ...string) RegisteredClaimsOption {
-	return func(o *registeredClaimsOptions) {
-		o.registeredClaims.Audience = audience
-	}
+	_ = "STUB: not implemented"
+	return *new(RegisteredClaimsOption)
 }
 
 // WithExpires set expires (exp) value
 func WithExpires(d time.Duration) RegisteredClaimsOption {
-	return func(o *registeredClaimsOptions) {
-		o.registeredClaims.ExpiresAt = jwt.NewNumericDate(time.Now().Add(d))
-	}
+	_ = "STUB: not implemented"
+	return *new(RegisteredClaimsOption)
 }
 
 // WithDeadline set expires (exp) value
 func WithDeadline(expiresAt time.Time) RegisteredClaimsOption {
-	return func(o *registeredClaimsOptions) {
-		o.registeredClaims.ExpiresAt = jwt.NewNumericDate(expiresAt)
-	}
+	_ = "STUB: not implemented"
+	return *new(RegisteredClaimsOption)
 }
 
 // WithNotBefore set not before (nbf) value
 func WithNotBefore(notBefore time.Time) RegisteredClaimsOption {
-	return func(o *registeredClaimsOptions) {
-		o.registeredClaims.NotBefore = jwt.NewNumericDate(notBefore)
-	}
+	_ = "STUB: not implemented"
+	return *new(RegisteredClaimsOption)
 }
 
 // WithIssuedAt set issued at (iat) value
 func WithIssuedAt(issuedAt time.Time) RegisteredClaimsOption {
-	return func(o *registeredClaimsOptions) {
-		o.registeredClaims.IssuedAt = jwt.NewNumericDate(issuedAt)
-	}
+	_ = "STUB: not implemented"
+	return *new(RegisteredClaimsOption)
 }
 
 // WithJwtID set jwt id (jti) value
 func WithJwtID(id string) RegisteredClaimsOption {
-	return func(o *registeredClaimsOptions) {
-		if id == "" {
-			return
-		}
-		o.registeredClaims.ID = id
-	}
+	_ = "STUB: not implemented"
+	return *new(RegisteredClaimsOption)
 }
 
 // -------------------------------------------------------------------------------
@@ -126,49 +106,38 @@ type generateTokenOptions struct {
 	tokenClaimsOptions *registeredClaimsOptions
 }
 
-func defaultGenerateTokenOptions() *generateTokenOptions {
-	return &generateTokenOptions{
-		tokenClaimsOptions: defaultRegisteredClaimsOptions(defaultExpire, krand.NewStringID()),
-		signKey:            defaultSigningKey,
-		signMethod:         defaultSigningMethod,
-	}
-}
+func defaultGenerateTokenOptions() *generateTokenOptions { _ = "STUB: not implemented"; return nil }
 
 // GenerateTokenOption set the jwt options.
 type GenerateTokenOption func(*generateTokenOptions)
 
 func (o *generateTokenOptions) apply(opts ...GenerateTokenOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // WithGenerateTokenSignMethod set sign method value
 func WithGenerateTokenSignMethod(sm jwt.SigningMethod) GenerateTokenOption {
-	return func(o *generateTokenOptions) {
-		o.signMethod = sm
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTokenOption)
 }
 
 // WithGenerateTokenSignKey set sign key value
 func WithGenerateTokenSignKey(key []byte) GenerateTokenOption {
-	return func(o *generateTokenOptions) {
-		o.signKey = key
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTokenOption)
 }
 
 // WithGenerateTokenFields set custom fields value
 func WithGenerateTokenFields(fields map[string]interface{}) GenerateTokenOption {
-	return func(o *generateTokenOptions) {
-		o.fields = fields
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTokenOption)
 }
 
 // WithGenerateTokenClaims set token claims value
 func WithGenerateTokenClaims(opts ...RegisteredClaimsOption) GenerateTokenOption {
-	return func(o *generateTokenOptions) {
-		o.tokenClaimsOptions.apply(opts...)
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTokenOption)
 }
 
 // ------------------------------------------------------------------------------------
@@ -177,29 +146,20 @@ type validateTokenOptions struct {
 	signKey []byte
 }
 
-func defaultValidateTokenOptions() *validateTokenOptions {
-	return &validateTokenOptions{
-		signKey: defaultSigningKey,
-	}
-}
+func defaultValidateTokenOptions() *validateTokenOptions { _ = "STUB: not implemented"; return nil }
 
 // ValidateTokenOption set parse token options.
 type ValidateTokenOption func(*validateTokenOptions)
 
 func (o *validateTokenOptions) apply(opts ...ValidateTokenOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // WithValidateTokenSignKey set sign key value
 func WithValidateTokenSignKey(key []byte) ValidateTokenOption {
-	return func(o *validateTokenOptions) {
-		if len(key) == 0 {
-			return
-		}
-		o.signKey = key
-	}
+	_ = "STUB: not implemented"
+	return *new(ValidateTokenOption)
 }
 
 // ------------------------------------------------------------------------------
@@ -209,34 +169,23 @@ type refreshTokenOptions struct {
 	expire  time.Duration
 }
 
-func defaultRefreshTokenOptions() *refreshTokenOptions {
-	return &refreshTokenOptions{
-		signKey: defaultSigningKey,
-		expire:  defaultExpire,
-	}
-}
+func defaultRefreshTokenOptions() *refreshTokenOptions { _ = "STUB: not implemented"; return nil }
 
 // RefreshTokenOption set refresh token options.
 type RefreshTokenOption func(*refreshTokenOptions)
 
-func (o *refreshTokenOptions) apply(opts ...RefreshTokenOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *refreshTokenOptions) apply(opts ...RefreshTokenOption) { _ = "STUB: not implemented"; return }
 
 // WithRefreshTokenSignKey set sign key value
 func WithRefreshTokenSignKey(key []byte) RefreshTokenOption {
-	return func(o *refreshTokenOptions) {
-		o.signKey = key
-	}
+	_ = "STUB: not implemented"
+	return *new(RefreshTokenOption)
 }
 
 // WithRefreshTokenExpire set expire value
 func WithRefreshTokenExpire(expire time.Duration) RefreshTokenOption {
-	return func(o *refreshTokenOptions) {
-		o.expire = expire
-	}
+	_ = "STUB: not implemented"
+	return *new(RefreshTokenOption)
 }
 
 // ------------------------------------------------------------------------------------------
@@ -252,58 +201,49 @@ type generateTwoTokensOptions struct {
 }
 
 func defaultGenerateTwoTokensOptions() *generateTwoTokensOptions {
-	id := krand.NewStringID()
-	return &generateTwoTokensOptions{
-		accessTokenClaimsOptions:  defaultRegisteredClaimsOptions(time.Minute*30, id),  // 30 minutes
-		refreshTokenClaimsOptions: defaultRegisteredClaimsOptions(time.Hour*24*30, id), // 30 days
-
-		signKey:    defaultSigningKey,
-		signMethod: defaultSigningMethod,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// 30 minutes
+// 30 days
 
 // GenerateTwoTokensOption set the jwt options.
 type GenerateTwoTokensOption func(*generateTwoTokensOptions)
 
 func (o *generateTwoTokensOptions) apply(opts ...GenerateTwoTokensOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // WithGenerateTwoTokensSignMethod set sign method value
 func WithGenerateTwoTokensSignMethod(sm jwt.SigningMethod) GenerateTwoTokensOption {
-	return func(o *generateTwoTokensOptions) {
-		o.signMethod = sm
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTwoTokensOption)
 }
 
 // WithGenerateTwoTokensSignKey set sign key value
 func WithGenerateTwoTokensSignKey(key []byte) GenerateTwoTokensOption {
-	return func(o *generateTwoTokensOptions) {
-		o.signKey = key
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTwoTokensOption)
 }
 
 // WithGenerateTwoTokensFields set custom fields value
 func WithGenerateTwoTokensFields(fields map[string]interface{}) GenerateTwoTokensOption {
-	return func(o *generateTwoTokensOptions) {
-		o.fields = fields
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTwoTokensOption)
 }
 
 // WithGenerateTwoTokensAccessTokenClaims set Access token claims value
 func WithGenerateTwoTokensAccessTokenClaims(opts ...RegisteredClaimsOption) GenerateTwoTokensOption {
-	return func(o *generateTwoTokensOptions) {
-		o.accessTokenClaimsOptions.apply(opts...)
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTwoTokensOption)
 }
 
 // WithGenerateTwoTokensRefreshTokenClaims set refresh token claims value
 func WithGenerateTwoTokensRefreshTokenClaims(opts ...RegisteredClaimsOption) GenerateTwoTokensOption {
-	return func(o *generateTwoTokensOptions) {
-		o.refreshTokenClaimsOptions.apply(opts...)
-	}
+	_ = "STUB: not implemented"
+	return *new(GenerateTwoTokensOption)
 }
 
 // -------------------------------------------------------------------------------------
@@ -315,52 +255,40 @@ type refreshTwoTokensOptions struct {
 }
 
 func defaultRefreshTwoTokensOptions() *refreshTwoTokensOptions {
-	return &refreshTwoTokensOptions{
-		signKey:            defaultSigningKey,
-		accessTokenExpire:  time.Minute * 30,    // 30 minutes
-		refreshTokenExpire: time.Hour * 24 * 30, // 30 days
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// 30 minutes
+// 30 days
 
 // RefreshTwoTokensOption set refresh token options.
 type RefreshTwoTokensOption func(*refreshTwoTokensOptions)
 
 func (o *refreshTwoTokensOptions) apply(opts ...RefreshTwoTokensOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // WithRefreshTwoTokensSignKey set sign key value
 func WithRefreshTwoTokensSignKey(key []byte) RefreshTwoTokensOption {
-	return func(o *refreshTwoTokensOptions) {
-		o.signKey = key
-	}
+	_ = "STUB: not implemented"
+	return *new(RefreshTwoTokensOption)
 }
 
 // WithRefreshTwoTokensRefreshTokenExpires set refresh token expire value
 func WithRefreshTwoTokensRefreshTokenExpires(d time.Duration) RefreshTwoTokensOption {
-	return func(o *refreshTwoTokensOptions) {
-		o.refreshTokenExpire = d
-	}
+	_ = "STUB: not implemented"
+	return *new(RefreshTwoTokensOption)
 }
 
 // WithRefreshTwoTokensAccessTokenExpires set access token expire value
 func WithRefreshTwoTokensAccessTokenExpires(d time.Duration) RefreshTwoTokensOption {
-	return func(o *refreshTwoTokensOptions) {
-		o.accessTokenExpire = d
-	}
+	_ = "STUB: not implemented"
+	return *new(RefreshTwoTokensOption)
 }
 
 func getAlg(alg string) (jwt.SigningMethod, error) {
-	switch alg {
-	case "HS256":
-		return HS256, nil
-	case "HS384":
-		return HS384, nil
-	case "HS512":
-		return HS512, nil
-	default:
-		return nil, errors.New("unsupported signing method: " + alg)
-	}
+	_ = "STUB: not implemented"
+	return *new(jwt.SigningMethod), nil
 }

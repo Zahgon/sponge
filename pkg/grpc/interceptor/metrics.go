@@ -8,20 +8,24 @@ import (
 
 // UnaryClientMetrics client-side metrics unary interceptor
 func UnaryClientMetrics() grpc.UnaryClientInterceptor {
-	return metrics.UnaryClientMetrics()
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryClientInterceptor)
 }
 
 // StreamClientMetrics client-side metrics stream interceptor
 func StreamClientMetrics() grpc.StreamClientInterceptor {
-	return metrics.StreamClientMetrics()
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamClientInterceptor)
 }
 
 // UnaryServerMetrics server-side metrics unary interceptor
 func UnaryServerMetrics(opts ...metrics.Option) grpc.UnaryServerInterceptor {
-	return metrics.UnaryServerMetrics(opts...)
+	_ = "STUB: not implemented"
+	return *new(grpc.UnaryServerInterceptor)
 }
 
 // StreamServerMetrics server-side metrics stream interceptor
 func StreamServerMetrics(opts ...metrics.Option) grpc.StreamServerInterceptor {
-	return metrics.StreamServerMetrics(opts...)
+	_ = "STUB: not implemented"
+	return *new(grpc.StreamServerInterceptor)
 }

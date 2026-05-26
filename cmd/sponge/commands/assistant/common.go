@@ -1,13 +1,8 @@
 package assistant
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"path/filepath"
-	"strings"
 	"time"
-	"unicode"
 
 	"github.com/fatih/color"
 
@@ -15,9 +10,6 @@ import (
 	"github.com/go-dev-frame/sponge/pkg/aicli/chatgpt"
 	"github.com/go-dev-frame/sponge/pkg/aicli/deepseek"
 	"github.com/go-dev-frame/sponge/pkg/aicli/gemini"
-	"github.com/go-dev-frame/sponge/pkg/goast"
-	"github.com/go-dev-frame/sponge/pkg/gobash"
-	"github.com/go-dev-frame/sponge/pkg/gofile"
 	"github.com/go-dev-frame/sponge/pkg/utils"
 )
 
@@ -58,44 +50,8 @@ type assistantParams struct {
 }
 
 func (a *assistantParams) newClient() (aicli.Assistanter, error) {
-	asstType := strings.ToLower(a.Type)
-	switch asstType {
-	case typeChatGPT, typeDeepSeek:
-		var opts []chatgpt.ClientOption
-		if a.model != "" {
-			opts = append(opts, chatgpt.WithModel(a.model))
-		}
-		if a.enableContext {
-			opts = append(opts, chatgpt.WithEnableContext())
-		}
-		if a.roleDesc != "" {
-			opts = append(opts, chatgpt.WithInitialRole(a.roleDesc))
-		}
-		if a.maxToken > 0 {
-			opts = append(opts, chatgpt.WithMaxTokens(a.maxToken))
-		}
-		if a.temperature > 0 {
-			opts = append(opts, chatgpt.WithTemperature(a.temperature))
-		}
-
-		if asstType == typeChatGPT {
-			return chatgpt.NewClient(a.apiKey, opts...)
-		} else if asstType == typeDeepSeek {
-			return deepseek.NewClient(a.apiKey, opts...)
-		}
-
-	case typeGemini:
-		var opts []gemini.ClientOption
-		if a.model != "" {
-			opts = append(opts, gemini.WithModel(a.model))
-		}
-		if a.enableContext {
-			opts = append(opts, gemini.WithEnableContext())
-		}
-		return gemini.NewClient(a.apiKey, opts...)
-	}
-
-	return nil, fmt.Errorf("unsupported assistant type: %s", a.Type)
+	_ = "STUB: not implemented"
+	return *new(aicli.Assistanter), nil
 }
 
 // --------------------------------------------------------------------------
@@ -221,19 +177,7 @@ Example:`, fmt.Sprintf(`
     }`, color.HiCyanString("// Describe the specific functionality of the function"), color.HiCyanString(`panic("implement me")`)))
 
 // get dao file path
-func getDaoFilePath(path string) string {
-	path = filepath.ToSlash(path)
-	parts := strings.Split(path, "/")
-
-	for i := len(parts) - 2; i >= 0; i-- {
-		if parts[i] == "handler" || parts[i] == "service" || parts[i] == "biz" || parts[i] == "logic" {
-			parts[i] = "dao"
-			break
-		}
-	}
-
-	return strings.Join(parts, "/")
-}
+func getDaoFilePath(path string) string { _ = "STUB: not implemented"; return "" }
 
 type daoCodeInfo struct {
 	structName    string
@@ -243,58 +187,8 @@ type daoCodeInfo struct {
 }
 
 func parseDaoCode(filePath string) (*daoCodeInfo, error) {
-	astInfos, err := goast.ParseFile(filePath)
-	if err != nil {
-		return nil, err
-	}
-
-	var daoCode []string
-	var methodNames []string
-	var structNames []string
-
-	for _, astInfo := range astInfos {
-		if astInfo.IsFuncType() {
-			if len(astInfo.Names) == 2 {
-				methodNames = append(methodNames, astInfo.Names[0])
-				if len(structNames) == 0 {
-					structNames = append(structNames, astInfo.Names[1])
-				} else {
-					if structNames[len(structNames)-1] != astInfo.Names[1] {
-						structNames = append(structNames, astInfo.Names[1])
-					}
-				}
-			}
-			if !(len(astInfo.Names) == 1 && strings.HasPrefix(astInfo.Names[0], "New")) {
-				continue
-			}
-		}
-
-		if strings.Contains(astInfo.Body, "var total int64") {
-			continue
-		}
-
-		if astInfo.Comment != "" {
-			daoCode = append(daoCode, astInfo.Comment+"\n"+astInfo.Body)
-		} else {
-			daoCode = append(daoCode, astInfo.Body)
-		}
-	}
-
-	if len(daoCode) == 0 {
-		return nil, fmt.Errorf("no dao code found in %s", filePath)
-	}
-
-	var interfaceNames []string
-	for _, structName := range structNames {
-		interfaceNames = append(interfaceNames, capitalize(structName))
-	}
-
-	return &daoCodeInfo{
-		code:          strings.Join(daoCode, "\n\n"),
-		structName:    strings.Join(structNames, ", "),
-		methodNames:   `"` + strings.Join(methodNames, `", "`) + `"`,
-		interfaceName: strings.Join(interfaceNames, ", "),
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type daoInfo struct {
@@ -305,246 +199,52 @@ type daoInfo struct {
 }
 
 func newDaoInfo(daoFile string, isMongo bool, objName string, isChinese bool) *daoInfo {
-	var (
-		isUseDefaultDao  = true
-		daoCode          string
-		daoStructName    = objName + "Dao"
-		daoInterfaceName = capitalize(objName) + "Dao"
-		daoMethodNames   = getDaoDefaultMethodNames(isMongo, isChinese)
-	)
-
-	if gofile.IsExists(daoFile) {
-		dci, err := parseDaoCode(daoFile)
-		if err == nil {
-			isUseDefaultDao = false
-			daoCode = dci.code
-			daoStructName = dci.structName
-			daoInterfaceName = dci.interfaceName
-			daoMethodNames = dci.methodNames
-		}
-	}
-	if isUseDefaultDao {
-		if isMongo {
-			daoCode = mongoDao
-		} else {
-			daoCode = gormDao
-		}
-		daoCode = strings.Replace(daoCode, "UserExample", capitalize(objName), -1)
-		daoCode = strings.Replace(daoCode, "userExample", objName, -1)
-	}
-
-	decs := ""
-	if isChinese {
-		decs = fmt.Sprintf(`
-
-// 已折叠隐藏 %s 方法函数的代码块。
-// 由于 "%s" 结构体已实现了 "%s" 接口中定义的所有方法，因此无需再额外创建或实现这些方法。
-// 如需使用相关功能，直接调用对应方法即可。`,
-			daoMethodNames, daoStructName, daoInterfaceName)
-	} else {
-		decs = fmt.Sprintf(`
-
-// The code block for the method %s has been collapsed and hidden.
-// Since the struct "%s" already implements all methods defined in the "%s" interface, there is no need to create or implement these methods again.
-// If needed, you can directly call the corresponding methods.`,
-			daoMethodNames, daoStructName, daoInterfaceName)
-	}
-
-	return &daoInfo{
-		code:          daoCode + decs + "\n\n",
-		structName:    daoStructName,
-		methodNames:   daoMethodNames,
-		interfaceName: daoInterfaceName,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func getDaoDefaultMethodNames(isMongo bool, isChinese bool) string {
-	baseFuncNames := `"Create", "DeleteByID", "UpdateByID", "GetByID"`
-	if !isMongo {
-		baseFuncNames += `, "CreateByTx", "DeleteByTx", "UpdateByTx"`
-	}
-	if isChinese {
-		baseFuncNames = strings.ReplaceAll(baseFuncNames, ", ", "、")
-	}
-	return baseFuncNames
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func getModelCode(file string, dirName string, fileName string, isChinese bool) string {
-	modelFile := strings.TrimSuffix(gofile.GetDir(file), dirName) + "model" + string(filepath.Separator) + fileName
-	data, err := os.ReadFile(modelFile)
-	if err != nil {
-		return ""
-	}
-
-	modelCode := ""
-	modelFile = "internal" + string(filepath.Separator) + "model" + string(filepath.Separator) + fileName
-	if isChinese {
-		modelCode = fmt.Sprintf("\n\n原始文件 %s 代码如下：", modelFile)
-	} else {
-		modelCode = fmt.Sprintf("\n\nThe original file %s code is as follows:", modelFile)
-	}
-
-	return modelCode + fmt.Sprintf("\n```go\n%s\n```", string(data))
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func capitalize(s string) string {
-	if s == "" {
-		return s
-	}
-	runes := []rune(s)
-	runes[0] = unicode.ToUpper(runes[0])
-	return string(runes)
-}
+func capitalize(s string) string { _ = "STUB: not implemented"; return "" }
 
 // extractGoCode extracts the Go code blocks from the given markdown string.
-func extractGoCode(markdown string) []string {
-	var goCodeBlocks []string
-	scanner := bufio.NewScanner(strings.NewReader(markdown))
-	inCodeBlock := false
-	var currentBlock strings.Builder
+func extractGoCode(markdown string) []string { _ = "STUB: not implemented"; return nil }
 
-	for scanner.Scan() {
-		line := scanner.Text()
+// dealing with new ```go
 
-		// dealing with new ```go
-		if strings.HasPrefix(line, "```go") {
-			// if it is already in the code block, it means that the previous code block is missing the close identifier and stores it first.
-			if inCodeBlock {
-				goCodeBlocks = append(goCodeBlocks, currentBlock.String())
-				currentBlock.Reset()
-			}
-			inCodeBlock = true
-			continue
-		}
+// if it is already in the code block, it means that the previous code block is missing the close identifier and stores it first.
 
-		// processing ``` close code block
-		if inCodeBlock && strings.HasPrefix(line, "```") {
-			inCodeBlock = false
-			goCodeBlocks = append(goCodeBlocks, currentBlock.String())
-			currentBlock.Reset()
-			continue
-		}
+// processing ``` close code block
 
-		// record code content
-		if inCodeBlock {
-			currentBlock.WriteString(line)
-			currentBlock.WriteString("\n")
-		}
-	}
+// record code content
 
-	// prevents the last code block from not closing
-	if inCodeBlock && currentBlock.Len() > 0 {
-		goCodeBlocks = append(goCodeBlocks, currentBlock.String())
-	}
+// prevents the last code block from not closing
 
-	return goCodeBlocks
-}
+func parseCode(code string) []string { _ = "STUB: not implemented"; return nil }
 
-func parseCode(code string) []string {
-	n := strings.Count(code, "```go")
-	switch n {
-	case 0:
-		if strings.Contains(code, codeDelimiterMarker) {
-			ss := strings.Split(code, codeDelimiterMarker)
-			var codes []string
-			for _, s := range ss {
-				if strings.Contains(s, "package ") {
-					codes = append(codes, s)
-				}
-			}
-			if len(codes) > 0 {
-				return reassembleGoMarkdown(codes)
-			}
-		}
-		if strings.Contains(code, "\npackage ") {
-			return reassembleGoMarkdown([]string{code})
-		}
-		return []string{code}
-	case 1:
-		goCodes := extractGoCode(code)
-		var codes []string
-		for _, goCode := range goCodes {
-			codes = append(codes, strings.Split(goCode, codeDelimiterMarker)...)
-		}
-		return reassembleGoMarkdown(codes)
-	}
+func reassembleGoMarkdown(codes []string) []string { _ = "STUB: not implemented"; return nil }
 
-	code = strings.ReplaceAll(code, codeDelimiterMarker, "\n\n")
-	return reassembleGoMarkdown(extractGoCode(code))
-}
+func cutFilePath(fullPath string) string { _ = "STUB: not implemented"; return "" }
 
-func reassembleGoMarkdown(codes []string) []string {
-	for i, c := range codes {
-		codes[i] = "```go\n" + strings.TrimSpace(c) + "\n```\n"
-	}
-	return codes
-}
+func newPrintLog(t ...time.Duration) *utils.WaitPrinter { _ = "STUB: not implemented"; return nil }
 
-func cutFilePath(fullPath string) string {
-	cwd, _ := os.Getwd()
-	if strings.HasPrefix(fullPath, cwd) {
-		return strings.TrimPrefix(fullPath, cwd+string(filepath.Separator))
-	}
-	return fullPath
-}
+func getAssistantSuffixed(assistantType string) string { _ = "STUB: not implemented"; return "" }
 
-func newPrintLog(t ...time.Duration) *utils.WaitPrinter {
-	if len(t) > 0 {
-		time.Sleep(t[0])
-	}
-	p := utils.NewWaitPrinter(time.Millisecond * 250)
-	p.LoopPrint("Waiting for assistant responses ")
-	return p
-}
-
-func getAssistantSuffixed(assistantType string) string {
-	return ".go." + assistantType + ".md"
-}
-
-func deleteGenFiles(files []string, assistantType string) {
-	var doneFiles []string
-	for _, file := range files {
-		err := os.Remove(file)
-		if err != nil {
-			continue
-		}
-		doneFiles = append(doneFiles, cutFilePath(file))
-	}
-
-	if len(doneFiles) > 0 {
-		fmt.Printf("Removed temporary files generated by AI Assistant (%s):\n", assistantType)
-		for _, file := range doneFiles {
-			fmt.Printf("    %s\n", color.HiGreenString(cutFilePath(file)))
-		}
-		fmt.Println()
-	}
-}
+func deleteGenFiles(files []string, assistantType string) { _ = "STUB: not implemented"; return }
 
 func getRelativeDirAndFile(srcFile string) (dir string, file string) {
-	dirPath, _ := filepath.Abs(".")
-	filePath := strings.TrimPrefix(srcFile, dirPath+gofile.GetPathDelimiter())
-
-	fileInfo, err := os.Stat(filePath)
-	if err != nil {
-		return srcFile, ""
-	}
-
-	if !fileInfo.IsDir() {
-		dir = gofile.GetDir(filePath)
-		file = gofile.GetFilename(filePath)
-		return dir, file
-	}
-	return filePath, ""
+	_ = "STUB: not implemented"
+	return "", ""
 }
 
-func getBackupDir() string {
-	var backupDir = os.TempDir() + string(os.PathSeparator) + "sponge_merge_backup_code"
-	return backupDir + string(os.PathSeparator) + time.Now().Format("20060102T150405")
-}
+func getBackupDir() string { _ = "STUB: not implemented"; return "" }
 
-func backupFile(file string, backupDir string) {
-	relPath, _ := getRelativeDirAndFile(file)
-	bkDir := backupDir + string(os.PathSeparator) + relPath + string(os.PathSeparator)
-	_ = os.MkdirAll(bkDir, 0744)
-	_, _ = gobash.Exec("cp", file, bkDir)
-}
+func backupFile(file string, backupDir string) { _ = "STUB: not implemented"; return }

@@ -1,7 +1,6 @@
 package proxy
 
 import (
-	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -17,38 +16,18 @@ type options struct {
 	zapLogger          *zap.Logger
 }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
-func defaultOptions() *options {
-	return &options{
-		managerPrefixPath: "/endpoints",
-	}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
 // WithManagerEndpoints sets manager prefix path and middlewares, managerPrefixPath default "/endpoints".
 func WithManagerEndpoints(managerPrefixPath string, middlewares ...gin.HandlerFunc) Option {
-	return func(o *options) {
-		if managerPrefixPath != "" {
-			if !strings.HasPrefix(managerPrefixPath, "/") {
-				managerPrefixPath = "/" + managerPrefixPath
-			}
-			managerPrefixPath = strings.TrimSuffix(managerPrefixPath, "/")
-			o.managerPrefixPath = managerPrefixPath
-		}
-		o.managerMiddlewares = middlewares
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithLogger sets logger.
-func WithLogger(logger *zap.Logger) Option {
-	return func(o *options) {
-		o.zapLogger = logger
-	}
-}
+func WithLogger(logger *zap.Logger) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // -------------------------------------------------------------------------------------------
 
@@ -68,42 +47,24 @@ type passOptions struct {
 	passMiddlewares     []gin.HandlerFunc
 }
 
-func (o *passOptions) apply(opts ...PassOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *passOptions) apply(opts ...PassOption) { _ = "STUB: not implemented"; return }
 
-func defaultPassOptions() *passOptions {
-	return &passOptions{
-		healthCheckInterval: 5 * time.Second,
-		healthCheckTimeout:  3 * time.Second,
-		balancerType:        BalancerRoundRobin,
-	}
-}
+func defaultPassOptions() *passOptions { _ = "STUB: not implemented"; return nil }
 
 // WithPassBalancer sets balancer type.
 func WithPassBalancer(balancerType string) PassOption {
-	return func(o *passOptions) {
-		o.balancerType = balancerType
-	}
+	_ = "STUB: not implemented"
+	return *new(PassOption)
 }
 
 // WithPassHealthCheck sets health check interval and timeout.
 func WithPassHealthCheck(interval time.Duration, timeout time.Duration) PassOption {
-	return func(o *passOptions) {
-		if interval >= time.Second {
-			o.healthCheckInterval = interval
-		}
-		if timeout >= time.Millisecond*100 {
-			o.healthCheckTimeout = timeout
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(PassOption)
 }
 
 // WithPassMiddlewares sets proxy middlewares.
 func WithPassMiddlewares(middlewares ...gin.HandlerFunc) PassOption {
-	return func(o *passOptions) {
-		o.passMiddlewares = middlewares
-	}
+	_ = "STUB: not implemented"
+	return *new(PassOption)
 }

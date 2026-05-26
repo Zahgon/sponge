@@ -3,8 +3,6 @@ package service
 
 import (
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/health"
-	healthPB "google.golang.org/grpc/health/grpc_health_v1"
 )
 
 var (
@@ -13,10 +11,6 @@ var (
 )
 
 // RegisterAllService register all services to the service
-func RegisterAllService(server *grpc.Server) {
-	healthPB.RegisterHealthServer(server, health.NewServer()) // Register for Health Screening
+func RegisterAllService(server *grpc.Server) { _ = "STUB: not implemented"; return }
 
-	for _, fn := range registerFns {
-		fn(server)
-	}
-}
+// Register for Health Screening

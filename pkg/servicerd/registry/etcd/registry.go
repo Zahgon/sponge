@@ -2,8 +2,6 @@ package etcd
 
 import (
 	"context"
-	"fmt"
-	"math/rand"
 	"time"
 
 	clientv3 "go.etcd.io/etcd/client/v3"
@@ -27,72 +25,32 @@ type options struct {
 	maxRetry  int
 }
 
-func defaultOptions() *options {
-	return &options{
-		ctx:       context.Background(),
-		namespace: "/microservices",
-		ttl:       time.Second * 15,
-		maxRetry:  5,
-	}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
 // WithContext with registry context.
-func WithContext(ctx context.Context) Option {
-	return func(o *options) { o.ctx = ctx }
-}
+func WithContext(ctx context.Context) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithNamespace with registry namespace.
-func WithNamespace(ns string) Option {
-	return func(o *options) { o.namespace = ns }
-}
+func WithNamespace(ns string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithRegisterTTL with register ttl.
-func WithRegisterTTL(ttl time.Duration) Option {
-	return func(o *options) { o.ttl = ttl }
-}
+func WithRegisterTTL(ttl time.Duration) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithMaxRetry set max retry times.
-func WithMaxRetry(num int) Option {
-	return func(o *options) { o.maxRetry = num }
-}
+func WithMaxRetry(num int) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // NewRegistry instantiating the etcd registry
 // Note: If the etcdcli.WithConfig(*clientv3.Config) parameter is set, the etcdEndpoints parameter is ignored!
 func NewRegistry(etcdEndpoints []string, id string, instanceName string, instanceEndpoints []string, opts ...etcdcli.Option) (registry.Registry, *registry.ServiceInstance, error) {
-	serviceInstance := registry.NewServiceInstance(id, instanceName, instanceEndpoints)
-
-	cli, err := etcdcli.Init(etcdEndpoints, opts...)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return New(cli), serviceInstance, nil
+	_ = "STUB: not implemented"
+	return *new(registry.Registry), nil, nil
 }
 
 // NewRegistryWithOptions instantiating the etcd registry, opts can be set by etcdcli.WithXXX and etcd.WithXXX functions.
 // Note: If the etcdcli.WithConfig(*clientv3.Config) parameter is set, the etcdEndpoints parameter is ignored!
 func NewRegistryWithOptions(etcdEndpoints []string, id string, instanceName string, instanceEndpoints []string, opts ...interface{}) (registry.Registry, *registry.ServiceInstance, error) {
-	serviceInstance := registry.NewServiceInstance(id, instanceName, instanceEndpoints)
-
-	var etcdOptions []etcdcli.Option
-	var registryOptions []Option
-	for _, opt := range opts {
-		switch v := opt.(type) {
-		case etcdcli.Option:
-			etcdOptions = append(etcdOptions, v)
-		case Option:
-			registryOptions = append(registryOptions, v)
-		default:
-			return nil, nil, fmt.Errorf("unknown option type: %T", v)
-		}
-	}
-
-	cli, err := etcdcli.Init(etcdEndpoints, etcdOptions...)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return New(cli, registryOptions...), serviceInstance, nil
+	_ = "STUB: not implemented"
+	return *new(registry.Registry), nil, nil
 }
 
 // Registry is etcd registry.
@@ -105,154 +63,53 @@ type Registry struct {
 
 // New create a etcd registry
 func New(client *clientv3.Client, opts ...Option) (r *Registry) {
-	o := defaultOptions()
-	for _, opt := range opts {
-		opt(o)
-	}
-	return &Registry{
-		opts:   o,
-		client: client,
-		kv:     clientv3.NewKV(client),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Register the registration.
 func (r *Registry) Register(ctx context.Context, service *registry.ServiceInstance) error {
-	key := fmt.Sprintf("%s/%s/%s", r.opts.namespace, service.Name, service.ID)
-	value, err := marshal(service)
-	if err != nil {
-		return err
-	}
-	if r.lease != nil {
-		_ = r.lease.Close()
-	}
-	r.lease = clientv3.NewLease(r.client)
-	leaseID, err := r.registerWithKV(ctx, key, value)
-	if err != nil {
-		return err
-	}
-
-	go r.heartBeat(r.opts.ctx, leaseID, key, value)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Deregister the registration.
 func (r *Registry) Deregister(ctx context.Context, service *registry.ServiceInstance) error {
-	defer func() {
-		if r.lease != nil {
-			_ = r.lease.Close()
-		}
-	}()
-	key := fmt.Sprintf("%s/%s/%s", r.opts.namespace, service.Name, service.ID)
-	_, err := r.client.Delete(ctx, key)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetService return the service instances in memory according to the service name.
 func (r *Registry) GetService(ctx context.Context, name string) ([]*registry.ServiceInstance, error) {
-	key := fmt.Sprintf("%s/%s", r.opts.namespace, name)
-	resp, err := r.kv.Get(ctx, key, clientv3.WithPrefix())
-	if err != nil {
-		return nil, err
-	}
-	items := make([]*registry.ServiceInstance, 0, len(resp.Kvs))
-	for _, kv := range resp.Kvs {
-		si, err := unmarshal(kv.Value)
-		if err != nil {
-			return nil, err
-		}
-		if si.Name != name {
-			continue
-		}
-		items = append(items, si)
-	}
-	return items, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Watch creates a watcher according to the service name.
 func (r *Registry) Watch(ctx context.Context, name string) (registry.Watcher, error) {
-	key := fmt.Sprintf("%s/%s", r.opts.namespace, name)
-	return newWatcher(ctx, key, name, r.client)
+	_ = "STUB: not implemented"
+	return *new(registry.Watcher), nil
 }
 
 // registerWithKV create a new lease, return current leaseID
 func (r *Registry) registerWithKV(ctx context.Context, key string, value string) (clientv3.LeaseID, error) {
-	grant, err := r.lease.Grant(ctx, int64(r.opts.ttl.Seconds()))
-	if err != nil {
-		return 0, err
-	}
-	_, err = r.client.Put(ctx, key, value, clientv3.WithLease(grant.ID))
-	if err != nil {
-		return 0, err
-	}
-	return grant.ID, nil
+	_ = "STUB: not implemented"
+	return *new(clientv3.LeaseID), nil
 }
 
 func (r *Registry) heartBeat(ctx context.Context, leaseID clientv3.LeaseID, key string, value string) {
-	curLeaseID := leaseID
-	kac, err := r.client.KeepAlive(ctx, leaseID)
-	if err != nil {
-		curLeaseID = 0
-	}
-	rand.Seed(time.Now().Unix()) //nolint
-
-	for {
-		if curLeaseID == 0 {
-			// try to registerWithKV
-			retreat := []int{}
-			for retryCnt := 0; retryCnt < r.opts.maxRetry; retryCnt++ {
-				if ctx.Err() != nil {
-					return
-				}
-				// prevent infinite blocking
-				idChan := make(chan clientv3.LeaseID, 1)
-				errChan := make(chan error, 1)
-				cancelCtx, cancel := context.WithCancel(ctx)
-				go func() {
-					defer cancel()
-					id, registerErr := r.registerWithKV(cancelCtx, key, value)
-					if registerErr != nil {
-						errChan <- registerErr
-					} else {
-						idChan <- id
-					}
-				}()
-
-				select {
-				case <-time.After(3 * time.Second):
-					cancel()
-					continue
-				case <-errChan:
-					continue
-				case curLeaseID = <-idChan:
-				}
-
-				kac, err = r.client.KeepAlive(ctx, curLeaseID)
-				if err == nil {
-					break
-				}
-				retreat = append(retreat, 1<<retryCnt)
-				time.Sleep(time.Duration(retreat[rand.Intn(len(retreat))]) * time.Second)
-			}
-			if _, ok := <-kac; !ok {
-				// retry failed
-				return
-			}
-		}
-
-		select {
-		case _, ok := <-kac:
-			if !ok {
-				if ctx.Err() != nil {
-					// channel closed due to context cancel
-					return
-				}
-				// need to retry registration
-				curLeaseID = 0
-				continue
-			}
-		case <-r.opts.ctx.Done():
-			return
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+//nolint
+
+// try to registerWithKV
+
+// prevent infinite blocking
+
+// retry failed
+
+// channel closed due to context cancel
+
+// need to retry registration

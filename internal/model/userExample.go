@@ -23,9 +23,7 @@ type UserExample struct {
 }
 
 // TableName get table name
-func (table *UserExample) TableName() string {
-	return "user_example"
-}
+func (table *UserExample) TableName() string { _ = "STUB: not implemented"; return "" }
 
 // UserExampleColumnNames Whitelist for custom query fields to prevent sql injection attacks
 var UserExampleColumnNames = map[string]bool{

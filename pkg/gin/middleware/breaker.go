@@ -1,12 +1,9 @@
 package middleware
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 
 	"github.com/go-dev-frame/sponge/pkg/container/group"
-	"github.com/go-dev-frame/sponge/pkg/gin/response"
 	"github.com/go-dev-frame/sponge/pkg/shield/circuitbreaker"
 )
 
@@ -24,89 +21,44 @@ type circuitBreakerOptions struct {
 	degradeHandler func(c *gin.Context)
 }
 
-func defaultCircuitBreakerOptions() *circuitBreakerOptions {
-	return &circuitBreakerOptions{
-		group: group.NewGroup(func() interface{} {
-			return circuitbreaker.NewBreaker()
-		}),
-		validCodes: map[int]struct{}{
-			http.StatusInternalServerError: {},
-			http.StatusServiceUnavailable:  {},
-		},
-	}
-}
+func defaultCircuitBreakerOptions() *circuitBreakerOptions { _ = "STUB: not implemented"; return nil }
 
 func (o *circuitBreakerOptions) apply(opts ...CircuitBreakerOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // WithGroup with circuit breaker group.
 // Deprecated: use WithBreakerOption instead
 func WithGroup(g *group.Group) CircuitBreakerOption {
-	return func(o *circuitBreakerOptions) {
-		if g != nil {
-			o.group = g
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(CircuitBreakerOption)
 }
 
 // WithBreakerOption set the circuit breaker options.
 func WithBreakerOption(opts ...circuitbreaker.Option) CircuitBreakerOption {
-	return func(o *circuitBreakerOptions) {
-		if len(opts) > 0 {
-			o.group = group.NewGroup(func() interface{} {
-				return circuitbreaker.NewBreaker(opts...)
-			})
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(CircuitBreakerOption)
 }
 
 // WithValidCode http code to mark failed
 func WithValidCode(code ...int) CircuitBreakerOption {
-	return func(o *circuitBreakerOptions) {
-		for _, c := range code {
-			o.validCodes[c] = struct{}{}
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(CircuitBreakerOption)
 }
 
 // WithDegradeHandler set degrade handler function
 func WithDegradeHandler(handler func(c *gin.Context)) CircuitBreakerOption {
-	return func(o *circuitBreakerOptions) {
-		o.degradeHandler = handler
-	}
+	_ = "STUB: not implemented"
+	return *new(CircuitBreakerOption)
 }
 
 // CircuitBreaker a circuit breaker middleware
 func CircuitBreaker(opts ...CircuitBreakerOption) gin.HandlerFunc {
-	o := defaultCircuitBreakerOptions()
-	o.apply(opts...)
-
-	return func(c *gin.Context) {
-		breaker := o.group.Get(c.FullPath()).(circuitbreaker.CircuitBreaker)
-		if err := breaker.Allow(); err != nil {
-			// NOTE: when client reject request locally, keep adding counter let the drop ratio higher.
-			breaker.MarkFailed()
-			if o.degradeHandler != nil {
-				o.degradeHandler(c)
-			} else {
-				response.Output(c, http.StatusServiceUnavailable, err.Error())
-			}
-			c.Abort()
-			return
-		}
-
-		c.Next()
-
-		code := c.Writer.Status()
-		// NOTE: need to check internal and service unavailable error
-		_, isHit := o.validCodes[code]
-		if isHit {
-			breaker.MarkFailed()
-		} else {
-			breaker.MarkSuccess()
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(gin.HandlerFunc)
 }
+
+// NOTE: when client reject request locally, keep adding counter let the drop ratio higher.
+
+// NOTE: need to check internal and service unavailable error

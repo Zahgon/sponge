@@ -19,9 +19,7 @@ var kacp = keepalive.ClientParameters{
 }
 
 // ClientKeepAlive keep the connection set
-func ClientKeepAlive() grpc.DialOption {
-	return grpc.WithKeepaliveParams(kacp)
-}
+func ClientKeepAlive() grpc.DialOption { _ = "STUB: not implemented"; return *new(grpc.DialOption) }
 
 // ---------------------------------- server option ----------------------------------
 
@@ -46,9 +44,4 @@ var kasp = keepalive.ServerParameters{
 }
 
 // ServerKeepAlive keep the connection set
-func ServerKeepAlive() []grpc.ServerOption {
-	return []grpc.ServerOption{
-		grpc.KeepaliveEnforcementPolicy(kaep),
-		grpc.KeepaliveParams(kasp),
-	}
-}
+func ServerKeepAlive() []grpc.ServerOption { _ = "STUB: not implemented"; return nil }

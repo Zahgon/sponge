@@ -23,41 +23,37 @@ const (
 )
 
 // FormatDateTimeLayout formats the given time to the layout string "2006-01-02 15:04:05".
-func FormatDateTimeLayout(t time.Time) string {
-	return t.Format(DateTimeLayout)
-}
+func FormatDateTimeLayout(t time.Time) string { _ = "STUB: not implemented"; return "" }
 
 // ParseDateTimeLayout parses the given string to time with layout string "2006-01-02 15:04:05".
 func ParseDateTimeLayout(s string) (time.Time, error) {
-	return time.Parse(DateTimeLayout, s)
+	_ = "STUB: not implemented"
+	return *new(time.Time), nil
 }
 
 // FormatDateTimeLayoutWithMS formats the given time to the layout string "2006-01-02 15:04:05.000".
-func FormatDateTimeLayoutWithMS(t time.Time) string {
-	return t.Format(DateTimeLayoutWithMS)
-}
+func FormatDateTimeLayoutWithMS(t time.Time) string { _ = "STUB: not implemented"; return "" }
 
 // ParseDateTimeLayoutWithMS parses the given string to time with layout string "2006-01-02 15:04:05.000".
 func ParseDateTimeLayoutWithMS(s string) (time.Time, error) {
-	return time.Parse(DateTimeLayoutWithMS, s)
+	_ = "STUB: not implemented"
+	return *new(time.Time), nil
 }
 
 // FormatDateTimeRFC3339 formats the given time to the layout string "2006-01-02T15:04:05Z07:00".
-func FormatDateTimeRFC3339(t time.Time) string {
-	return t.Format(RFC3339)
-}
+func FormatDateTimeRFC3339(t time.Time) string { _ = "STUB: not implemented"; return "" }
 
 // ParseDateTimeRFC3339 parses the given string to time with layout string "2006-01-02T15:04:05Z07:00".
 func ParseDateTimeRFC3339(s string) (time.Time, error) {
-	return time.Parse(RFC3339, s)
+	_ = "STUB: not implemented"
+	return *new(time.Time), nil
 }
 
 // FormatDateTimeLayoutWithMSAndTZ formats the given time to the layout string "2006-01-02T15:04:05.000Z".
-func FormatDateTimeLayoutWithMSAndTZ(t time.Time) string {
-	return t.Format(DateTimeLayoutWithMSAndTZ)
-}
+func FormatDateTimeLayoutWithMSAndTZ(t time.Time) string { _ = "STUB: not implemented"; return "" }
 
 // ParseDateTimeLayoutWithMSAndTZ parses the given string to time with layout string "2006-01-02T15:04:05.000Z".
 func ParseDateTimeLayoutWithMSAndTZ(s string) (time.Time, error) {
-	return time.Parse(DateTimeLayoutWithMSAndTZ, s)
+	_ = "STUB: not implemented"
+	return *new(time.Time), nil
 }

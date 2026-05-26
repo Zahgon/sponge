@@ -2,10 +2,6 @@
 package deepseek
 
 import (
-	"errors"
-
-	"github.com/sashabaranov/go-openai"
-
 	"github.com/go-dev-frame/sponge/pkg/aicli/chatgpt"
 )
 
@@ -41,22 +37,6 @@ var (
 
 // NewClient creates a new chat client.
 func NewClient(apiKey string, opts ...ClientOption) (*Client, error) {
-	if apiKey == "" {
-		return nil, errors.New("API key cannot be empty")
-	}
-
-	c, err := chatgpt.NewClient(apiKey, opts...)
-	if err != nil {
-		return nil, err
-	}
-
-	if c.ModelName == chatgpt.DefaultModel {
-		c.ModelName = DefaultModel
-	}
-
-	config := openai.DefaultConfig(apiKey)
-	config.BaseURL = BaseURL
-	c.Cli = openai.NewClientWithConfig(config)
-
-	return c, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

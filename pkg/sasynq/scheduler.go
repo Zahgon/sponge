@@ -1,8 +1,6 @@
 package sasynq
 
 import (
-	"fmt"
-
 	"github.com/hibiken/asynq"
 )
 
@@ -15,39 +13,26 @@ type schedulerOptions struct {
 	loggerLevel      asynq.LogLevel
 }
 
-func (o *schedulerOptions) apply(opts ...SchedulerOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *schedulerOptions) apply(opts ...SchedulerOption) { _ = "STUB: not implemented"; return }
 
-func defaultSchedulerOptions() *schedulerOptions {
-	return &schedulerOptions{
-		loggerLevel: asynq.InfoLevel,
-	}
-}
+func defaultSchedulerOptions() *schedulerOptions { _ = "STUB: not implemented"; return nil }
 
 // WithSchedulerOptions sets the options for the scheduler.
 func WithSchedulerOptions(opts *asynq.SchedulerOpts) SchedulerOption {
-	return func(o *schedulerOptions) {
-		o.schedulerOptions = opts
-	}
+	_ = "STUB: not implemented"
+	return *new(SchedulerOption)
 }
 
 // WithSchedulerLogLevel sets the log level for the scheduler.
 func WithSchedulerLogLevel(level asynq.LogLevel) SchedulerOption {
-	return func(o *schedulerOptions) {
-		o.loggerLevel = level
-	}
+	_ = "STUB: not implemented"
+	return *new(SchedulerOption)
 }
 
 // WithSchedulerLogger sets the logger for the scheduler.
 func WithSchedulerLogger(opts ...LoggerOption) SchedulerOption {
-	opt := defaultLoggerOptions()
-	opt.apply(opts...)
-	return func(o *schedulerOptions) {
-		o.logger = NewZapLogger(opt.logger, opt.zapSkip)
-	}
+	_ = "STUB: not implemented"
+	return *new(SchedulerOption)
 }
 
 // --------------------------------------------------------------------
@@ -59,57 +44,27 @@ type Scheduler struct {
 
 // NewScheduler creates a new periodic task scheduler.
 func NewScheduler(cfg RedisConfig, opts ...SchedulerOption) *Scheduler {
-	o := defaultSchedulerOptions()
-	o.apply(opts...)
-	if o.logger != nil {
-		if o.schedulerOptions == nil {
-			o.schedulerOptions = &asynq.SchedulerOpts{
-				Logger:   o.logger,
-				LogLevel: o.loggerLevel,
-			}
-		} else {
-			o.schedulerOptions.Logger = o.logger
-			o.schedulerOptions.LogLevel = o.loggerLevel
-		}
-	}
-
-	return &Scheduler{
-		Scheduler: asynq.NewScheduler(cfg.GetAsynqRedisConnOpt(), o.schedulerOptions),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Register adds a new periodic task.
 func (s *Scheduler) Register(cronSpec string, task *asynq.Task, opts ...asynq.Option) (entryID string, err error) {
-	return s.Scheduler.Register(cronSpec, task, opts...)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // RegisterTask adds a new periodic task with a given type name.
 func (s *Scheduler) RegisterTask(cronSpec string, typeName string, payload any, opts ...asynq.Option) (entryID string, err error) {
-	task, err := NewTask(typeName, payload)
-	if err != nil {
-		return "", err
-	}
-	return s.Scheduler.Register(cronSpec, task, opts...)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // Unregister removes a periodic task, cancel task execution.
-func (s *Scheduler) Unregister(entryID string) error {
-	return s.Scheduler.Unregister(entryID)
-}
+func (s *Scheduler) Unregister(entryID string) error { _ = "STUB: not implemented"; return nil }
 
 // Run runs the asynq Scheduler in a separate goroutine
-func (s *Scheduler) Run() {
-	go func() {
-		if err := s.Scheduler.Run(); err != nil {
-			panic(fmt.Sprintf("could not run asynq scheduler: %v", err))
-		}
-	}()
-}
+func (s *Scheduler) Run() { _ = "STUB: not implemented"; return }
 
 // Shutdown the Scheduler.
-func (s *Scheduler) Shutdown() {
-	if s == nil || s.Scheduler == nil {
-		return
-	}
-	s.Scheduler.Shutdown()
-}
+func (s *Scheduler) Shutdown() { _ = "STUB: not implemented"; return }

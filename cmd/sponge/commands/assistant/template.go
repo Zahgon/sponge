@@ -244,23 +244,4 @@ var (
 	promptCNTmpl        *template.Template
 )
 
-func initPromptTemplate() error {
-	var err error
-	defaultPromptENTmpl, err = template.New("defaultPromptEN").Parse(defaultPromptENTmplRaw)
-	if err != nil {
-		return err
-	}
-	defaultPromptCNTmpl, err = template.New("defaultPromptCN").Parse(defaultPromptCNTmplRaw)
-	if err != nil {
-		return err
-	}
-	promptENTmpl, err = template.New("promptEN").Parse(promptENTmplRaw)
-	if err != nil {
-		return err
-	}
-	promptCNTmpl, err = template.New("promptCN").Parse(promptCNTmplRaw)
-	if err != nil {
-		return err
-	}
-	return nil
-}
+func initPromptTemplate() error { _ = "STUB: not implemented"; return nil }

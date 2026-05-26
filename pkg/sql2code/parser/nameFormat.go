@@ -1,11 +1,5 @@
 package parser
 
-import (
-	"strings"
-
-	"github.com/huandu/xstrings"
-)
-
 var peculiarNouns = map[string]string{
 	"ID":    "Id",
 	"UID":   "Uid",
@@ -42,78 +36,12 @@ var peculiarNouns = map[string]string{
 	"XSS":   "Xss",
 }
 
-func toCamel(s string) string {
-	str := xstrings.ToCamelCase(s)
+func toCamel(s string) string { _ = "STUB: not implemented"; return "" }
 
-	name := strings.ToUpper(str)
-	if _, ok := peculiarNouns[name]; ok {
-		return name
-	}
+// special case for table column ID
 
-	l := len(str)
-	for k, v := range peculiarNouns {
-		nl := len(v)
-		if l > nl {
-			if str[l-nl:] == v {
-				str = str[:l-nl] + k
-				break
-			}
-		}
-	}
+func firstLetterToLower(str string) string { _ = "STUB: not implemented"; return "" }
 
-	if str == "_ID" { // special case for table column ID
-		str = "ID"
-	}
+func customToCamel(str string) string { _ = "STUB: not implemented"; return "" }
 
-	return str
-}
-
-func firstLetterToLower(str string) string {
-	if len(str) == 0 {
-		return str
-	}
-
-	if (str[0] >= 'A' && str[0] <= 'Z') || (str[0] >= 'a' && str[0] <= 'z') {
-		return strings.ToLower(str[:1]) + str[1:]
-	}
-
-	return str
-}
-
-func customToCamel(str string) string {
-	str = toCamel(str)
-
-	if _, ok := peculiarNouns[str]; ok {
-		str = strings.ToLower(str)
-	} else {
-		str = firstLetterToLower(str)
-	}
-
-	return str
-}
-
-func customToSnake(str string) string {
-	str = toCamel(str)
-	l := len(str)
-	for k, _ := range peculiarNouns {
-		if str == k {
-			str = strings.ToLower(str)
-			break
-		}
-
-		nl := len(k)
-		if l > nl {
-			if str[l-nl:] == k {
-				str = str[:l-nl] + "_" + strings.ToLower(k)
-				break
-			}
-		}
-	}
-
-	str = xstrings.ToSnakeCase(str)
-	if strings.HasPrefix(str, "__") {
-		str = str[1:]
-	}
-
-	return str
-}
+func customToSnake(str string) string { _ = "STUB: not implemented"; return "" }

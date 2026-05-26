@@ -1,44 +1,23 @@
 package initial
 
 import (
-	"context"
-	"time"
-
 	"github.com/go-dev-frame/sponge/pkg/app"
-	"github.com/go-dev-frame/sponge/pkg/logger"
-	"github.com/go-dev-frame/sponge/pkg/tracer"
-
-	"github.com/go-dev-frame/sponge/internal/config"
 	//"github.com/go-dev-frame/sponge/internal/rpcclient"
 )
 
 // Close releasing resources after service exit
-func Close(servers []app.IServer) []app.Close {
-	var closes []app.Close
+func Close(servers []app.IServer) []app.Close { _ = "STUB: not implemented"; return nil }
 
-	// close server
-	for _, s := range servers {
-		closes = append(closes, s.Stop)
-	}
+// close server
 
-	// close the rpc client connection
-	// example:
-	//closes = append(closes, func() error {
-	//	return rpcclient.CloseServerNameExampleRPCConn()
-	//})
+// close the rpc client connection
+// example:
+//closes = append(closes, func() error {
+//	return rpcclient.CloseServerNameExampleRPCConn()
+//})
 
-	// close tracing
-	if config.Get().App.EnableTrace {
-		closes = append(closes, func() error {
-			ctx, _ := context.WithTimeout(context.Background(), 2*time.Second) //nolint
-			return tracer.Close(ctx)
-		})
-	}
+// close tracing
 
-	// close logger
-	closes = append(closes, func() error {
-		return logger.Sync()
-	})
+//nolint
 
-	return closes
-}
+// close logger

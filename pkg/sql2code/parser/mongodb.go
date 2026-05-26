@@ -1,20 +1,9 @@
 package parser
 
 import (
-	"context"
-	"fmt"
-	"strings"
-	"sync/atomic"
-	"time"
-
-	"github.com/huandu/xstrings"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/bsontype"
 	"go.mongodb.org/mongo-driver/mongo"
-	mgoOptions "go.mongodb.org/mongo-driver/mongo/options"
-
-	"github.com/go-dev-frame/sponge/pkg/mgo"
-	"github.com/go-dev-frame/sponge/pkg/utils"
 )
 
 const (
@@ -67,14 +56,10 @@ var mgoTypeToGo = map[bsontype.Type]string{
 var jsonTagFormat int32 = 1 // 0: snake case, 1: camel case
 
 // SetJSONTagSnakeCase set json tag format to snake case
-func SetJSONTagSnakeCase() {
-	atomic.AddInt32(&jsonTagFormat, -jsonTagFormat)
-}
+func SetJSONTagSnakeCase() { _ = "STUB: not implemented"; return }
 
 // SetJSONTagCamelCase set json tag format to camel case
-func SetJSONTagCamelCase() {
-	atomic.AddInt32(&jsonTagFormat, 1)
-}
+func SetJSONTagCamelCase() { _ = "STUB: not implemented"; return }
 
 // MgoField mongo field
 type MgoField struct {
@@ -87,306 +72,73 @@ type MgoField struct {
 
 // GetMongodbTableInfo get table info from mongodb
 func GetMongodbTableInfo(dsn string, tableName string) ([]*MgoField, error) {
-	timeout := time.Second * 5
-	opts := &mgoOptions.ClientOptions{Timeout: &timeout}
-	dsn = utils.AdaptiveMongodbDsn(dsn)
-	db, err := mgo.Init(dsn, opts)
-	if err != nil {
-		return nil, err
-	}
-
-	return getMongodbTableFields(db, tableName)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func getMongodbTableFields(db *mongo.Database, collectionName string) ([]*MgoField, error) {
-	findOpts := new(mgoOptions.FindOneOptions)
-	findOpts.Sort = bson.M{oidName: -1}
-	result := db.Collection(collectionName).FindOne(context.Background(), bson.M{}, findOpts)
-	raw, err := result.Raw()
-	if err != nil {
-		return nil, err
-	}
-
-	elements, err := raw.Elements()
-	if err != nil {
-		return nil, err
-	}
-
-	fields := []*MgoField{}
-	names := []string{}
-	for _, element := range elements {
-		name := element.Key()
-		if name == "deleted_at" { // filter deleted_at, used for soft delete
-			continue
-		}
-		names = append(names, name)
-		t, o, p := getTypeFromMgo(name, element)
-		fields = append(fields, &MgoField{
-			Name:           name,
-			Type:           t,
-			ObjectStr:      o,
-			ProtoObjectStr: p,
-		})
-	}
-
-	return embedTimeField(names, fields), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// filter deleted_at, used for soft delete
 
 func getTypeFromMgo(name string, element bson.RawElement) (goTypeStr string, goObjectStr string, protoObjectStr string) {
-	v := element.Value()
-	switch v.Type {
-	case bson.TypeEmbeddedDocument:
-		var br bson.Raw = v.Value
-		es, err := br.Elements()
-		if err != nil {
-			return goTypeInterface, "", ""
-		}
-		return parseObject(name, es)
-
-	case bson.TypeArray:
-		var br bson.Raw = v.Value
-		es, err := br.Elements()
-		if err != nil {
-			return goTypeInterface, "", ""
-		}
-		if len(es) == 0 {
-			return goTypeInterface, "", ""
-		}
-		t, o, p := parseArray(name, es[0])
-		return convertToSingular(t, o, p)
-	}
-
-	if goType, ok := mgoTypeToGo[v.Type]; !ok {
-		return goTypeInterface, "", ""
-	} else { //nolint
-		return goType, "", ""
-	}
+	_ = "STUB: not implemented"
+	return "", "", ""
 }
 
+//nolint
+
 func parseObject(name string, elements []bson.RawElement) (goTypeStr string, goObjectStr string, protoObjectStr string) {
-	var goObjStr string
-	var protoObjStr string
-	for num, element := range elements {
-		t, _, _ := getTypeFromMgo(name, element)
-		k := element.Key()
-
-		var jsonTag string
-		if jsonTagFormat == 0 {
-			jsonTag = xstrings.ToSnakeCase(k)
-		} else {
-			jsonTag = toLowerFirst(xstrings.ToCamelCase(k))
-		}
-
-		goObjStr += fmt.Sprintf("    %s %s `bson:\"%s\" json:\"%s\"`\n", xstrings.ToCamelCase(k), t, k, jsonTag)
-		num++
-		protoObjStr += fmt.Sprintf("  %s %s = %d;\n", convertToProtoFieldType(name, t), k, num)
-	}
-	return "*" + xstrings.ToCamelCase(name),
-		fmt.Sprintf("type %s struct {\n%s}\n", xstrings.ToCamelCase(name), goObjStr),
-		fmt.Sprintf("message %s {\n%s}\n", xstrings.ToCamelCase(name), protoObjStr)
+	_ = "STUB: not implemented"
+	return "", "", ""
 }
 
 func parseArray(name string, element bson.RawElement) (goTypeStr string, goObjectStr string, protoObjectStr string) {
-	t, o, p := getTypeFromMgo(name, element)
-	if o != "" {
-		return "[]" + t, o, p
-	}
-	return "[]" + t, "", ""
+	_ = "STUB: not implemented"
+	return "", "", ""
 }
 
-func toLowerFirst(str string) string {
-	if len(str) == 0 {
-		return str
-	}
-	return strings.ToLower(string(str[0])) + str[1:]
-}
+func toLowerFirst(str string) string { _ = "STUB: not implemented"; return "" }
 
 func embedTimeField(names []string, fields []*MgoField) []*MgoField {
-	isHaveCreatedAt, isHaveUpdatedAt := false, false
-	for _, name := range names {
-		if name == "created_at" || name == "createdAt" {
-			isHaveCreatedAt = true
-		}
-		if name == "updated_at" || name == "updatedAt" {
-			isHaveUpdatedAt = true
-		}
-		names = append(names, name)
-	}
-
-	var timeFields []*MgoField
-	if !isHaveCreatedAt {
-		timeFields = append(timeFields, &MgoField{
-			Name: "created_at",
-			Type: goTypeTime,
-		})
-	}
-	if !isHaveUpdatedAt {
-		timeFields = append(timeFields, &MgoField{
-			Name: "updated_at",
-			Type: goTypeTime,
-		})
-	}
-
-	if len(timeFields) == 0 {
-		return fields
-	}
-
-	return append(fields, timeFields...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ConvertToSQLByMgoFields convert to mysql table ddl
 func ConvertToSQLByMgoFields(tableName string, fields []*MgoField) (string, map[string]string) {
-	isHaveID := false
-	fieldStr := ""
-	srcMongoTypeMap := make(map[string]string) // name:type
-	objectStrs := []string{}
-	protoObjectStrs := []string{}
-
-	for _, field := range fields {
-		switch field.Type {
-		case goTypeInterface, goTypeSliceInterface:
-			srcMongoTypeMap[field.Name] = xstrings.ToCamelCase(field.Name)
-		default:
-			srcMongoTypeMap[field.Name] = field.Type
-		}
-		if field.Name == oidName {
-			isHaveID = true
-			srcMongoTypeMap["id"] = field.Type
-			continue
-		}
-
-		fieldStr += fmt.Sprintf("    `%s` %s,\n", field.Name, convertMongoToMysqlType(field.Type))
-		if field.ObjectStr != "" {
-			objectStrs = append(objectStrs, field.ObjectStr)
-			protoObjectStrs = append(protoObjectStrs, field.ProtoObjectStr)
-		}
-	}
-
-	fieldStr = strings.TrimSuffix(fieldStr, ",\n")
-	if isHaveID {
-		fieldStr = "    `id` varchar(24),\n" + fieldStr + ",\n    PRIMARY KEY (id)"
-	}
-
-	if len(objectStrs) > 0 {
-		srcMongoTypeMap[SubStructKey] = strings.Join(objectStrs, "\n") + "\n"
-		srcMongoTypeMap[ProtoSubStructKey] = strings.Join(protoObjectStrs, "\n") + "\n"
-	}
-
-	return fmt.Sprintf("CREATE TABLE `%s` (\n%s\n);", tableName, fieldStr), srcMongoTypeMap
+	_ = "STUB: not implemented"
+	return "", nil
 }
+
+// name:type
 
 // nolint
-func convertMongoToMysqlType(goType string) string {
-	switch goType {
-	case goTypeInt:
-		return "int"
-	case goTypeInt64:
-		return "bigint"
-	case goTypeFloat64:
-		return "double"
-	case goTypeString:
-		return "varchar(255)"
-	case goTypeTime:
-		return "timestamp" //nolint
-	case goTypeBool:
-		return "bit(1)"
-	case goTypeOID, goTypeNil, goTypeBytes, goTypeInterface, goTypeSliceInterface, goTypeInts, goTypeStrings:
-		return "json"
-	}
-	return "json"
-}
+func convertMongoToMysqlType(goType string) string { _ = "STUB: not implemented"; return "" }
+
+//nolint
 
 // nolint
 func convertToProtoFieldType(name string, goType string) string {
-	switch goType {
-	case "int":
-		return "int32"
-	case "uint":
-		return "uint32" //nolint
-	case "time.Time":
-		return "int64"
-	case "float32":
-		return "float"
-	case "float64":
-		return "double"
-	case goTypeInts, "[]int64":
-		return "repeated int64"
-	case "[]int32":
-		return "repeated int32"
-	case "[]byte":
-		return "bytes"
-	case goTypeStrings:
-		return "repeated string"
-	}
-
-	if strings.Contains(goType, "[]") {
-		t := strings.TrimLeft(goType, "[]")
-		if strings.Contains(name, t) {
-			return "repeated " + t
-		}
-	}
-
-	return goType
+	_ = "STUB: not implemented"
+	return ""
 }
+
+//nolint
 
 // MgoFieldToGoStruct convert to go struct
-func MgoFieldToGoStruct(name string, fs []*MgoField) string {
-	var str = ""
-	var objStr string
+func MgoFieldToGoStruct(name string, fs []*MgoField) string { _ = "STUB: not implemented"; return "" }
 
-	for _, f := range fs {
-		if f.Name == oidName {
-			str += "    ID primitive.ObjectID `bson:\"_id\" json:\"id\"`\n"
-			continue
-		}
-		if f.Type == goTypeInterface || f.Type == goTypeSliceInterface {
-			f.Type = xstrings.ToCamelCase(f.Name)
-		}
-		str += fmt.Sprintf("    %s %s `bson:\"%s\" json:\"%s\"`\n", xstrings.ToCamelCase(f.Name), f.Type, f.Name, f.Name)
-		if f.ObjectStr != "" {
-			objStr += f.ObjectStr + "\n"
-		}
-	}
-
-	return fmt.Sprintf("type %s struct {\n%s}\n\n%s\n", xstrings.ToCamelCase(name), str, objStr)
-}
-
-func toSingular(word string) string {
-	if strings.HasSuffix(word, "es") {
-		if len(word) > 2 {
-			return word[:len(word)-2]
-		}
-	} else if strings.HasSuffix(word, "s") {
-		if len(word) > 1 {
-			return word[:len(word)-1]
-		}
-	}
-	return word
-}
+func toSingular(word string) string { _ = "STUB: not implemented"; return "" }
 
 func nameToSingular(goTypeStr string, targetObjectStr string, markStr string) string {
-	name := strings.ReplaceAll(goTypeStr, "[]*", "")
-	prefixStr := markStr + " " + name
-	l := len(prefixStr)
-	if len(targetObjectStr) <= l {
-		return targetObjectStr
-	}
-
-	if prefixStr == targetObjectStr[:l] {
-		targetObjectStr = toSingular(prefixStr) + " " + targetObjectStr[l:]
-		return targetObjectStr
-	}
-	return targetObjectStr
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func convertToSingular(goTypeStr string, objectStr string, protoObjectStr string) (tStr string, oStr string, pObjStr string) {
-	if !strings.Contains(goTypeStr, "[]*") || objectStr == "" {
-		return goTypeStr, objectStr, protoObjectStr
-	}
-
-	objectStr = nameToSingular(goTypeStr, objectStr, "type")
-	protoObjectStr = nameToSingular(goTypeStr, protoObjectStr, "message")
-	goTypeStr = toSingular(goTypeStr)
-
-	return goTypeStr, objectStr, protoObjectStr
+	_ = "STUB: not implemented"
+	return "", "", ""
 }

@@ -2,19 +2,11 @@
 package main
 
 import (
-	"bytes"
 	"flag"
 	"fmt"
-	"os"
-	"path/filepath"
-	"strings"
-	"time"
 
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/types/pluginpb"
-
-	"github.com/go-dev-frame/sponge/cmd/protoc-gen-go-rpc-tmpl/internal/generate/service"
-	"github.com/go-dev-frame/sponge/pkg/gofile"
 )
 
 const (
@@ -92,112 +84,27 @@ func main() {
 }
 
 func saveRPCTmplFiles(f *protogen.File, moduleName string, serverName string, tmplOut string, ecodeOut string, suitedMonoRepo bool) error {
-	filenamePrefix := f.GeneratedFilenamePrefix
-	_, checkFilename := filepath.Split(filenamePrefix + ".proto")
-	if strings.HasSuffix(checkFilename, "_test.proto") {
-		return fmt.Errorf(`the proto file name (%s) suffix "_test" is not supported for code generation, please delete suffix "_test" or change it to another name. `, checkFilename)
-	}
-
-	tmplFileContent, testTmplFileContent, ecodeFileContent := service.GenerateFiles(f, moduleName)
-
-	filePath := filenamePrefix + ".go"
-	err := saveFile(moduleName, serverName, tmplOut, filePath, tmplFileContent, false, suitedMonoRepo)
-	if err != nil {
-		return err
-	}
-
-	filePath = filenamePrefix + "_client_test.go"
-	err = saveFile(moduleName, serverName, tmplOut, filePath, testTmplFileContent, false, suitedMonoRepo)
-	if err != nil {
-		return err
-	}
-
-	filePath = filenamePrefix + "_rpc.go"
-	err = saveFileSimple(ecodeOut, filePath, ecodeFileContent, false)
-	if err != nil {
-		return err
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func saveFile(moduleName string, serverName string, out string, filePath string, content []byte, isNeedCovered bool, suitedMonoRepo bool) error {
-	if len(content) == 0 {
-		return nil
-	}
-
-	if moduleName == "" {
-		panic(fmt.Sprintf(optErrFormat, "moduleName"))
-	}
-	if serverName == "" {
-		panic(fmt.Sprintf(optErrFormat, "serverName"))
-	}
-
-	_ = os.MkdirAll(out, 0766)
-	_, name := filepath.Split(filePath)
-	file := out + "/" + name
-	if !isNeedCovered && isExists(file) {
-		removeOldGenFile(file)
-		file += ".gen" + time.Now().Format("20060102T150405")
-	}
-
-	content = bytes.ReplaceAll(content, []byte("moduleNameExample"), []byte(moduleName))
-	content = bytes.ReplaceAll(content, []byte("serverNameExample"), []byte(serverName))
-	content = bytes.ReplaceAll(content, firstLetterToUpper("serverNameExample"), firstLetterToUpper(serverName))
-	if suitedMonoRepo {
-		content = adaptMonoRepo(moduleName, serverName, content)
-	}
-
-	return os.WriteFile(file, content, 0666)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func saveFileSimple(out string, filePath string, content []byte, isNeedCovered bool) error {
-	if len(content) == 0 {
-		return nil
-	}
-
-	_ = os.MkdirAll(out, 0766)
-	_, name := filepath.Split(filePath)
-	file := out + "/" + name
-	if !isNeedCovered && isExists(file) {
-		removeOldGenFile(file)
-		file += ".gen" + time.Now().Format("20060102T150405")
-	}
-
-	return os.WriteFile(file, content, 0666)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func isExists(f string) bool {
-	_, err := os.Stat(f)
-	if err != nil {
-		return !os.IsNotExist(err)
-	}
-	return true
-}
+func isExists(f string) bool { _ = "STUB: not implemented"; return false }
 
-func removeOldGenFile(file string) {
-	oldGenFiles := gofile.FuzzyMatchFiles(file + ".gen*")
-	for _, oldGenFile := range oldGenFiles {
-		_ = os.Remove(oldGenFile)
-	}
-}
+func removeOldGenFile(file string) { _ = "STUB: not implemented"; return }
 
-func firstLetterToUpper(s string) []byte {
-	if s == "" {
-		return []byte{}
-	}
-
-	return []byte(strings.ToUpper(s[:1]) + s[1:])
-}
+func firstLetterToUpper(s string) []byte { _ = "STUB: not implemented"; return nil }
 
 func adaptMonoRepo(moduleName string, serverName string, data []byte) []byte {
-	matchStr := map[string]string{
-		fmt.Sprintf("\"%s/internal/", moduleName): fmt.Sprintf("\"%s/internal/", moduleName+"/"+serverName),
-		fmt.Sprintf("\"%s/configs", moduleName):   fmt.Sprintf("\"%s/configs", moduleName+"/"+serverName),
-		fmt.Sprintf("\"%s/api", moduleName):       fmt.Sprintf("\"%s/api", moduleName+"/"+serverName),
-	}
-	for oldStr, newStr := range matchStr {
-		data = bytes.ReplaceAll(data, []byte(oldStr), []byte(newStr))
-	}
-	return data
+	_ = "STUB: not implemented"
+	return nil
 }

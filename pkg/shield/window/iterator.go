@@ -1,7 +1,5 @@
 package window
 
-import "fmt"
-
 // Iterator iterates the buckets within the window.
 type Iterator struct {
 	count         int
@@ -10,17 +8,7 @@ type Iterator struct {
 }
 
 // Next returns true util all of the buckets has been iterated.
-func (i *Iterator) Next() bool {
-	return i.count != i.iteratedCount
-}
+func (i *Iterator) Next() bool { _ = "STUB: not implemented"; return false }
 
 // Bucket gets current bucket.
-func (i *Iterator) Bucket() Bucket {
-	if !(i.Next()) {
-		panic(fmt.Errorf("stat/metric: iteration out of range iteratedCount: %d count: %d", i.iteratedCount, i.count))
-	}
-	bucket := *i.cur
-	i.iteratedCount++
-	i.cur = i.cur.Next()
-	return bucket
-}
+func (i *Iterator) Bucket() Bucket { _ = "STUB: not implemented"; return *new(Bucket) }

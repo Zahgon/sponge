@@ -2,12 +2,9 @@ package middleware
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-
-	"github.com/go-dev-frame/sponge/pkg/krand"
 )
 
 var (
@@ -26,46 +23,22 @@ type requestIDOptions struct {
 	headerXRequestIDKey string
 }
 
-func defaultRequestIDOptions() *requestIDOptions {
-	return &requestIDOptions{
-		contextRequestIDKey: ContextRequestIDKey,
-		headerXRequestIDKey: HeaderXRequestIDKey,
-	}
-}
+func defaultRequestIDOptions() *requestIDOptions { _ = "STUB: not implemented"; return nil }
 
-func (o *requestIDOptions) apply(opts ...RequestIDOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *requestIDOptions) apply(opts ...RequestIDOption) { _ = "STUB: not implemented"; return }
 
-func (o *requestIDOptions) setRequestIDKey() {
-	if o.contextRequestIDKey != ContextRequestIDKey {
-		ContextRequestIDKey = o.contextRequestIDKey
-	}
-	if o.headerXRequestIDKey != HeaderXRequestIDKey {
-		HeaderXRequestIDKey = o.headerXRequestIDKey
-	}
-}
+func (o *requestIDOptions) setRequestIDKey() { _ = "STUB: not implemented"; return }
 
 // WithContextRequestIDKey set context request id key, minimum length of 4
 func WithContextRequestIDKey(key string) RequestIDOption {
-	return func(o *requestIDOptions) {
-		if len(key) < 4 {
-			return
-		}
-		o.contextRequestIDKey = key
-	}
+	_ = "STUB: not implemented"
+	return *new(RequestIDOption)
 }
 
 // WithHeaderRequestIDKey set header request id key, minimum length of 4
 func WithHeaderRequestIDKey(key string) RequestIDOption {
-	return func(o *requestIDOptions) {
-		if len(key) < 4 {
-			return
-		}
-		o.headerXRequestIDKey = key
-	}
+	_ = "STUB: not implemented"
+	return *new(RequestIDOption)
 }
 
 // CtxKeyString for context.WithValue key type
@@ -78,54 +51,35 @@ var RequestIDKey = CtxKeyString(ContextRequestIDKey)
 
 // RequestID is an interceptor that injects a 'request id' into the context and request/response header of each request.
 func RequestID(opts ...RequestIDOption) gin.HandlerFunc {
+	_ = "STUB: not implemented"
 	// customized request id key
-	o := defaultRequestIDOptions()
-	o.apply(opts...)
-	o.setRequestIDKey()
-
-	return func(c *gin.Context) {
-		// Check for incoming header, use it if exists
-		requestID := c.Request.Header.Get(HeaderXRequestIDKey)
-
-		// Create request id
-		if requestID == "" {
-			requestID = krand.String(krand.R_All, 10)
-			c.Request.Header.Set(HeaderXRequestIDKey, requestID)
-		}
-
-		// Expose it for use in the application
-		c.Set(ContextRequestIDKey, requestID)
-
-		// Set X-Request-Id header
-		c.Writer.Header().Set(HeaderXRequestIDKey, requestID)
-
-		c.Next()
-	}
+	return *new(gin.HandlerFunc)
 }
+
+// Check for incoming header, use it if exists
+
+// Create request id
+
+// Expose it for use in the application
+
+// Set X-Request-Id header
 
 // GCtxRequestID get request id from gin.Context
-func GCtxRequestID(c *gin.Context) string {
-	if v, isExist := c.Get(ContextRequestIDKey); isExist {
-		if requestID, ok := v.(string); ok {
-			return requestID
-		}
-	}
-	return ""
-}
+func GCtxRequestID(c *gin.Context) string { _ = "STUB: not implemented"; return "" }
 
 // GCtxRequestIDField get request id field from gin.Context
 func GCtxRequestIDField(c *gin.Context) zap.Field {
-	return zap.String(ContextRequestIDKey, GCtxRequestID(c))
+	_ = "STUB: not implemented"
+	return *new(zap.Field)
 }
 
 // HeaderRequestID get request id from the header
-func HeaderRequestID(c *gin.Context) string {
-	return c.Request.Header.Get(HeaderXRequestIDKey)
-}
+func HeaderRequestID(c *gin.Context) string { _ = "STUB: not implemented"; return "" }
 
 // HeaderRequestIDField get request id field from header
 func HeaderRequestIDField(c *gin.Context) zap.Field {
-	return zap.String(HeaderXRequestIDKey, HeaderRequestID(c))
+	_ = "STUB: not implemented"
+	return *new(zap.Field)
 }
 
 // -------------------------------------------------------------------------------------------
@@ -135,52 +89,36 @@ var RequestHeaderKey = "request_header_key"
 
 // WrapCtx wrap context, put the Keys and Header of gin.Context into context
 func WrapCtx(c *gin.Context) context.Context {
-	ctx := context.WithValue(c.Request.Context(), ContextRequestIDKey, c.GetString(ContextRequestIDKey)) //nolint
-	return context.WithValue(ctx, RequestHeaderKey, c.Request.Header)                                    //nolint
+	_ = "STUB: not implemented"
+	return *new(context.Context)
 }
+
+//nolint
+//nolint
 
 // AdaptCtx adapt context, if ctx is gin.Context, return gin.Context and context of the transformation
 func AdaptCtx(ctx context.Context) (*gin.Context, context.Context) {
-	c, ok := ctx.(*gin.Context)
-	if ok {
-		ctx = WrapCtx(c)
-	}
-	return c, ctx
+	_ = "STUB: not implemented"
+	return nil, *new(context.Context)
 }
 
 // GetFromCtx get value from context
-func GetFromCtx(ctx context.Context, key string) interface{} {
-	return ctx.Value(key)
-}
+func GetFromCtx(ctx context.Context, key string) interface{} { _ = "STUB: not implemented"; return nil }
 
 // CtxRequestID get request id from context.Context
-func CtxRequestID(ctx context.Context) string {
-	v := ctx.Value(ContextRequestIDKey)
-	if str, ok := v.(string); ok {
-		return str
-	}
-	return ""
-}
+func CtxRequestID(ctx context.Context) string { _ = "STUB: not implemented"; return "" }
 
 // CtxRequestIDField get request id field from context.Context
 func CtxRequestIDField(ctx context.Context) zap.Field {
-	return zap.String(ContextRequestIDKey, CtxRequestID(ctx))
+	_ = "STUB: not implemented"
+	return *new(zap.Field)
 }
 
 // GetFromHeader get value from header
-func GetFromHeader(ctx context.Context, key string) string {
-	header, ok := ctx.Value(RequestHeaderKey).(http.Header)
-	if !ok {
-		return ""
-	}
-	return header.Get(key)
-}
+func GetFromHeader(ctx context.Context, key string) string { _ = "STUB: not implemented"; return "" }
 
 // GetFromHeaders get values from header
 func GetFromHeaders(ctx context.Context, key string) []string {
-	header, ok := ctx.Value(RequestHeaderKey).(http.Header)
-	if !ok {
-		return []string{}
-	}
-	return header.Values(key)
+	_ = "STUB: not implemented"
+	return nil
 }

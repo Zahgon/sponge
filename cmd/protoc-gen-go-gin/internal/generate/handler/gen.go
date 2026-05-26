@@ -2,8 +2,6 @@
 package handler
 
 import (
-	"bytes"
-
 	"google.golang.org/protobuf/compiler/protogen"
 
 	"github.com/go-dev-frame/sponge/cmd/protoc-gen-go-gin/internal/parse"
@@ -11,118 +9,48 @@ import (
 
 // GenerateFiles generate handler logic, router, error code files.
 func GenerateFiles(file *protogen.File, isMixType bool, moduleName string) (logicContent []byte, routerFileContent []byte, errCodeFileContent []byte) {
-	if len(file.Services) == 0 {
-		return nil, nil, nil
-	}
-
-	pss := parse.GetServices(file, moduleName)
-
-	if !isMixType {
-		logicContent = genHandlerLogicFile(pss)
-		routerFileContent = genRouterFile(pss)
-		errCodeFileContent = genErrCodeFile(pss)
-	} else {
-		logicContent = genMixLogicFile(pss)
-		routerFileContent = genMixRouterFile(pss)
-	}
-
-	return logicContent, routerFileContent, errCodeFileContent
+	_ = "STUB: not implemented"
+	return nil, nil, nil
 }
 
-func genHandlerLogicFile(fields []*parse.PbService) []byte {
-	hlf := &handlerLogicFields{PbServices: fields}
-	return hlf.execute()
-}
+func genHandlerLogicFile(fields []*parse.PbService) []byte { _ = "STUB: not implemented"; return nil }
 
-func genRouterFile(fields []*parse.PbService) []byte {
-	rf := &routerFields{PbServices: fields}
-	return rf.execute()
-}
+func genRouterFile(fields []*parse.PbService) []byte { _ = "STUB: not implemented"; return nil }
 
-func genErrCodeFile(fields []*parse.PbService) []byte {
-	cf := &errCodeFields{PbServices: fields}
-	return cf.execute()
-}
+func genErrCodeFile(fields []*parse.PbService) []byte { _ = "STUB: not implemented"; return nil }
 
-func genMixLogicFile(fields []*parse.PbService) []byte {
-	mlf := &mixLogicFields{PbServices: fields}
-	return mlf.execute()
-}
+func genMixLogicFile(fields []*parse.PbService) []byte { _ = "STUB: not implemented"; return nil }
 
-func genMixRouterFile(fields []*parse.PbService) []byte {
-	mrf := &mixRouterFields{PbServices: fields}
-	return mrf.execute()
-}
+func genMixRouterFile(fields []*parse.PbService) []byte { _ = "STUB: not implemented"; return nil }
 
 type handlerLogicFields struct {
 	PbServices []*parse.PbService
 }
 
-func (f *handlerLogicFields) execute() []byte {
-	buf := new(bytes.Buffer)
-	if err := handlerLogicTmpl.Execute(buf, f); err != nil {
-		panic(err)
-	}
-	content := buf.Bytes()
-	return bytes.ReplaceAll(content, []byte(importPkgPathMark), parse.GetImportPkg(f.PbServices))
-}
+func (f *handlerLogicFields) execute() []byte { _ = "STUB: not implemented"; return nil }
 
 type routerFields struct {
 	PbServices []*parse.PbService
 }
 
-func (f *routerFields) execute() []byte {
-	buf := new(bytes.Buffer)
-	if err := routerTmpl.Execute(buf, f); err != nil {
-		panic(err)
-	}
-	content := buf.Bytes()
-	return bytes.ReplaceAll(content, []byte(importPkgPathMark), parse.GetSourceImportPkg(f.PbServices))
-}
+func (f *routerFields) execute() []byte { _ = "STUB: not implemented"; return nil }
 
 type errCodeFields struct {
 	PbServices []*parse.PbService
 }
 
-func (f *errCodeFields) execute() []byte {
-	buf := new(bytes.Buffer)
-	if err := httpErrCodeTmpl.Execute(buf, f); err != nil {
-		panic(err)
-	}
-	data := bytes.ReplaceAll(buf.Bytes(), []byte("// --blank line--"), []byte{})
-	return data
-}
+func (f *errCodeFields) execute() []byte { _ = "STUB: not implemented"; return nil }
 
 type mixLogicFields struct {
 	PbServices []*parse.PbService
 }
 
-func (f *mixLogicFields) execute() []byte {
-	buf := new(bytes.Buffer)
-	if err := mixLogicTmpl.Execute(buf, f); err != nil {
-		panic(err)
-	}
-	content := buf.Bytes()
-	importPkgs := parse.GetImportPkg(f.PbServices)
-	mark := []byte("ctx = middleware.AdaptCtx(ctx)")
-	if bytes.Contains(content, mark) {
-		importPkgs = append(importPkgs, []byte("\n\t")...)
-		importPkgs = append(importPkgs, []byte(`"github.com/go-dev-frame/sponge/pkg/gin/middleware"`)...)
-	}
-	return bytes.ReplaceAll(content, []byte(importPkgPathMark), importPkgs)
-}
+func (f *mixLogicFields) execute() []byte { _ = "STUB: not implemented"; return nil }
 
 type mixRouterFields struct {
 	PbServices []*parse.PbService
 }
 
-func (f *mixRouterFields) execute() []byte {
-	buf := new(bytes.Buffer)
-	if err := mixRouterTmpl.Execute(buf, f); err != nil {
-		panic(err)
-	}
-	content := buf.Bytes()
-	return bytes.ReplaceAll(content, []byte(importPkgPathMark), parse.GetSourceImportPkg(f.PbServices))
-}
+func (f *mixRouterFields) execute() []byte { _ = "STUB: not implemented"; return nil }
 
 const importPkgPathMark = "// import api service package here"

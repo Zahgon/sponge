@@ -16,38 +16,18 @@ type httpOptions struct {
 	tls       config.TLS
 }
 
-func defaultHTTPOptions() *httpOptions {
-	return &httpOptions{
-		isProd:    false,
-		instance:  nil,
-		iRegistry: nil,
-	}
-}
+func defaultHTTPOptions() *httpOptions { _ = "STUB: not implemented"; return nil }
 
-func (o *httpOptions) apply(opts ...HTTPOption) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *httpOptions) apply(opts ...HTTPOption) { _ = "STUB: not implemented"; return }
 
 // WithHTTPIsProd setting up production environment markers
-func WithHTTPIsProd(isProd bool) HTTPOption {
-	return func(o *httpOptions) {
-		o.isProd = isProd
-	}
-}
+func WithHTTPIsProd(isProd bool) HTTPOption { _ = "STUB: not implemented"; return *new(HTTPOption) }
 
 // WithHTTPRegistry registration services
 func WithHTTPRegistry(iRegistry registry.Registry, instance *registry.ServiceInstance) HTTPOption {
-	return func(o *httpOptions) {
-		o.iRegistry = iRegistry
-		o.instance = instance
-	}
+	_ = "STUB: not implemented"
+	return *new(HTTPOption)
 }
 
 // WithHTTPTLS setting up tls
-func WithHTTPTLS(tls config.TLS) HTTPOption {
-	return func(o *httpOptions) {
-		o.tls = tls
-	}
-}
+func WithHTTPTLS(tls config.TLS) HTTPOption { _ = "STUB: not implemented"; return *new(HTTPOption) }

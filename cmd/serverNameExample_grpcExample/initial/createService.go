@@ -1,33 +1,19 @@
 package initial
 
 import (
-	"strconv"
-
 	"github.com/go-dev-frame/sponge/pkg/app"
-
-	"github.com/go-dev-frame/sponge/internal/config"
-	"github.com/go-dev-frame/sponge/internal/server"
 )
 
 // CreateServices create grpc service
-func CreateServices() []app.IServer {
-	var cfg = config.Get()
-	var servers []app.IServer
-	var grpcAddr = ":" + strconv.Itoa(cfg.Grpc.Port)
+func CreateServices() []app.IServer { _ = "STUB: not implemented"; return nil }
 
-	// case 1, create a grpc service without registry
-	grpcServer := server.NewGRPCServer(grpcAddr)
+// case 1, create a grpc service without registry
 
-	// case 2, create a grpc service and register it with consul or etcd or nacos
-	//grpcRegistry, grpcInstance := registerService("grpc", cfg.App.Host, cfg.Grpc.Port)
-	//grpcServer := server.NewGRPCServer(grpcAddr,
-	//	server.WithGrpcRegistry(grpcRegistry, grpcInstance),
-	//)
-
-	servers = append(servers, grpcServer)
-
-	return servers
-}
+// case 2, create a grpc service and register it with consul or etcd or nacos
+//grpcRegistry, grpcInstance := registerService("grpc", cfg.App.Host, cfg.Grpc.Port)
+//grpcServer := server.NewGRPCServer(grpcAddr,
+//	server.WithGrpcRegistry(grpcRegistry, grpcInstance),
+//)
 
 // register service with consul or etcd or nacos, select one of them to use
 //func registerService(scheme string, host string, port int) (registry.Registry, *registry.ServiceInstance) {

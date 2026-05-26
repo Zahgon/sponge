@@ -8,26 +8,15 @@ type options struct {
 	metadata map[string]string
 }
 
-func defaultOptions() *options {
-	return &options{}
-}
+func defaultOptions() *options { _ = "STUB: not implemented"; return nil }
 
-func (o *options) apply(opts ...Option) {
-	for _, opt := range opts {
-		opt(o)
-	}
-}
+func (o *options) apply(opts ...Option) { _ = "STUB: not implemented"; return }
 
 // WithVersion set server version
-func WithVersion(version string) Option {
-	return func(o *options) {
-		o.version = version
-	}
-}
+func WithVersion(version string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // WithMetadata set metadata
 func WithMetadata(metadata map[string]string) Option {
-	return func(o *options) {
-		o.metadata = metadata
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }

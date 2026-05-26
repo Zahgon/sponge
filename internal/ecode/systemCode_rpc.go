@@ -36,7 +36,8 @@ var (
 
 // Any kev-value
 func Any(key string, val interface{}) errcode.Detail {
-	return errcode.Any(key, val)
+	_ = "STUB: not implemented"
+	return *new(errcode.Detail)
 }
 
 // StatusSkipResponse is only use for grpc-gateway
